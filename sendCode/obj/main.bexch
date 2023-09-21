@@ -1,0 +1,21 @@
+[GENERATED OBJECT FILE]
+b__main.o
+[PROJECT FILES]
+C:\Users\xboxl\Documents\Github\ABS_Precision_Systems\sendCode\sendcode.gpr
+20230921110838 3b28df0ac451a8e8c5d2bbe40d6423cf
+C:\Users\xboxl\Documents\Github\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_zfp.gpr
+20230919124644 4be71ce5f24106328d68744b01b1ce77
+[BOUND OBJECT FILES]
+C:\Users\xboxl\Documents\Github\ABS_Precision_Systems\sendCode\obj\main.o
+[GENERATED SOURCE FILES]
+b__main.ads
+b__main.adb
+b__main.ali
+[RESULTING OPTIONS]
+-LC:\Users\xboxl\Documents\Github\ABS_Precision_Systems\sendCode\obj\
+-LC:\Users\xboxl\Documents\Github\ABS_Precision_Systems\sendCode\obj\
+-LC:\Users\xboxl\Documents\Github\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\
+-LC:\gnat\2021-arm-elf\arm-eabi\lib\gnat\zfp-cortex-m4f\adalib\
+-static
+-static-libgcc
+C:\gnat\2021-arm-elf\arm-eabi\lib\gnat\zfp-cortex-m4f\adalib\libgnat.a
