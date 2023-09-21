@@ -1,19 +1,19 @@
 [GENERATED OBJECT FILE]
 b__main.o
 [PROJECT FILES]
-C:\Users\aditi.DESKTOP-49PGKM5\Documents\Radio_project\my_project.gpr
-20230921104230 bf9ca17f67871a1fa2309e5d877d6f4a
+C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ABS_Precision_Systems\receive_Code\receivecode.gpr
+20230921125306 217fa47941349e689b886a45edacd9ba
 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_zfp.gpr
 20230921091756 b63d041a9083c469f16d407bddc877e0
 [BOUND OBJECT FILES]
-C:\Users\aditi.DESKTOP-49PGKM5\Documents\Radio_project\obj\main.o
+C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ABS_Precision_Systems\receive_Code\obj\main.o
 [GENERATED SOURCE FILES]
 b__main.ads
 b__main.adb
 b__main.ali
 [RESULTING OPTIONS]
--LC:\Users\aditi.DESKTOP-49PGKM5\Documents\Radio_project\obj\
--LC:\Users\aditi.DESKTOP-49PGKM5\Documents\Radio_project\obj\
+-LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ABS_Precision_Systems\receive_Code\obj\
+-LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ABS_Precision_Systems\receive_Code\obj\
 -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\
 -LC:\gnat\2021-arm-elf\arm-eabi\lib\gnat\zfp-cortex-m4f\adalib\
 -static

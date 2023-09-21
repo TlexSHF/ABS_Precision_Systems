@@ -129,63 +129,63 @@ END GROUP
  .vectors       0x0000000000000000      0x240 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(crt0.o)
                 0x0000000000000000                __vectors
  *(.text .text.* .gnu.linkonce.t*)
- .text          0x0000000000000240      0x3b8 main.o
+ .text          0x0000000000000240      0x3cc main.o
                 0x00000000000002c0                _ada_main
- .text          0x00000000000005f8      0x270 b__main.o
-                0x00000000000005f8                ada_main__Tsec_default_sized_stacksBIP
-                0x000000000000063c                adainit
-                0x0000000000000838                main
-                0x0000000000000854                ada_main___elabb
- .text          0x0000000000000868        0x0 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+ .text          0x000000000000060c      0x270 b__main.o
+                0x000000000000060c                ada_main__Tsec_default_sized_stacksBIP
+                0x0000000000000650                adainit
+                0x000000000000084c                main
+                0x0000000000000868                ada_main___elabb
+ .text          0x000000000000087c        0x0 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
  .text.cortex_m__nvic__uint8sIP
-                0x0000000000000868       0x14 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000868                cortex_m__nvic__uint8sIP
- .text.cortex_m__nvic__wordsIP
                 0x000000000000087c       0x14 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x000000000000087c                cortex_m__nvic__wordsIP
- .text.cortex_m__nvic__system_control_blockIP
+                0x000000000000087c                cortex_m__nvic__uint8sIP
+ .text.cortex_m__nvic__wordsIP
                 0x0000000000000890       0x14 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000890                cortex_m__nvic__system_control_blockIP
- .text.cortex_m__nvic__nested_vectored_interrupt_controllerIP
+                0x0000000000000890                cortex_m__nvic__wordsIP
+ .text.cortex_m__nvic__system_control_blockIP
                 0x00000000000008a4       0x14 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x00000000000008a4                cortex_m__nvic__nested_vectored_interrupt_controllerIP
+                0x00000000000008a4                cortex_m__nvic__system_control_blockIP
+ .text.cortex_m__nvic__nested_vectored_interrupt_controllerIP
+                0x00000000000008b8       0x14 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x00000000000008b8                cortex_m__nvic__nested_vectored_interrupt_controllerIP
  .text.cortex_m__nvic__priority_grouping
-                0x00000000000008b8       0x20 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x00000000000008b8                cortex_m__nvic__priority_grouping
+                0x00000000000008cc       0x20 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x00000000000008cc                cortex_m__nvic__priority_grouping
  .text.cortex_m__nvic__set_priority_grouping
-                0x00000000000008d8       0x48 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x00000000000008d8                cortex_m__nvic__set_priority_grouping
+                0x00000000000008ec       0x48 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x00000000000008ec                cortex_m__nvic__set_priority_grouping
  .text.cortex_m__nvic__set_priority
-                0x0000000000000920       0x50 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000920                cortex_m__nvic__set_priority
+                0x0000000000000934       0x50 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000934                cortex_m__nvic__set_priority
  .text.cortex_m__nvic__encoded_priority
-                0x0000000000000970       0xd4 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000970                cortex_m__nvic__encoded_priority
+                0x0000000000000984       0xd4 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000984                cortex_m__nvic__encoded_priority
  .text.cortex_m__nvic__set_priority__2
-                0x0000000000000a44       0x2c C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000a44                cortex_m__nvic__set_priority__2
+                0x0000000000000a58       0x2c C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000a58                cortex_m__nvic__set_priority__2
  .text.cortex_m__nvic__enable_interrupt
-                0x0000000000000a70       0x68 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000a70                cortex_m__nvic__enable_interrupt
+                0x0000000000000a84       0x68 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000a84                cortex_m__nvic__enable_interrupt
  .text.cortex_m__nvic__disable_interrupt
-                0x0000000000000ad8       0x68 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000ad8                cortex_m__nvic__disable_interrupt
+                0x0000000000000aec       0x68 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000aec                cortex_m__nvic__disable_interrupt
  .text.cortex_m__nvic__active
-                0x0000000000000b40       0x7c C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000b40                cortex_m__nvic__active
+                0x0000000000000b54       0x7c C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000b54                cortex_m__nvic__active
  .text.cortex_m__nvic__pending
-                0x0000000000000bbc       0x7c C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000bbc                cortex_m__nvic__pending
+                0x0000000000000bd0       0x7c C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000bd0                cortex_m__nvic__pending
  .text.cortex_m__nvic__set_pending
-                0x0000000000000c38       0x68 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000c38                cortex_m__nvic__set_pending
+                0x0000000000000c4c       0x68 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000c4c                cortex_m__nvic__set_pending
  .text.cortex_m__nvic__clear_pending
-                0x0000000000000ca0       0x68 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000ca0                cortex_m__nvic__clear_pending
+                0x0000000000000cb4       0x68 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000cb4                cortex_m__nvic__clear_pending
  .text.cortex_m__nvic__reset_system
-                0x0000000000000d08       0x28 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
-                0x0000000000000d08                cortex_m__nvic__reset_system
- *fill*         0x0000000000000d30       0xd0 
+                0x0000000000000d1c       0x28 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(cortex_m-nvic.o)
+                0x0000000000000d1c                cortex_m__nvic__reset_system
+ *fill*         0x0000000000000d44       0xbc 
  .text          0x0000000000000e00       0xa4 C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\libada_drivers_library.a(crt0.o)
                 0x0000000000000e00                NMI_Handler
                 0x0000000000000e02                HardFault_Handler

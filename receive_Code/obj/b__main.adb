@@ -98,9 +98,9 @@ package body ada_main is
    end;
 
 --  BEGIN Object file/option list
-   --   C:\Users\aditi.DESKTOP-49PGKM5\Documents\Radio_project\obj\main.o
-   --   -LC:\Users\aditi.DESKTOP-49PGKM5\Documents\Radio_project\obj\
-   --   -LC:\Users\aditi.DESKTOP-49PGKM5\Documents\Radio_project\obj\
+   --   C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ABS_Precision_Systems\receive_Code\obj\main.o
+   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ABS_Precision_Systems\receive_Code\obj\
+   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ABS_Precision_Systems\receive_Code\obj\
    --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\
    --   -LC:\gnat\2021-arm-elf\arm-eabi\lib\gnat\zfp-cortex-m4f\adalib\
    --   -static

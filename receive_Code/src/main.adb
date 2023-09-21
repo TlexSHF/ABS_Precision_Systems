@@ -44,12 +44,12 @@ begin
       elsif RXdata.Payload(1) = 30 then
          MotorDriver.Drive(Stop);
          MotorDriver.Drive(Backward);
+      elsif RXdata.Payload(1) = 40 then
+         MotorDriver.Drive(Stop);
       elsif distance < 20 then
          MotorDriver.Drive(Stop);
       else MotorDriver.Drive(Forward);
       end if;
-
-
       Delay_Ms(50);
    end loop;
 end Main;
