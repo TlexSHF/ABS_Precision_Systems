@@ -1,5 +1,6 @@
 V "GNAT Lib v2021"
 M P W=b
+A -O0
 A -gnatA
 A --RTS=C:\gnat\2021-arm-elf\arm-eabi\lib\gnat\ravenscar-full-nrf52833\
 A -mlittle-endian
@@ -7,15 +8,17 @@ A -mthumb
 A -mfloat-abi=hard
 A -mfpu=fpv4-sp-d16
 A -mcpu=cortex-m4
+A -g
 A -march=armv7e-m+fp
 P DB LC TF  SS ZX
 
 RN
 RV NO_IMPLEMENTATION_PRAGMAS
 
-U main%b		main.adb		7ccd54bf NE OO SU
+U main%b		main.adb		0a9aa691 NE OO SU
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
 W microbit%s		microbit.ads		microbit.ali
+W microbit.iosfortasking%s  microbit-iosfortasking.adb  microbit-iosfortasking.ali
 W microbit.motordriver%s  microbit-motordriver.adb  microbit-motordriver.ali
 W microbit.timewithrtc1%s  microbit-timewithrtc1.adb  microbit-timewithrtc1.ali
 
@@ -38,8 +41,9 @@ D hal-i2c.ads		20230919124644 416d8959 hal.i2c%s
 D hal-spi.ads		20230919124644 fe139819 hal.spi%s
 D hal-uart.ads		20230919124644 d58316b4 hal.uart%s
 D interfac.ads		20230918075038 edec285f interfaces%s
-D main.adb		20230921080050 d64dcf45 main%b
+D main.adb		20230927060216 40875f18 main%b
 D microbit.ads		20230919124644 3b54a3e8 microbit%s
+D microbit-iosfortasking.ads  20230920064336 e09d6273 microbit.iosfortasking%s
 D microbit-motordriver.ads  20230920081356 c69f8086 microbit.motordriver%s
 D microbit-timewithrtc1.ads  20230919124644 574bb894 microbit.timewithrtc1%s
 D nrf.ads		20230919124644 74cf72f5 nrf%s
@@ -91,9 +95,10 @@ D s-traent.ads		20230918075046 26a8d361 system.traceback_entries%s
 D s-unstyp.ads		20230918075046 2b077493 system.unsigned_types%s
 D unchconv.ads		20230918075048 ca2f9e18 unchecked_conversion%s
 G a e
-G c Z b b [main standard 6 11 none]
-G r c none [main standard 6 11 none] [drive microbit__motordriver 53 14 none]
-G r c none [main standard 6 11 none] [delay_ms microbit__timewithrtc1 10 14 none]
+G c Z b b [main standard 7 11 none]
+G r c none [main standard 7 11 none] [set_analog_period_us microbit__iosfortasking 30 14 none]
+G r c none [main standard 7 11 none] [drive microbit__motordriver 53 14 none]
+G r c none [main standard 7 11 none] [delay_ms microbit__timewithrtc1 10 14 none]
 X 15 hal-gpio.ads
 47h9*GPIO_Point
 X 16 hal-i2c.ads
@@ -103,20 +108,23 @@ X 17 hal-spi.ads
 X 18 hal-uart.ads
 48h9*UART_Port
 X 20 main.adb
-6U11*Main 6b11 15l5 15t9
+7U11*Main 7b11 17l5 17t9
 X 21 microbit.ads
-58K9*MicroBit 20|1w6 1r20 2r6 2r32 3r6 21|115e13
-X 22 microbit-motordriver.ads
-34K18*MotorDriver 20|2w15 2r41 10r6 22|67e25
-36n24*Forward{36E9} 20|10r24
-53U14*Drive 20|10s18
-X 23 microbit-timewithrtc1.ads
-5K18*TimeWithRTC1 20|3w15 12r6 23|64e26
-10U14*Delay_Ms 20|12s19
-X 51 s-interr.ads
+58K9*MicroBit 20|1w6 1r20 2r6 2r34 3r6 3r32 4r6 21|115e13
+X 22 microbit-iosfortasking.ads
+5K18*IOsForTasking 20|2w15 2r43 22|93e27
+30U14*Set_Analog_Period_Us 20|10s4
+X 23 microbit-motordriver.ads
+34K18*MotorDriver 20|3w15 3r41 12r6 23|67e25
+36n24*Forward{36E9} 20|12r24
+53U14*Drive 20|12s18
+X 24 microbit-timewithrtc1.ads
+5K18*TimeWithRTC1 20|4w15 14r6 24|64e26
+10U14*Delay_Ms 20|14s19
+X 52 s-interr.ads
 97U14*Install_Restricted_Handlers_Sequential 98i<c,__gnat_attach_all_handlers>22
-X 59 s-secsta.ads
+X 60 s-secsta.ads
 46P9*SS_Stack_Ptr(43R9)
-X 67 s-taskin.ads
-398V13*Get_Sec_Stack{59|46P9} 399i<c,__gnat_get_secondary_stack>22
+X 68 s-taskin.ads
+398V13*Get_Sec_Stack{60|46P9} 399i<c,__gnat_get_secondary_stack>22
 
