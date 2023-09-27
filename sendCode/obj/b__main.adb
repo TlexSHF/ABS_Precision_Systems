@@ -92,7 +92,7 @@ package body ada_main is
    --   C:\Users\xboxl\Documents\Github\ABS_Precision_Systems\sendCode\obj\main.o
    --   -LC:\Users\xboxl\Documents\Github\ABS_Precision_Systems\sendCode\obj\
    --   -LC:\Users\xboxl\Documents\Github\ABS_Precision_Systems\sendCode\obj\
-   --   -LC:\Users\xboxl\Documents\Github\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\
+   --   -LC:\Users\xboxl\Documents\Github\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\zfp_lib_Debug\
    --   -LC:\gnat\2021-arm-elf\arm-eabi\lib\gnat\zfp-cortex-m4f\adalib\
    --   -static
    --   -lgnat

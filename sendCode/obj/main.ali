@@ -41,7 +41,7 @@ D hal-spi.ads		20230919124644 fe139819 hal.spi%s
 D hal-time.ads		20230919124644 f5295cd7 hal.time%s
 D hal-uart.ads		20230919124644 d58316b4 hal.uart%s
 D interfac.ads		20210520153144 edec285f interfaces%s
-D main.adb		20230921111226 df564f9f main%b
+D main.adb		20230921115040 df564f9f main%b
 D microbit.ads		20230919124644 c5aa85df microbit%s
 D microbit-buttons.ads	20230919124644 d64914b0 microbit.buttons%s
 D microbit-console.ads	20230919124644 0bb00661 microbit.console%s
@@ -78,7 +78,7 @@ G r c none [main standard 10 11 none] [transmit microbit__radio 85 14 none]
 G r c none [main standard 10 11 none] [delay_ms microbit__time 41 14 none]
 X 3 hal.ads
 34K9*HAL 166e8 10|3w6 3r15
-53M9*UInt8<9|68M9> 10|49r34
+53M9*UInt8<9|68M9> 10|48r34
 X 4 hal-gpio.ads
 47h9*GPIO_Point
 X 5 hal-i2c.ads
@@ -92,9 +92,9 @@ X 8 hal-uart.ads
 X 9 interfac.ads
 68M9*Unsigned_8
 X 10 main.adb
-10U11*Main 10b11 56l5 56t9
+10U11*Main 10b11 55l5 55t9
 12r4 TxData{16|65R12} 15m4 16m4 17m4 18m4 21r26 22r27 23r25 24r28 40m10 42m10
-. 44m10 45m13 49r46 51r22
+. 44m10 45m13 48r46 50r22
 X 11 microbit.ads
 57K9*MicroBit 10|1r6 1r26 2r6 2r28 4r6 4r28 5r6 6r6 7r6 7r25 8r5 11|114e13
 X 12 microbit-buttons.ads
@@ -105,13 +105,13 @@ X 12 microbit-buttons.ads
 37V13*State{34E9} 10|39s10 39s40 41s13 43s13
 X 13 microbit-console.ads
 32K18*Console 10|4w15 4r37 13|49e21
-43U14*Put_Line 10|49s7
+43U14*Put_Line 10|48s7
 X 14 microbit-display.ads
 32K18*Display 10|5w15 6r15 14|69e21
 X 15 microbit-display-symbols.ads
 35K26*Symbols 10|6w23 15|47e29
 X 16 microbit-radio.ads
-55K18*Radio 10|1w15 1r35 20r4 51r7 16|101e19
+55K18*Radio 10|1w15 1r35 20r4 50r7 16|101e19
 65R12*RadioData{21|181R9} 10|12r13
 67U14*Setup 10|20s10
 67i21 RadioFrequency{21|74I9} 10|20r16
@@ -119,10 +119,10 @@ X 16 microbit-radio.ads
 69m25 Version{3|53M9} 10|22r16
 70m25 Group{3|53M9} 10|23r16
 71m25 Protocol{3|53M9} 10|24r16
-85U14*Transmit 10|51s13
+85U14*Transmit 10|50s13
 X 17 microbit-time.ads
 35K18*Time 10|7w15 7r34 17|81e18
-41U14*Delay_Ms 10|54s7
+41U14*Delay_Ms 10|53s7
 X 21 nrf-radio.ads
 74I9*Radio_Frequency_MHz<short_integer>
 178A9*Payload_Data(3|53M9)<3|53M9>
@@ -130,5 +130,5 @@ X 21 nrf-radio.ads
 183m7*Version{3|53M9} 10|16m11 22r34
 184m7*Group{3|53M9} 10|17m11 23r32
 185m7*Protocol{3|53M9} 10|18m11 24r35
-186a7*Payload{178A9} 10|40m17 42m17 44m17 45m20 49r53
+186a7*Payload{178A9} 10|40m17 42m17 44m17 45m20 48r53
 

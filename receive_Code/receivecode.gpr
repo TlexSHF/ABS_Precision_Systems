@@ -1,4 +1,4 @@
-with "..\..\ada\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_zfp.gpr";
+with "..\..\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_zfp.gpr";
 
 project Receivecode is
 
@@ -9,7 +9,7 @@ project Receivecode is
    for Runtime ("ada") use "zfp-cortex-m4f";
 
    package Linker is
-      for Switches ("ada") use ("-T", "..//..//..//..//boards//MicroBit_v2//src//zfp//link.ld");
+      for Switches ("ada") use ("-T", "..//..//Libraries//Ada_Drivers_Library_j//boards//MicroBit_v2//src//zfp//link.ld");
    end Linker;
 
    package Ide is

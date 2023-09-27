@@ -1,4 +1,4 @@
-with "..\..\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_full.gpr";
+with "..\..\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_full.gpr";
 
 project Motor_Driver_Ravenscar is
 
