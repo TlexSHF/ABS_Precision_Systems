@@ -10,10 +10,11 @@ with MicroBit.MotorDriver; use MicroBit.MotorDriver; --using the procedures defi
 with DFR0548;  -- using the types defined here
 with MicroBit.I2C;
 use MicroBit;
+
 procedure Main is
    RXdata : RadioData;
    TxData : RadioData;
-    package sensor is new Ultrasonic;
+   package sensor is new Ultrasonic;
    distance : Types.Distance_cm := 0;
 begin
    sensor.Setup(MB_P1, MB_P0);

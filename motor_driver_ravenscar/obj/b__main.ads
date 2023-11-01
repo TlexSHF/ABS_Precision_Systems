@@ -68,7 +68,6 @@ package ada_main is
    --  system.traceback_entries%b
    --  system.unsigned_types%s
    --  interfaces.nrf52.rtc%s
-   --  system.img_uns%s
    --  system.wch_con%s
    --  system.wch_con%b
    --  system.wch_jis%s
@@ -176,6 +175,8 @@ package ada_main is
    --  system.assertions%b
    --  system.pool_global%s
    --  system.pool_global%b
+   --  system.relative_delays%s
+   --  system.relative_delays%b
    --  system.tasking.protected_objects%s
    --  system.tasking.protected_objects%b
    --  system.tasking.restricted%s
@@ -241,8 +242,6 @@ package ada_main is
    --  nrf.tasks%b
    --  nrf.adc%s
    --  nrf.adc%b
-   --  nrf.clock%s
-   --  nrf.clock%b
    --  nrf.ppi%s
    --  nrf.ppi%b
    --  nrf.timers%s
@@ -256,14 +255,12 @@ package ada_main is
    --  microbit%s
    --  microbit.console%s
    --  microbit.console%b
+   --  dfr0548%s
+   --  dfr0548%b
    --  microbit.i2c%s
    --  microbit.i2c%b
    --  microbit.iosfortasking%s
    --  microbit.iosfortasking%b
-   --  microbit.timewithrtc1%s
-   --  microbit.timewithrtc1%b
-   --  dfr0548%s
-   --  dfr0548%b
    --  microbit.motordriver%s
    --  microbit.motordriver%b
    --  main%b
