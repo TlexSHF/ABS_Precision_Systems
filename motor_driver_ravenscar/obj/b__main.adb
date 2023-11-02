@@ -240,10 +240,10 @@ package body ada_main is
    end;
 
 --  BEGIN Object file/option list
-   --   C:\Users\xboxl\Documents\Github\ABS_Precision_Systems\motor_driver_ravenscar\obj\main.o
-   --   -LC:\Users\xboxl\Documents\Github\ABS_Precision_Systems\motor_driver_ravenscar\obj\
-   --   -LC:\Users\xboxl\Documents\Github\ABS_Precision_Systems\motor_driver_ravenscar\obj\
-   --   -LC:\Users\xboxl\Documents\Github\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\full_lib_Debug\
+   --   C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\motor_driver_ravenscar\obj\main.o
+   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\motor_driver_ravenscar\obj\
+   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\motor_driver_ravenscar\obj\
+   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\full_lib_Debug\
    --   -LC:\gnat\2021-arm-elf\arm-eabi\lib\gnat\ravenscar-full-nrf52833\adalib\
    --   -static
    --   -lgnarl

@@ -16,26 +16,21 @@ begin
       LineTrackerMiddle := digitalRead(14);
       LineTrackerLeft  := digitalRead (15);
       LineTrackerRight := digitalRead (16);
-
-      Put_Line("Left: " & LineTrackerLeft'Image & ", Middle: " & LineTrackerMiddle'Image & ", Right: " & LineTrackerRight'Image);
-      --  Put_Line(LineTrackerLeft'Image);
-
-
       if not LineTrackerLeft and LineTrackerMiddle and not LineTrackerRight then       --010
          MotorDriver.Drive(MotorDriver.Forward);
       elsif not LineTrackerLeft and LineTrackerMiddle and LineTrackerRight then        --011
-         MotorDriver.Drive(MotorDriver.Lateral_Right);
+         MotorDriver.Drive(MotorDriver.Lateral_Right,(1024,1024,1024,1024));
       elsif LineTrackerLeft and LineTrackerMiddle and not LineTrackerRight then        --110
-         MotorDriver.Drive(MotorDriver.Lateral_Left);
+         MotorDriver.Drive(MotorDriver.Lateral_Left,(1024,1024,1024,1024));
       elsif LineTrackerLeft and not LineTrackerMiddle and not LineTrackerRight then    --100
-         MotorDriver.Drive(MotorDriver.Lateral_Left);
+         MotorDriver.Drive(MotorDriver.Lateral_Left,(1024,1024,1024,1024));
       elsif not LineTrackerLeft and not LineTrackerMiddle and LineTrackerRight then    --001
-         MotorDriver.Drive(MotorDriver.Lateral_Right);
+         MotorDriver.Drive(MotorDriver.Lateral_Right,(1024,1024,1024,1024));
       elsif LineTrackerLeft and LineTrackerMiddle and LineTrackerRight then            --111
-         MotorDriver.Drive(MotorDriver.Rotating_Right);
+         MotorDriver.Drive(MotorDriver.Rotating_Right,(2048,2048,2048,2048));
       else  MotorDriver.Drive(MotorDriver.Stop);
       end if;
-      delay(0.5);
+      delay(0.2);
    end loop;
 
 end Main;
