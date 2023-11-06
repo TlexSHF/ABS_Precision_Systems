@@ -175,8 +175,6 @@ package ada_main is
    --  system.assertions%b
    --  system.pool_global%s
    --  system.pool_global%b
-   --  system.relative_delays%s
-   --  system.relative_delays%b
    --  system.tasking.protected_objects%s
    --  system.tasking.protected_objects%b
    --  system.tasking.restricted%s
@@ -242,6 +240,8 @@ package ada_main is
    --  nrf.tasks%b
    --  nrf.adc%s
    --  nrf.adc%b
+   --  nrf.clock%s
+   --  nrf.clock%b
    --  nrf.ppi%s
    --  nrf.ppi%b
    --  nrf.timers%s
@@ -263,6 +263,13 @@ package ada_main is
    --  microbit.iosfortasking%b
    --  microbit.motordriver%s
    --  microbit.motordriver%b
+   --  microbit.timehighspeed%s
+   --  microbit.timehighspeed%b
+   --  microbit.types%s
+   --  microbit.ultrasonic%s
+   --  microbit.ultrasonic%b
+   --  tasks%s
+   --  tasks%b
    --  main%b
    --  END ELABORATION ORDER
 
