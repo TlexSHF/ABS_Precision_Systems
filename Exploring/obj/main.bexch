@@ -1,0 +1,23 @@
+[GENERATED OBJECT FILE]
+b__main.o
+[PROJECT FILES]
+C:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\Exploring\exploring.gpr
+20231108160630 3d0092fc02011aa29567c8fa20c9b147
+C:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_full.gpr
+20230921143036 01f3c46598aee1f38c232d53b54081ca
+[BOUND OBJECT FILES]
+C:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\Exploring\obj\tasks.o
+C:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\Exploring\obj\main.o
+[GENERATED SOURCE FILES]
+b__main.ads
+b__main.adb
+b__main.ali
+[RESULTING OPTIONS]
+-LC:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\Exploring\obj\
+-LC:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\Exploring\obj\
+-LC:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\full_lib_Debug\
+-LC:\gnat\2021-arm-elf\arm-eabi\lib\gnat\ravenscar-full-nrf52833\adalib\
+-static
+-static-libgcc
+C:\gnat\2021-arm-elf\arm-eabi\lib\gnat\ravenscar-full-nrf52833\adalib\libgnarl.a
+C:\gnat\2021-arm-elf\arm-eabi\lib\gnat\ravenscar-full-nrf52833\adalib\libgnat.a
