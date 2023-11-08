@@ -1,0 +1,180 @@
+V "GNAT Lib v2021"
+M P W=b
+A -gnatA
+A --RTS=C:\gnat\2021-arm-elf\arm-eabi\lib\gnat\ravenscar-full-nrf52833\
+A -mlittle-endian
+A -mthumb
+A -mfloat-abi=hard
+A -mfpu=fpv4-sp-d16
+A -mcpu=cortex-m4
+A -march=armv7e-m+fp
+P DB LC TF  SS ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U main%b		main.adb		21510ae3 NE OO SU
+W ada%s			ada.ads			ada.ali
+Z ada.real_time%s	a-reatim.adb		a-reatim.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W microbit%s		microbit.ads		microbit.ali
+W microbit.console%s	microbit-console.adb	microbit-console.ali
+W microbit.motordriver%s  microbit-motordriver.adb  microbit-motordriver.ali
+Z microbit.timehighspeed%s  microbit-timehighspeed.adb  microbit-timehighspeed.ali
+W microbit.timewithrtc1%s  microbit-timewithrtc1.adb  microbit-timewithrtc1.ali
+W microbit.types%s	microbit-types.ads	microbit-types.ali
+W microbit.ultrasonic%s	microbit-ultrasonic.adb	microbit-ultrasonic.ali
+W nrf%s			nrf.ads			nrf.ali
+Z nrf.gpio%s		nrf-gpio.adb		nrf-gpio.ali
+
+D ada.ads		20230830081100 76789da1 ada%s
+D a-except.ads		20230830081100 946f3014 ada.exceptions%s
+D a-finali.ads		20230830081100 bf4f806b ada.finalization%s
+D a-interr.ads		20230830081050 bdf68b51 ada.interrupts%s
+D a-intnam.ads		20230830081050 543e27b6 ada.interrupts.names%s
+D a-reatim.ads		20230830081050 cfe92427 ada.real_time%s
+D a-stream.ads		20230830081104 119b8fb3 ada.streams%s
+D a-string.ads		20230830081104 90ac6797 ada.strings%s
+D a-sttebu.ads		20230830081106 18209c64 ada.strings.text_buffers%s
+D a-stuten.ads		20230830081106 808c40ad ada.strings.utf_encoding%s
+D a-tags.ads		20230830081108 9eaa38c6 ada.tags%s
+D a-taside.ads		20230830081050 00e3a3f6 ada.task_identification%s
+D a-unccon.ads		20230830081110 0e9b276f ada.unchecked_conversion%s
+D dfr0548.ads		20231005132338 73faa7eb dfr0548%s
+D hal.ads		20231005132340 2b42c80e hal%s
+D hal-gpio.ads		20231005132340 7f0c2ffe hal.gpio%s
+D hal-i2c.ads		20231005132340 416d8959 hal.i2c%s
+D hal-spi.ads		20231005132340 fe139819 hal.spi%s
+D hal-uart.ads		20231005132340 d58316b4 hal.uart%s
+D interfac.ads		20230830081116 edec285f interfaces%s
+D main.adb		20231107172254 482b81ad main%b
+D microbit.ads		20231029150422 c5aa85df microbit%s
+D microbit-console.ads	20231005132338 0bb00661 microbit.console%s
+D microbit-motordriver.ads  20231101154342 a4383d04 microbit.motordriver%s
+D microbit-timehighspeed.ads  20231005132338 1d0073c3 microbit.timehighspeed%s
+D microbit-timewithrtc1.ads  20231005132338 574bb894 microbit.timewithrtc1%s
+D microbit-types.ads	20231029150422 e97b8e18 microbit.types%s
+D microbit-ultrasonic.ads  20231029150422 78c286a7 microbit.ultrasonic%s
+D microbit-ultrasonic.adb  20231029150422 b1778a38 microbit.ultrasonic%b
+D nrf.ads		20231005132336 74cf72f5 nrf%s
+D nrf-device.ads	20231005132336 9c9916c4 nrf.device%s
+D nrf-gpio.ads		20231005132336 ab6d4598 nrf.gpio%s
+D nrf-rtc.ads		20231005132336 36d88130 nrf.rtc%s
+D nrf-spi_master.ads	20231005132336 a8ff49a3 nrf.spi_master%s
+D nrf-timers.ads	20231005132336 15fa58e3 nrf.timers%s
+D nrf-twi.ads		20231005132336 8de9adf3 nrf.twi%s
+D nrf-uart.ads		20231005132336 9fa4b8b9 nrf.uart%s
+D nrf_svd.ads		20231005132336 87ba21d7 nrf_svd%s
+D nrf_svd-rtc.ads	20231005132336 57c7ffc8 nrf_svd.rtc%s
+D nrf_svd-spi.ads	20231005132336 6e2ffb69 nrf_svd.spi%s
+D nrf_svd-timer.ads	20231005132336 ba50db1c nrf_svd.timer%s
+D nrf_svd-twi.ads	20231005132336 68301534 nrf_svd.twi%s
+D nrf_svd-uart.ads	20231005132336 83bcebc8 nrf_svd.uart%s
+D system.ads		20230830081144 ad54c63c system%s
+D s-bb.ads		20230830081116 09e072ae system.bb%s
+D s-bbbopa.ads		20230830081118 f68efaf0 system.bb.board_parameters%s
+D s-bbbosu.ads		20230830081050 0f820a2a system.bb.board_support%s
+D s-bbcppr.ads		20230830081050 ac5bcd4d system.bb.cpu_primitives%s
+D s-bbinte.ads		20230830081050 c88d39da system.bb.interrupts%s
+D s-bbmcpa.ads		20230830081118 5a35b8f4 system.bb.mcu_parameters%s
+D s-bbpara.ads		20230830081050 63167d1e system.bb.parameters%s
+D s-bbthre.ads		20230830081050 c94b446f system.bb.threads%s
+D s-bbthqu.ads		20230830081050 cd23d79e system.bb.threads.queues%s
+D s-bbtime.ads		20230830081052 ad086247 system.bb.time%s
+D s-finmas.ads		20230830081122 1ab4dba8 system.finalization_masters%s
+D s-finroo.ads		20230830081122 4ff27390 system.finalization_root%s
+D s-interr.ads		20230830081052 d74bd991 system.interrupts%s
+D s-multip.ads		20230830081052 f33e0e35 system.multiprocessors%s
+D s-mufalo.ads		20230830081052 3dca0374 system.multiprocessors.fair_locks%s
+D s-musplo.ads		20230830081052 69fa25c4 system.multiprocessors.spin_locks%s
+D s-osinte.ads		20230830081052 229b14dd system.os_interface%s
+D s-parame.ads		20230830081134 8e90778f system.parameters%s
+D s-pooglo.ads		20230830081134 ede33ef8 system.pool_global%s
+D s-putima.ads		20230830081134 4e095881 system.put_images%s
+D s-secsta.ads		20230830081136 56a2861c system.secondary_stack%s
+D s-stalib.ads		20230830081136 472fbca8 system.standard_library%s
+D s-stoele.ads		20230830081138 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20230830081138 ed88f8fb system.storage_elements%b
+D s-stopoo.ads		20230830081138 e9fa2dd8 system.storage_pools%s
+D s-stratt.ads		20230830081138 7bdda3fa system.stream_attributes%s
+D s-tasinf.ads		20230830081052 801abd01 system.task_info%s
+D s-taspri.ads		20230830081052 37f162b4 system.task_primitives%s
+D s-taskin.ads		20230830081052 989d56fd system.tasking%s
+D s-taprob.ads		20230830081052 c8fc0753 system.tasking.protected_objects%s
+D s-traent.ads		20230830081138 26a8d361 system.traceback_entries%s
+D s-unstyp.ads		20230830081138 2b077493 system.unsigned_types%s
+D unchconv.ads		20230830081144 ca2f9e18 unchecked_conversion%s
+G a e
+G c Z b b [main standard 8 11 none]
+G r s gpio_point [main standard 8 11 none] [gpio_pointIP nrf__gpio 66 9 none]
+G r s gpio_configuration [main standard 8 11 none] [gpio_configurationIP nrf__gpio 58 9 none]
+G r c none [main standard 8 11 none] [configure_io nrf__gpio 117 14 none]
+G r c none [main standard 8 11 none] [clear nrf__gpio 106 14 none]
+G r i none [main standard 8 11 none] [ultrasonic microbit 9 18 none]
+G r c none [main standard 8 11 none] [set nrf__gpio 100 14 none]
+G r c none [main standard 8 11 none] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [main standard 8 11 none] [set nrf__gpio 94 13 none]
+G r c none [main standard 8 11 none] [drive microbit__motordriver 60 14 none]
+G r c none [main standard 8 11 none] [delay_ms microbit__timewithrtc1 10 14 none]
+X 16 hal-gpio.ads
+47h9*GPIO_Point
+X 17 hal-i2c.ads
+48h9*I2C_Port
+X 18 hal-spi.ads
+48h9*SPI_Port
+X 19 hal-uart.ads
+48h9*UART_Port
+X 21 main.adb
+8U11*Main 8b11 83l5 83t9
+9K12 Ultrafront[28|9] 24r25
+10K12 Ultraright[28|9] 22r25
+11K12 Ultraleft[28|9] 23r25
+12i4 Distancef{27|3I11} 24m7 25r34
+13i4 Distancer{27|3I11} 22m7 26r34
+14i4 Distancel{27|3I11} 23m7 27r34
+15i4 distance_front{integer} 25m7 31r16 42r15 45r19 47r19 58r15 62r19 66r19
+. 68r19
+16i4 distance_right{integer} 26m7 32r15 41r16 45r43 47r43 57r16 62r43 66r43
+. 68r43
+17i4 distance_left{integer} 27m7 31r40 41r40 48r15 57r40 63r15 69r15
+18i4 counter{integer} 29r12 36m16 54m16 76m16 76r27
+19b4 flag{boolean} 61m16 63r38 69r38 75m16
+X 22 microbit.ads
+57K9*MicroBit 21|1r6 2r6 2r28 3r5 4r6 4r33 5r6 6r6 6r33 22|114e13
+58r4*MB_P0=58:53{32|66R9} 21|9r50
+59r4*MB_P1=59:53{32|66R9} 21|10r50
+60r4*MB_P2=60:53{32|66R9} 21|11r48
+66r4*MB_P8=66:53{32|66R9} 21|11r41
+70r4*MB_P12=70:53{32|66R9} 21|9r42
+71r4*MB_P13=71:53{32|66R9} 21|10r42
+X 23 microbit-console.ads
+32K18*Console 21|2w15 2r37 23|49e21
+X 24 microbit-motordriver.ads
+34K18*MotorDriver 21|5w15 34r16 34r35 38r16 38r35 44r16 44r35 46r16 46r35
+. 50r16 50r35 52r16 52r35 60r16 60r35 65r16 65r35 67r16 67r35 71r16 71r35
+. 73r16 73r35 79r13 79r32 24|74e25
+36n24*Forward{36E9} 21|38r47 44r47 50r47 60r47 65r47 71r47 79r44
+38n24*Left{36E9} 21|46r47 67r47
+47n24*Rotating_Left{36E9} 21|34r47
+48n24*Rotating_Right{36E9} 21|52r47 73r47
+60U14*Drive 21|34s28 38s28 44s28 46s28 50s28 52s28 60s28 65s28 67s28 71s28
+. 73s28 79s25
+X 26 microbit-timewithrtc1.ads
+5K18*TimeWithRTC1 21|6w15 6r42 26|64e26
+10U14*Delay_Ms 21|35s16 51s16 53s16 72s16 74s16
+X 27 microbit-types.ads
+1K18*Types 21|4w15 4r42 27|5e19
+3I11*Distance_cm<integer> 21|12r21 13r21 14r21
+X 28 microbit-ultrasonic.ads
+9k18*Ultrasonic 21|1w15 9r30 10r30 11r29 28|25e24
+11V13 Read{27|3I11} 21|22s36[10] 23s35[11] 24s36[9]
+X 57 s-interr.ads
+97U14*Install_Restricted_Handlers_Sequential 98i<c,__gnat_attach_all_handlers>22
+X 65 s-secsta.ads
+46P9*SS_Stack_Ptr(43R9)
+X 73 s-taskin.ads
+398V13*Get_Sec_Stack{65|46P9} 399i<c,__gnat_get_secondary_stack>22
+
