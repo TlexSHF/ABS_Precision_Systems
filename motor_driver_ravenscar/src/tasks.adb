@@ -1,59 +1,100 @@
 with Ada.Real_Time; use Ada.Real_Time;
 with MicroBit; use MicroBit;
 with MicroBit.Console; use MicroBit.Console;
-with MicroBit.MotorDriver; use MicroBit.MotorDriver;
+with MicroBit.MotorDriver;
 with MicroBit.Ultrasonic;
 with MicroBit.IOsForTasking; use MicroBit.IOsForTasking;
 
-package body tasks is
+package body Tasks is
 
-   task body updateDirection is
+   --Sense
+   task body CheckSensor is
       clockStart : Time;
-      Period : Time_Span := Milliseconds(500);
-   begin 
-      Set_Analog_Period_Us(20000);
-      loop
-         clockStart := Clock;   
-         
-         case State is
-            when Forward               => Drive(Forward);
-            when Backward              => Drive(Backward);
-            when Left                  => Drive(Left);
-            when Right                 => Drive(Right);
-            when Forward_Left          => Drive(Forward_Left);
-            when Forward_Right         => Drive(Forward_Right);
-            when Backward_Left         => Drive(Backward_Left);
-            when Backward_Right        => Drive(Backward_Right);
-            when Lateral_Left          => Drive(Lateral_Left);
-            when Lateral_Right         => Drive(Lateral_Right);
-            when Rotating_Left         => Drive(Rotating_Left);
-            when Rotating_Right        => Drive(Rotating_Right);
-            when Curve_Forward_Left    => Drive(Forward, (4095,4095,2047,2047));
-            when Curve_Forward_Right   => Drive(Forward, (2047,2047,4095,4095));
-            when Stop                  => Drive(Stop);
-         end case;   
-         
-         delay until clockStart + Period;
-      end loop;   
-   end updateDirection; 
-   
-   task body checkSensor is
-      clockStart : Time;
-      Period : Time_Span := Milliseconds(50);
-      LineTrackerLeft  : Boolean    := False;
-      LineTrackerRight : Boolean    := False;
+      period : Time_Span := Milliseconds(2);
    begin
       loop
          clockStart := Clock;
          
          distance := sensor.Read;
-         LineTrackerLeft  := digitalRead (16);
-         LineTrackerRight := digitalRead (15);
+         lineTrackerLeft   := digitalRead (15);
+         lineTrackerMiddle := digitalRead (14);
+         lineTrackerRight  := digitalRead (16);
          
-         Put_Line("Left: " & LineTrackerLeft'Image & ", Right: " & LineTrackerRight'Image);
-         
-         delay until clockStart + Period;
+         delay until clockStart + period;
       end loop;   
-   end checkSensor;
+   end CheckSensor;
    
-end tasks;
+   --Think
+   task body TrackLine is
+      clockStart : Time;
+      period : Time_Span := Milliseconds(2);
+      type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);  -- 3 trackers, L = Left tracker
+      lineTrackerState : LineTrackerCombinations := None;                     --             M = Middle tracker
+   begin                                                                      --             R = Right tracker
+      loop
+         clockStart := Clock;
+         
+         -- Update line trackers state
+         if lineTrackerLeft and not lineTrackerMiddle and not lineTrackerRight then
+            lineTrackerState := L;
+         elsif not lineTrackerLeft and lineTrackerMiddle and not lineTrackerRight then
+            lineTrackerState := M;
+         elsif not lineTrackerLeft and not lineTrackerMiddle and lineTrackerRight then
+            lineTrackerState := R;
+         elsif LineTrackerLeft and LineTrackerMiddle and not lineTrackerRight then
+            lineTrackerState := L_M;
+         elsif not lineTrackerLeft and lineTrackerMiddle and lineTrackerRight then
+            lineTrackerState := M_R;
+         elsif lineTrackerLeft and lineTrackerMiddle and lineTrackerRight then
+            lineTrackerState := L_M_R;
+         else  lineTrackerState := None;
+         end if;
+        
+         -- Set drive variable to correct drive state
+         case lineTrackerState is
+            when None   => drive := Stop;
+            when L      => drive := Curve_Forward_Left;
+            when M      => drive := Forward;
+            when R      => drive := Curve_Forward_Right;
+            when L_M    => drive := Curve_Forward_Left;
+            when M_R    => drive := Curve_Forward_Right;
+            when L_M_R  => drive := Rotating_Right;
+            when others => null;
+         end case;   
+         
+         delay until clockStart + period;
+      end loop;      
+   end TrackLine; 
+   
+   --Act
+   task body UpdateDirection is
+      clockStart : Time;
+      period : Time_Span := Milliseconds(2);
+   begin 
+      Set_Analog_Period_Us(20000);
+      loop
+         clockStart := Clock;   
+         
+         case drive is
+            when Forward               => MotorDriver.Drive(MotorDriver.Forward);
+            when Backward              => MotorDriver.Drive(MotorDriver.Backward);
+            when Left                  => MotorDriver.Drive(MotorDriver.Left);
+            when Right                 => MotorDriver.Drive(MotorDriver.Right);
+            when Forward_Left          => MotorDriver.Drive(MotorDriver.Forward_Left);
+            when Forward_Right         => MotorDriver.Drive(MotorDriver.Forward_Right);
+            when Backward_Left         => MotorDriver.Drive(MotorDriver.Backward_Left);
+            when Backward_Right        => MotorDriver.Drive(MotorDriver.Backward_Right);
+            when Lateral_Left          => MotorDriver.Drive(MotorDriver.Lateral_Left);
+            when Lateral_Right         => MotorDriver.Drive(MotorDriver.Lateral_Right);
+            when Rotating_Left         => MotorDriver.Drive(MotorDriver.Rotating_Left);
+            when Rotating_Right        => MotorDriver.Drive(MotorDriver.Rotating_Right);
+            when Curve_Forward_Left    => MotorDriver.Drive(MotorDriver.Forward, (4095,4095,0,0));
+            when Curve_Forward_Right   => MotorDriver.Drive(MotorDriver.Forward, (0,0,4095,4095));
+            when Stop                  => MotorDriver.Drive(MotorDriver.Stop);
+         end case;   
+         
+         delay until clockStart + period;
+      end loop;   
+   end UpdateDirection; 
+   
+end Tasks;

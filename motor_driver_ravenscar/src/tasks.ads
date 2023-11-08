@@ -3,7 +3,7 @@ with MicroBit.MotorDriver; use MicroBit.MotorDriver;
 with MicroBit.Ultrasonic;
 with MicroBit.Types; use MicroBit.Types;
 
-package tasks is
+package Tasks is
    type DriveState is (Forward,
                        Backward,
                        Left,
@@ -19,16 +19,23 @@ package tasks is
                        Curve_Forward_Left,
                        Curve_Forward_Right,
                        Stop);
-   
+   --Sense
+   task CheckSensor with Priority => 1; -- Measured time: 0.023842 ms
 
+   --Think 
+   task TrackLine with Priority => 2;  -- Measured time: 0.015259 ms
    
-   task updateDirection with Priority => 1;
+   --Act
+   task UpdateDirection with Priority => 1; -- Measured time: 0.076294 ms
    
-   task checkSensor with Priority => 1;
    
 private
    package sensor is new MicroBit.Ultrasonic(MB_P1,MB_P0);
-   State : DriveState := Forward;
+   drive : DriveState := Forward;
    distance : Distance_cm := 0;
+   lineTrackerLeft  : Boolean    := False;
+   lineTrackerMiddle  : Boolean  := False;
+   lineTrackerRight : Boolean    := False;
+         
   
-end tasks;
+end Tasks;
