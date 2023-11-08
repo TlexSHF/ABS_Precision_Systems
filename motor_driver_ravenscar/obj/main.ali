@@ -16,8 +16,9 @@ RN
 RV STATIC_PRIORITIES
 RV NO_IMPLEMENTATION_PRAGMAS
 
-U main%b		main.adb		c5f69b56 NE OO SU
+U main%b		main.adb		225f1cdf NE OO SU
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W microbit%s		microbit.ads		microbit.ali
 Z system%s		system.ads		system.ali
 Z system.tasking.restricted.stages%s  s-tarest.adb  s-tarest.ali
 W tasks%s		tasks.adb		tasks.ali
@@ -39,7 +40,7 @@ D hal-i2c.ads		20230919124644 416d8959 hal.i2c%s
 D hal-spi.ads		20230919124644 fe139819 hal.spi%s
 D hal-uart.ads		20230919124644 d58316b4 hal.uart%s
 D interfac.ads		20230918075038 edec285f interfaces%s
-D main.adb		20231102124814 857a7313 main%b
+D main.adb		20231108102630 471723c8 main%b
 D microbit.ads		20231011084432 c5aa85df microbit%s
 D microbit-motordriver.ads  20231011084130 001899dc microbit.motordriver%s
 D microbit-types.ads	20231011083912 e97b8e18 microbit.types%s
@@ -89,10 +90,10 @@ D s-tasres.ads		20230918075028 0c8ef6fb system.tasking.restricted%s
 D s-tarest.ads		20230918075026 c88b6d9a system.tasking.restricted.stages%s
 D s-traent.ads		20230918075046 26a8d361 system.traceback_entries%s
 D s-unstyp.ads		20230918075046 2b077493 system.unsigned_types%s
-D tasks.ads		20231102125628 408ce845 tasks%s
+D tasks.ads		20231108114234 a0e2bac8 tasks%s
 D unchconv.ads		20230918075048 ca2f9e18 unchecked_conversion%s
 G a e
-G c Z b b [main standard 7 11 none]
+G c Z b b [main standard 8 11 none]
 X 13 hal-gpio.ads
 47h9*GPIO_Point
 X 14 hal-i2c.ads
@@ -102,7 +103,9 @@ X 15 hal-spi.ads
 X 16 hal-uart.ads
 48h9*UART_Port
 X 18 main.adb
-7U11*Main 7b11 19l5 19t9
+8U11*Main 8b11 28l5 28t9
+X 19 microbit.ads
+57K9*MicroBit 18|1w6 1r20 19|114e13
 X 55 s-secsta.ads
 46P9*SS_Stack_Ptr(43R9)
 X 63 s-taskin.ads
@@ -110,5 +113,5 @@ X 63 s-taskin.ads
 X 65 s-tarest.ads
 232U14*Activate_All_Tasks_Sequential 233i<c,__gnat_activate_all_tasks>22
 X 68 tasks.ads
-6K9*Tasks 18|5w6 5r17 68|41e10
+6K9*Tasks 18|6w6 6r17 68|48e10
 

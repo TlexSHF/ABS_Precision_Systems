@@ -19,7 +19,10 @@ package Tasks is
                        Curve_Forward_Left,
                        Curve_Forward_Right,
                        Stop);
+   type CarState is (Roaming, LineFollowing, ObjectNavigating);
+   
    --Sense
+   task PollEcho with Priority => 1;
    task CheckSensor with Priority => 1; -- Measured time: 0.023842 ms
 
    --Think 
@@ -30,9 +33,13 @@ package Tasks is
    
    
 private
-   package sensor is new MicroBit.Ultrasonic(MB_P1,MB_P0);
+   package sensor is new MicroBit.Ultrasonic(MB_P12,MB_P0);
+   package sensor2 is new MicroBit.Ultrasonic(MB_P13,MB_P1);
+   package sensor3 is new MicroBit.Ultrasonic(MB_P8,MB_P2);
    drive : DriveState := Forward;
    distance : Distance_cm := 0;
+   distance2 : Distance_cm := 0;
+   distance3 : Distance_cm := 0;
    lineTrackerLeft  : Boolean    := False;
    lineTrackerMiddle  : Boolean  := False;
    lineTrackerRight : Boolean    := False;

@@ -8,14 +8,28 @@ with MicroBit.IOsForTasking; use MicroBit.IOsForTasking;
 package body Tasks is
 
    --Sense
-   task body CheckSensor is
+   task body PollEcho is   
       clockStart : Time;
-      period : Time_Span := Milliseconds(2);
+      period : Time_Span := Milliseconds(150);
    begin
       loop
          clockStart := Clock;
          
-         distance := sensor.Read;
+         distance    := sensor.Read;
+         distance2   := sensor2.Read;
+         distance3   := sensor3.Read;
+         
+         delay until clockStart + period;
+      end loop;   
+   end PollEcho;
+   
+   task body CheckSensor is
+      clockStart : Time;
+      period : Time_Span := Milliseconds(5);
+   begin
+      loop
+         clockStart := Clock;
+         
          lineTrackerLeft   := digitalRead (15);
          lineTrackerMiddle := digitalRead (14);
          lineTrackerRight  := digitalRead (16);
@@ -27,7 +41,7 @@ package body Tasks is
    --Think
    task body TrackLine is
       clockStart : Time;
-      period : Time_Span := Milliseconds(2);
+      period : Time_Span := Milliseconds(5);
       type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);  -- 3 trackers, L = Left tracker
       lineTrackerState : LineTrackerCombinations := None;                     --             M = Middle tracker
    begin                                                                      --             R = Right tracker
@@ -51,16 +65,22 @@ package body Tasks is
          end if;
         
          -- Set drive variable to correct drive state
-         case lineTrackerState is
-            when None   => drive := Stop;
-            when L      => drive := Curve_Forward_Left;
-            when M      => drive := Forward;
-            when R      => drive := Curve_Forward_Right;
-            when L_M    => drive := Curve_Forward_Left;
-            when M_R    => drive := Curve_Forward_Right;
-            when L_M_R  => drive := Rotating_Right;
-            when others => null;
-         end case;   
+         if distance > 10 or distance = 0 then
+            case lineTrackerState is   
+               when None   => drive := Stop;
+               when L      => drive := Curve_Forward_Left;
+               when M      => drive := Forward;
+               when R      => drive := Curve_Forward_Right;
+               when L_M    => drive := Curve_Forward_Left;
+               when M_R    => drive := Curve_Forward_Right; 
+               when L_M_R  => 
+                  drive := Rotating_Right;
+                  delay until clockStart + Milliseconds(100);
+                  clockStart := Clock;
+               when others => null; 
+            end case;   
+         else drive := Stop;
+         end if;
          
          delay until clockStart + period;
       end loop;      
@@ -69,7 +89,7 @@ package body Tasks is
    --Act
    task body UpdateDirection is
       clockStart : Time;
-      period : Time_Span := Milliseconds(2);
+      period : Time_Span := Milliseconds(5);
    begin 
       Set_Analog_Period_Us(20000);
       loop
