@@ -15,7 +15,7 @@ RV NO_DIRECT_BOOLEAN_OPERATORS
 RV NO_DEFAULT_INITIALIZATION
 RV NO_IMPLEMENTATION_PRAGMAS
 
-U main%b		main.adb		21510ae3 NE OO SU
+U main%b		main.adb		7bcc7388 NE OO SU
 W ada%s			ada.ads			ada.ali
 Z ada.real_time%s	a-reatim.adb		a-reatim.ali
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
@@ -50,7 +50,7 @@ D hal-i2c.ads		20231005132340 416d8959 hal.i2c%s
 D hal-spi.ads		20231005132340 fe139819 hal.spi%s
 D hal-uart.ads		20231005132340 d58316b4 hal.uart%s
 D interfac.ads		20230830081116 edec285f interfaces%s
-D main.adb		20231107172254 482b81ad main%b
+D main.adb		20231108140812 12b6f8c6 main%b
 D microbit.ads		20231029150422 c5aa85df microbit%s
 D microbit-console.ads	20231005132338 0bb00661 microbit.console%s
 D microbit-motordriver.ads  20231101154342 a4383d04 microbit.motordriver%s
@@ -128,20 +128,22 @@ X 18 hal-spi.ads
 X 19 hal-uart.ads
 48h9*UART_Port
 X 21 main.adb
-8U11*Main 8b11 83l5 83t9
-9K12 Ultrafront[28|9] 24r25
-10K12 Ultraright[28|9] 22r25
-11K12 Ultraleft[28|9] 23r25
-12i4 Distancef{27|3I11} 24m7 25r34
-13i4 Distancer{27|3I11} 22m7 26r34
-14i4 Distancel{27|3I11} 23m7 27r34
-15i4 distance_front{integer} 25m7 31r16 42r15 45r19 47r19 58r15 62r19 66r19
-. 68r19
-16i4 distance_right{integer} 26m7 32r15 41r16 45r43 47r43 57r16 62r43 66r43
-. 68r43
-17i4 distance_left{integer} 27m7 31r40 41r40 48r15 57r40 63r15 69r15
-18i4 counter{integer} 29r12 36m16 54m16 76m16 76r27
-19b4 flag{boolean} 61m16 63r38 69r38 75m16
+8U11*Main 8b11 107l5 107t9
+9K12 Ultrafront[28|9] 25r25
+10K12 Ultraright[28|9] 23r25
+11K12 Ultraleft[28|9] 24r25
+12i4 Distancef{27|3I11} 25m7 26r34
+13i4 Distancer{27|3I11} 23m7 30r34
+14i4 Distancel{27|3I11} 24m7 34r34
+15i4 distance_front{integer} 26m7 27r10 28m10 42r16 53r15 57r15 61r19 63r19
+. 76r15 80r15 84r19 88r19 90r19
+16i4 distance_right{integer} 30m7 31r10 32m10 43r15 52r16 52r41 56r19 56r43
+. 61r43 63r43 75r16 75r41 79r19 79r43 84r43 88r43 90r43
+17i4 distance_left{integer} 34m7 35r10 36m10 42r40 52r66 56r68 61r67 64r15
+. 75r66 79r68 85r15 88r67 91r15
+18i4 counter{integer} 40r12 47m16 71m16 99m16 99r27
+19b4 flag1{boolean} 60m16 64r38 70m16
+20b4 flag2{boolean} 83m16 85r38 91r38 98m16
 X 22 microbit.ads
 57K9*MicroBit 21|1r6 2r6 2r28 3r5 4r6 4r33 5r6 6r6 6r33 22|114e13
 58r4*MB_P0=58:53{32|66R9} 21|9r50
@@ -153,24 +155,28 @@ X 22 microbit.ads
 X 23 microbit-console.ads
 32K18*Console 21|2w15 2r37 23|49e21
 X 24 microbit-motordriver.ads
-34K18*MotorDriver 21|5w15 34r16 34r35 38r16 38r35 44r16 44r35 46r16 46r35
-. 50r16 50r35 52r16 52r35 60r16 60r35 65r16 65r35 67r16 67r35 71r16 71r35
-. 73r16 73r35 79r13 79r32 24|74e25
-36n24*Forward{36E9} 21|38r47 44r47 50r47 60r47 65r47 71r47 79r44
-38n24*Left{36E9} 21|46r47 67r47
-47n24*Rotating_Left{36E9} 21|34r47
-48n24*Rotating_Right{36E9} 21|52r47 73r47
-60U14*Drive 21|34s28 38s28 44s28 46s28 50s28 52s28 60s28 65s28 67s28 71s28
-. 73s28 79s25
+34K18*MotorDriver 21|5w15 45r16 45r35 49r16 49r35 55r16 55r35 59r16 59r35
+. 62r16 62r35 66r16 66r35 68r16 68r35 78r16 78r35 82r16 82r35 87r16 87r35
+. 89r16 89r35 94r16 94r35 96r16 96r35 102r13 102r32 24|74e25
+36n24*Forward{36E9} 21|49r47 59r47 66r47 82r47 87r47 94r47
+38n24*Left{36E9} 21|62r47
+39n24*Right{36E9} 21|55r47
+45n24*Lateral_Left{36E9} 21|89r47
+46n24*Lateral_Right{36E9} 21|78r47
+47n24*Rotating_Left{36E9} 21|45r47
+48n24*Rotating_Right{36E9} 21|68r47 96r47
+51n24*Stop{36E9} 21|102r44
+60U14*Drive 21|45s28 49s28 55s28 59s28 62s28 66s28 68s28 78s28 82s28 87s28
+. 89s28 94s28 96s28 102s25
 X 26 microbit-timewithrtc1.ads
 5K18*TimeWithRTC1 21|6w15 6r42 26|64e26
-10U14*Delay_Ms 21|35s16 51s16 53s16 72s16 74s16
+10U14*Delay_Ms 21|46s16 67s16 69s16 95s16 97s16
 X 27 microbit-types.ads
 1K18*Types 21|4w15 4r42 27|5e19
 3I11*Distance_cm<integer> 21|12r21 13r21 14r21
 X 28 microbit-ultrasonic.ads
 9k18*Ultrasonic 21|1w15 9r30 10r30 11r29 28|25e24
-11V13 Read{27|3I11} 21|22s36[10] 23s35[11] 24s36[9]
+11V13 Read{27|3I11} 21|23s36[10] 24s35[11] 25s36[9]
 X 57 s-interr.ads
 97U14*Install_Restricted_Handlers_Sequential 98i<c,__gnat_attach_all_handlers>22
 X 65 s-secsta.ads

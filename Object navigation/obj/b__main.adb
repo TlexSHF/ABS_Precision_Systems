@@ -241,9 +241,9 @@ package body ada_main is
    end;
 
 --  BEGIN Object file/option list
-   --   C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Object navigation\obj\main.o
-   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Object navigation\obj\
-   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Object navigation\obj\
+   --   C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\obj\main.o
+   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\obj\
+   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\obj\
    --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\full_lib_Debug\
    --   -LC:\gnat\2021-arm-elf\arm-eabi\lib\gnat\ravenscar-full-nrf52833\adalib\
    --   -static
