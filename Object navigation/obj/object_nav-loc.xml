@@ -1,23 +1,43 @@
 <?xml version="1.0"?>
 <Locations >
   <Project >
+    <file_marker column=" 1" line=" 22" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 22" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
+    </file_marker>
     <file_marker column=" 1" line=" 1" >
       <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
-      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_file>
     </file_marker>
-    <file_marker column=" 1" line=" 39" >
+    <file_marker column=" 15" line=" 1" >
       <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
       <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
     </file_marker>
-    <file_marker column=" 1" line=" 39" >
-      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
-      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 9" line=" 34" >
+    <file_marker column=" 9" line=" 9" >
       <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_full.gpr</vfs_project>
-      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\src\full\microbit-motordriver.ads</vfs_file>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\src\full\microbit-ultrasonic.ads</vfs_file>
     </file_marker>
-    <file_marker column=" 1" line=" 39" >
+    <file_marker column=" 14" line=" 17" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_full.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\src\full\microbit-ultrasonic.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 14" line=" 38" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_full.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\src\full\microbit-ultrasonic.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 7" line=" 5" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\tasks.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\tasks.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
       <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
       <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
     </file_marker>
@@ -29,29 +49,33 @@
       <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
       <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
     </file_marker>
-    <file_marker column=" 1" line=" 39" >
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\tasks.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
       <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
       <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
     </file_marker>
-    <file_marker column=" 1" line=" 39" >
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\tasks.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 47" line=" 64" >
       <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
       <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
     </file_marker>
-    <file_marker column=" 1" line=" 39" >
-      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
-      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
+    <file_marker column=" 24" line=" 46" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_full.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\src\full\microbit-motordriver.ads</vfs_file>
     </file_marker>
-    <file_marker column=" 1" line=" 39" >
-      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
-      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
+    <file_marker column=" 21" line=" 61" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_full.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\src\full\microbit-motordriver.ads</vfs_file>
     </file_marker>
-    <file_marker column=" 1" line=" 39" >
-      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
-      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
-    </file_marker>
-    <file_marker current="true" column=" 1" line=" 105" >
-      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\object_nav.gpr</vfs_project>
-      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Object navigation\src\main.adb</vfs_file>
+    <file_marker current="true" column=" 21" line=" 48" >
+      <vfs_project>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\microbit_v2_full.gpr</vfs_project>
+      <vfs_file>C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\src\full\microbit-motordriver.adb</vfs_file>
     </file_marker>
   </Project>
 </Locations>

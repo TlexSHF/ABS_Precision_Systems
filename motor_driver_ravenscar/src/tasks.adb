@@ -10,14 +10,23 @@ package body Tasks is
    --Sense
    task body PollEcho is   
       clockStart : Time;
-      period : Time_Span := Milliseconds(150);
+      period : Time_Span := Milliseconds(50);
    begin
       loop
          clockStart := Clock;
          
-         distance    := sensor.Read;
-         distance2   := sensor2.Read;
-         distance3   := sensor3.Read;
+         distanceFront  := sensorFront.Read;
+         distanceRight  := sensorRight.Read;
+         distanceLeft   := sensorLeft.Read;
+         if distanceFront = 0 then 
+            distanceFront := 400;
+         end if;
+         if distanceRight = 0 then 
+            distanceRight := 400;
+         end if;
+         if distanceLeft = 0 then 
+            distanceLeft := 400;
+         end if;
          
          delay until clockStart + period;
       end loop;   
@@ -46,45 +55,122 @@ package body Tasks is
       lineTrackerState : LineTrackerCombinations := None;                     --             M = Middle tracker
    begin                                                                      --             R = Right tracker
       loop
-         clockStart := Clock;
+         clockStart := Clock; 
          
-         -- Update line trackers state
-         if lineTrackerLeft and not lineTrackerMiddle and not lineTrackerRight then
-            lineTrackerState := L;
-         elsif not lineTrackerLeft and lineTrackerMiddle and not lineTrackerRight then
-            lineTrackerState := M;
-         elsif not lineTrackerLeft and not lineTrackerMiddle and lineTrackerRight then
-            lineTrackerState := R;
-         elsif LineTrackerLeft and LineTrackerMiddle and not lineTrackerRight then
-            lineTrackerState := L_M;
-         elsif not lineTrackerLeft and lineTrackerMiddle and lineTrackerRight then
-            lineTrackerState := M_R;
-         elsif lineTrackerLeft and lineTrackerMiddle and lineTrackerRight then
-            lineTrackerState := L_M_R;
-         else  lineTrackerState := None;
-         end if;
-        
+         if (car = LineFollowing) then -- Precondition
+            -- Update line trackers state 
+            if lineTrackerLeft and not lineTrackerMiddle and not lineTrackerRight then  
+               lineTrackerState := L;  
+            elsif not lineTrackerLeft and lineTrackerMiddle and not lineTrackerRight then 
+               lineTrackerState := M;  
+            elsif not lineTrackerLeft and not lineTrackerMiddle and lineTrackerRight then 
+               lineTrackerState := R;  
+            elsif LineTrackerLeft and LineTrackerMiddle and not lineTrackerRight then  
+               lineTrackerState := L_M;   
+            elsif not lineTrackerLeft and lineTrackerMiddle and lineTrackerRight then  
+               lineTrackerState := M_R;   
+            elsif lineTrackerLeft and lineTrackerMiddle and lineTrackerRight then   
+               lineTrackerState := L_M_R; 
+            else  lineTrackerState := None;  
+            end if;  
+            
          -- Set drive variable to correct drive state
-         if distance > 10 or distance = 0 then
-            case lineTrackerState is   
-               when None   => drive := Stop;
-               when L      => drive := Curve_Forward_Left;
-               when M      => drive := Forward;
-               when R      => drive := Curve_Forward_Right;
-               when L_M    => drive := Curve_Forward_Left;
-               when M_R    => drive := Curve_Forward_Right; 
-               when L_M_R  => 
-                  drive := Rotating_Right;
-                  delay until clockStart + Milliseconds(100);
-                  clockStart := Clock;
-               when others => null; 
-            end case;   
-         else drive := Stop;
-         end if;
+         if distanceFront > 15 or distanceFront = 0 then
+               case lineTrackerState is    
+                  when None   => drive := Stop;
+                  when L      => drive := Curve_Forward_Left;
+                  when M      => drive := Forward;
+                  when R      => drive := Curve_Forward_Right;
+                  when L_M    => drive := Curve_Forward_Left;
+                  when M_R    => drive := Curve_Forward_Right;    
+                  when L_M_R  =>    
+                  drive := Rotating_Right;   
+                  delay until clockStart + Milliseconds(100);  
+                  clockStart := Clock; 
+               when others => null;    
+               end case;    
+            else  
+               drive := Stop;
+               delay(0.2);
+               car   := ObjectNavigating; 
+            end if;  
+         end if;  
          
          delay until clockStart + period;
       end loop;      
    end TrackLine; 
+   
+   task body ObjectNav is
+      clockStart : Time;   
+      period : Time_Span := Milliseconds(5);
+      counter  : Integer  := 0;  
+      flag     : Boolean  := False;   
+   begin
+      loop
+         clockStart := Clock; 
+         if car = ObjectNavigating then   -- Precondition
+            case counter is
+               when 0 =>   
+                  if (distanceFront < 10 and distanceLeft > 10 and --hinder in the front     
+                        distanceRight > 10)     
+                  then     
+                     drive := Rotating_Left;    
+                     delay (0.828); 
+                     drive := Forward;
+                     counter := 1;     
+                  elsif (distanceFront > 10 and distanceLeft > 10 and --hinder in the right      
+                           distanceRight < 20) then      
+                     counter := 1;     
+                  --  elsif (distanceFront > 10 and distanceLeft < 20 and --hinder in the left
+                  --           distanceRight > 10) then
+                  --     drive := Forward;
+                  --     delay (0.4);
+                  --     drive := Rotating_Right;
+                  --     delay (1.8);
+                  --     counter := 1;
+                  else     
+                     drive := Forward; --or just be in another state    
+                  end if;     
+               when 1 .. 4 =>    
+                  if distanceRight < 20 and distanceRight > 13 and distanceLeft > 10 and --too far from the object, go right     
+                    distanceFront > 10    
+                  then     
+                     drive := Lateral_Right;       
+                  elsif distanceRight < 13 and distanceRight >= 10 and distanceLeft > 10 and --right distance     
+                    distanceFront > 10    
+                  then     
+                     drive := Forward;   
+                     flag := True;     
+                  elsif distanceFront > 10 and distanceRight > 10 and --just go to the right place     
+                    distanceLeft > 10 and flag = False   
+                  then     
+                     drive := Forward;    
+                  elsif distanceFront > 10 and distanceRight < 10 and distanceLeft > 10 then --too close to the object     
+                     drive := Lateral_Left;     
+                  elsif distanceFront > 10 and distanceRight > 20 and --finished    
+                    distanceLeft > 10 and flag = True    
+                  then        
+                     drive := Forward;       
+                     delay (0.4);         
+                     drive := Rotating_Right;      
+                     delay (0.828);
+                     --  drive := Forward;
+                     flag    := False;    
+                     counter := counter + 1;       
+                  --  elsif lineTrackerLeft or lineTrackerMiddle or lineTrackerRight then
+                  --     car := LineFollowing;
+                  --     counter := 0;
+                  end if;
+               when others =>       
+                  drive := Stop;   --next state     
+                  --  counter := 0;
+            end case;   
+            flag := False;    
+         end if;     
+         
+         delay until clockStart + period;
+      end loop;   
+   end ObjectNav; 
    
    --Act
    task body UpdateDirection is

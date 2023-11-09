@@ -22,15 +22,12 @@ begin
       Distancer      := Ultraright.Read;
       Distancel      := Ultraleft.Read;
       Distancef      := Ultrafront.Read;
-      distance_front := Integer (Distancef);
       if Distancef = 0 then
          Distancef := 400;
       end if;
-      distance_right := Integer (Distancer);
       if distance_right = 0 then
          distance_right := 400;
       end if;
-      distance_left  := Integer (Distancel);
       if distance_left = 0 then
          distance_left := 400;
       end if;
