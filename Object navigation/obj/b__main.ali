@@ -31,12 +31,12 @@ W system%s		system.ads		system.ali
 W system.parameters%s	s-parame.adb		s-parame.ali
 W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
 
-D b__main.ads		20231108165008 8d59ea92 ada_main%s
-D b__main.adb		20231108165008 610530a2 ada_main%b
-D system.ads		20230830081144 ad54c63c system%s
-D s-parame.ads		20230830081134 8e90778f system.parameters%s
-D s-secsta.ads		20230830081136 56a2861c system.secondary_stack%s
-D s-stoele.ads		20230830081138 2dc34a04 system.storage_elements%s
+D b__main.ads		20231109091600 8d59ea92 ada_main%s
+D b__main.adb		20231109091600 610530a2 ada_main%b
+D system.ads		20230918075048 ad54c63c system%s
+D s-parame.ads		20230918075044 8e90778f system.parameters%s
+D s-secsta.ads		20230918075046 56a2861c system.secondary_stack%s
+D s-stoele.ads		20230918075046 2dc34a04 system.storage_elements%s
 G a e
 G c Z s b [adainit ada_main 19 14 none]
 G c Z s b [adafinal ada_main 22 14 none]
