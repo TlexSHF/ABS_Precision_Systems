@@ -11,7 +11,15 @@ use MicroBit;
 with HAL; use HAL;
 
 package body Ultrasensors is
-
+   
+   type Ultrasensors is record
+      EchoPin : GPIO_Point;
+      TriggerPin : GPIO_Point;
+      FallingTime : Time := 0;
+      RisingTIme : Time := 0;
+   end record; 
+   
+   
    
 
 end Ultrasensors;
