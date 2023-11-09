@@ -12,6 +12,7 @@ P DB LC TF  SS ZX
 
 RN
 RV NO_DELAY
+RV NO_DIRECT_BOOLEAN_OPERATORS
 RV NO_EXCEPTIONS
 RV NO_STANDARD_STORAGE_POOLS
 RV NO_TASKING
@@ -19,10 +20,11 @@ RV STATIC_PRIORITIES
 RV NO_DEFAULT_INITIALIZATION
 RV NO_DYNAMIC_SIZED_OBJECTS
 RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
 RV NO_ELABORATION_CODE
-RV MAX_TASKS=1
+RV MAX_TASKS=3
 
-U tasks%b		tasks.adb		ce453fdf OO PK IL
+U tasks%b		tasks.adb		e0e4c4fe OO PK IL
 W ada%s			ada.ads			ada.ali
 W ada.numerics%s	a-numeri.ads		a-numeri.ali
 W ada.numerics.discrete_random%s
@@ -31,22 +33,35 @@ Z ada.real_time.delays%s  a-retide.adb		a-retide.ali
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
 W microbit%s		microbit.ads		microbit.ali
 W microbit.console%s	microbit-console.adb	microbit-console.ali
+W microbit.displayrt%s	microbit-displayrt.adb	microbit-displayrt.ali  AD
 W microbit.iosfortasking%s  microbit-iosfortasking.adb  microbit-iosfortasking.ali  AD
 W microbit.motordriver%s  microbit-motordriver.adb  microbit-motordriver.ali  AD
+Z microbit.timehighspeed%s  microbit-timehighspeed.adb  microbit-timehighspeed.ali  AD
 W microbit.timewithrtc1%s  microbit-timewithrtc1.adb  microbit-timewithrtc1.ali
+Z microbit.ultrasonic%s	microbit-ultrasonic.adb	microbit-ultrasonic.ali  ED
+Z nrf.gpio%s		nrf-gpio.adb		nrf-gpio.ali  AD
 W system%s		system.ads		system.ali
 Z system.random_numbers%s  s-rannum.adb		s-rannum.ali
 Z system.tasking.restricted.stages%s  s-tarest.adb  s-tarest.ali
 
-U tasks%s		tasks.ads		866311a5 EE OO PK IL
+U tasks%s		tasks.ads		d10be781 EE OO PK IL
+W ada%s			ada.ads			ada.ali
+Z ada.real_time%s	a-reatim.adb		a-reatim.ali
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W microbit%s		microbit.ads		microbit.ali
+Z microbit.timehighspeed%s  microbit-timehighspeed.adb  microbit-timehighspeed.ali
+W microbit.types%s	microbit-types.ads	microbit-types.ali
+W microbit.ultrasonic%s	microbit-ultrasonic.adb	microbit-ultrasonic.ali
+W nrf%s			nrf.ads			nrf.ali
+Z nrf.gpio%s		nrf-gpio.adb		nrf-gpio.ali
 Z system%s		system.ads		system.ali
 Z system.parameters%s	s-parame.adb		s-parame.ali
 Z system.storage_elements%s  s-stoele.adb	s-stoele.ali
 Z system.task_info%s	s-tasinf.adb		s-tasinf.ali
 Z system.tasking%s	s-taskin.adb		s-taskin.ali
 Z system.tasking.restricted.stages%s  s-tarest.adb  s-tarest.ali
-T 1 1
+T 3 3
 
 D ada.ads		20230829154510 76789da1 ada%s
 D a-except.ads		20230829154514 946f3014 ada.exceptions%s
@@ -74,9 +89,14 @@ D hal-uart.ads		20230921143042 d58316b4 hal.uart%s
 D interfac.ads		20230829154510 edec285f interfaces%s
 D microbit.ads		20231023063446 c5aa85df microbit%s
 D microbit-console.ads	20230921143036 0bb00661 microbit.console%s
+D microbit-displayrt.ads  20230921143036 09bd049f microbit.displayrt%s
 D microbit-iosfortasking.ads  20230921143036 e09d6273 microbit.iosfortasking%s
 D microbit-motordriver.ads  20231023063446 001899dc microbit.motordriver%s
+D microbit-timehighspeed.ads  20230921143036 1d0073c3 microbit.timehighspeed%s
 D microbit-timewithrtc1.ads  20230921143036 574bb894 microbit.timewithrtc1%s
+D microbit-types.ads	20231023063446 e97b8e18 microbit.types%s
+D microbit-ultrasonic.ads  20231023063446 78c286a7 microbit.ultrasonic%s
+D microbit-ultrasonic.adb  20231023063446 b1778a38 microbit.ultrasonic%b
 D nrf.ads		20230921143036 74cf72f5 nrf%s
 D nrf-device.ads	20230921143036 9c9916c4 nrf.device%s
 D nrf-gpio.ads		20230921143036 ab6d4598 nrf.gpio%s
@@ -135,39 +155,139 @@ D s-valuns.ads		20230829154512 dac7b45d system.val_uns%s
 D s-valueu.ads		20230829154512 7b8fccf5 system.value_u%s
 D s-wchcon.ads		20230829154518 1b7d22d2 system.wch_con%s
 D s-wchstw.ads		20230829154518 2d112c01 system.wch_stw%s
-D tasks.ads		20231108160402 866311a5 tasks%s
-D tasks.adb		20231108160402 a79f152b tasks%b
+D tasks.ads		20231109125648 85186ae1 tasks%s
+D tasks.adb		20231109135034 83f891d1 tasks%b
 D unchconv.ads		20230829154510 ca2f9e18 unchecked_conversion%s
 G a e
-G c b b b [b tasks 9 1 none]
-G c Z s b [fareTK tasks 6 9 none]
-G c Z s s [fareTKVIP tasks 6 4 none]
-G c Z s b [rotate tasks 7 14 none]
-G r c none [b tasks 9 1 none] [set_analog_period_us microbit__iosfortasking 30 14 none]
-G r c none [b tasks 9 1 none] [drive microbit__motordriver 58 14 none]
-G r c none [fareTK tasks 6 9 none] [set_analog_period_us microbit__iosfortasking 30 14 none]
-G r c none [fareTK tasks 6 9 none] [drive microbit__motordriver 58 14 none]
-G r c none [rotate tasks 7 14 none] [drive microbit__motordriver 58 14 none]
+G c b b b [b tasks 10 1 none]
+G c s s s [s tasks 5 1 none]
+G c Z s b [pollechoTK tasks 10 9 none]
+G c Z s s [pollechoTKVIP tasks 10 4 none]
+G c Z s b [probethinkTK tasks 11 9 none]
+G c Z s s [probethinkTKVIP tasks 11 4 none]
+G c Z s b [fareTK tasks 12 9 none]
+G c Z s s [fareTKVIP tasks 12 4 none]
+G c Z s b [rotate tasks 14 14 none]
+G c Z s s [read tasks__sensorfront 11 13 18_4]
+G c Z s s [initialize tasks__sensorfront 15 14 18_4]
+G c Z s s [sendtriggerpulse tasks__sensorfront 17 14 18_4]
+G c Z s s [waitforecho tasks__sensorfront 19 13 18_4]
+G c Z s s [wait_for_end_blocking_using_polling_with_timeout tasks__sensorfront 21 13 18_4]
+G c Z s s [wait_for_start_blocking_using_polling_with_timeout tasks__sensorfront 23 13 18_4]
+G c Z s s [read tasks__sensorright 11 13 19_4]
+G c Z s s [initialize tasks__sensorright 15 14 19_4]
+G c Z s s [sendtriggerpulse tasks__sensorright 17 14 19_4]
+G c Z s s [waitforecho tasks__sensorright 19 13 19_4]
+G c Z s s [wait_for_end_blocking_using_polling_with_timeout tasks__sensorright 21 13 19_4]
+G c Z s s [wait_for_start_blocking_using_polling_with_timeout tasks__sensorright 23 13 19_4]
+G c Z s s [read tasks__sensorleft 11 13 20_4]
+G c Z s s [initialize tasks__sensorleft 15 14 20_4]
+G c Z s s [sendtriggerpulse tasks__sensorleft 17 14 20_4]
+G c Z s s [waitforecho tasks__sensorleft 19 13 20_4]
+G c Z s s [wait_for_end_blocking_using_polling_with_timeout tasks__sensorleft 21 13 20_4]
+G c Z s s [wait_for_start_blocking_using_polling_with_timeout tasks__sensorleft 23 13 20_4]
+G r c none [b tasks 10 1 none] [set nrf__gpio 100 14 none]
+G r c none [b tasks 10 1 none] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [b tasks 10 1 none] [clear nrf__gpio 106 14 none]
+G r c none [b tasks 10 1 none] [set nrf__gpio 94 13 none]
+G r c none [b tasks 10 1 none] [clear microbit__displayrt 42 14 none]
+G r c none [b tasks 10 1 none] [display microbit__displayrt 54 14 none]
+G r c none [b tasks 10 1 none] [set_analog_period_us microbit__iosfortasking 30 14 none]
+G r c none [b tasks 10 1 none] [drive microbit__motordriver 58 14 none]
+G r s gpio_configuration [s tasks 5 1 none] [gpio_configurationIP nrf__gpio 58 9 none]
+G r c none [s tasks 5 1 none] [configure_io nrf__gpio 117 14 none]
+G r c none [s tasks 5 1 none] [clear nrf__gpio 106 14 none]
+G r i none [s tasks 5 1 none] [ultrasonic microbit 9 18 none]
+G r s gpio_point [s tasks 5 1 none] [gpio_pointIP nrf__gpio 66 9 none]
+G r c none [pollechoTK tasks 10 9 none] [set nrf__gpio 100 14 none]
+G r c none [pollechoTK tasks 10 9 none] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [pollechoTK tasks 10 9 none] [clear nrf__gpio 106 14 none]
+G r c none [pollechoTK tasks 10 9 none] [set nrf__gpio 94 13 none]
+G r c none [probethinkTK tasks 11 9 none] [clear microbit__displayrt 42 14 none]
+G r c none [probethinkTK tasks 11 9 none] [display microbit__displayrt 54 14 none]
+G r c none [fareTK tasks 12 9 none] [set_analog_period_us microbit__iosfortasking 30 14 none]
+G r c none [fareTK tasks 12 9 none] [drive microbit__motordriver 58 14 none]
+G r c none [rotate tasks 14 14 none] [drive microbit__motordriver 58 14 none]
+G r c none [read tasks__sensorfront 11 13 18_4] [set nrf__gpio 100 14 none]
+G r c none [read tasks__sensorfront 11 13 18_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [read tasks__sensorfront 11 13 18_4] [clear nrf__gpio 106 14 none]
+G r c none [read tasks__sensorfront 11 13 18_4] [set nrf__gpio 94 13 none]
+G r s gpio_configuration [initialize tasks__sensorfront 15 14 18_4] [gpio_configurationIP nrf__gpio 58 9 none]
+G r c none [initialize tasks__sensorfront 15 14 18_4] [configure_io nrf__gpio 117 14 none]
+G r c none [initialize tasks__sensorfront 15 14 18_4] [clear nrf__gpio 106 14 none]
+G r c none [sendtriggerpulse tasks__sensorfront 17 14 18_4] [set nrf__gpio 100 14 none]
+G r c none [sendtriggerpulse tasks__sensorfront 17 14 18_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [sendtriggerpulse tasks__sensorfront 17 14 18_4] [clear nrf__gpio 106 14 none]
+G r c none [waitforecho tasks__sensorfront 19 13 18_4] [set nrf__gpio 94 13 none]
+G r c none [waitforecho tasks__sensorfront 19 13 18_4] [clear nrf__gpio 106 14 none]
+G r c none [waitforecho tasks__sensorfront 19 13 18_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [waitforecho tasks__sensorfront 19 13 18_4] [set nrf__gpio 100 14 none]
+G r c none [wait_for_end_blocking_using_polling_with_timeout tasks__sensorfront 21 13 18_4] [set nrf__gpio 94 13 none]
+G r c none [wait_for_end_blocking_using_polling_with_timeout tasks__sensorfront 21 13 18_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [wait_for_end_blocking_using_polling_with_timeout tasks__sensorfront 21 13 18_4] [set nrf__gpio 100 14 none]
+G r c none [wait_for_start_blocking_using_polling_with_timeout tasks__sensorfront 23 13 18_4] [set nrf__gpio 94 13 none]
+G r c none [wait_for_start_blocking_using_polling_with_timeout tasks__sensorfront 23 13 18_4] [clear nrf__gpio 106 14 none]
+G r c none [read tasks__sensorright 11 13 19_4] [set nrf__gpio 100 14 none]
+G r c none [read tasks__sensorright 11 13 19_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [read tasks__sensorright 11 13 19_4] [clear nrf__gpio 106 14 none]
+G r c none [read tasks__sensorright 11 13 19_4] [set nrf__gpio 94 13 none]
+G r s gpio_configuration [initialize tasks__sensorright 15 14 19_4] [gpio_configurationIP nrf__gpio 58 9 none]
+G r c none [initialize tasks__sensorright 15 14 19_4] [configure_io nrf__gpio 117 14 none]
+G r c none [initialize tasks__sensorright 15 14 19_4] [clear nrf__gpio 106 14 none]
+G r c none [sendtriggerpulse tasks__sensorright 17 14 19_4] [set nrf__gpio 100 14 none]
+G r c none [sendtriggerpulse tasks__sensorright 17 14 19_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [sendtriggerpulse tasks__sensorright 17 14 19_4] [clear nrf__gpio 106 14 none]
+G r c none [waitforecho tasks__sensorright 19 13 19_4] [set nrf__gpio 94 13 none]
+G r c none [waitforecho tasks__sensorright 19 13 19_4] [clear nrf__gpio 106 14 none]
+G r c none [waitforecho tasks__sensorright 19 13 19_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [waitforecho tasks__sensorright 19 13 19_4] [set nrf__gpio 100 14 none]
+G r c none [wait_for_end_blocking_using_polling_with_timeout tasks__sensorright 21 13 19_4] [set nrf__gpio 94 13 none]
+G r c none [wait_for_end_blocking_using_polling_with_timeout tasks__sensorright 21 13 19_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [wait_for_end_blocking_using_polling_with_timeout tasks__sensorright 21 13 19_4] [set nrf__gpio 100 14 none]
+G r c none [wait_for_start_blocking_using_polling_with_timeout tasks__sensorright 23 13 19_4] [set nrf__gpio 94 13 none]
+G r c none [wait_for_start_blocking_using_polling_with_timeout tasks__sensorright 23 13 19_4] [clear nrf__gpio 106 14 none]
+G r c none [read tasks__sensorleft 11 13 20_4] [set nrf__gpio 100 14 none]
+G r c none [read tasks__sensorleft 11 13 20_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [read tasks__sensorleft 11 13 20_4] [clear nrf__gpio 106 14 none]
+G r c none [read tasks__sensorleft 11 13 20_4] [set nrf__gpio 94 13 none]
+G r s gpio_configuration [initialize tasks__sensorleft 15 14 20_4] [gpio_configurationIP nrf__gpio 58 9 none]
+G r c none [initialize tasks__sensorleft 15 14 20_4] [configure_io nrf__gpio 117 14 none]
+G r c none [initialize tasks__sensorleft 15 14 20_4] [clear nrf__gpio 106 14 none]
+G r c none [sendtriggerpulse tasks__sensorleft 17 14 20_4] [set nrf__gpio 100 14 none]
+G r c none [sendtriggerpulse tasks__sensorleft 17 14 20_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [sendtriggerpulse tasks__sensorleft 17 14 20_4] [clear nrf__gpio 106 14 none]
+G r c none [waitforecho tasks__sensorleft 19 13 20_4] [set nrf__gpio 94 13 none]
+G r c none [waitforecho tasks__sensorleft 19 13 20_4] [clear nrf__gpio 106 14 none]
+G r c none [waitforecho tasks__sensorleft 19 13 20_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [waitforecho tasks__sensorleft 19 13 20_4] [set nrf__gpio 100 14 none]
+G r c none [wait_for_end_blocking_using_polling_with_timeout tasks__sensorleft 21 13 20_4] [set nrf__gpio 94 13 none]
+G r c none [wait_for_end_blocking_using_polling_with_timeout tasks__sensorleft 21 13 20_4] [delay_us microbit__timehighspeed 35 14 none]
+G r c none [wait_for_end_blocking_using_polling_with_timeout tasks__sensorleft 21 13 20_4] [set nrf__gpio 100 14 none]
+G r c none [wait_for_start_blocking_using_polling_with_timeout tasks__sensorleft 23 13 20_4] [set nrf__gpio 94 13 none]
+G r c none [wait_for_start_blocking_using_polling_with_timeout tasks__sensorleft 23 13 20_4] [clear nrf__gpio 106 14 none]
 X 1 ada.ads
-16K9*Ada 20e8 89|3r6 3r25 7r6 13r31
+16K9*Ada 20e8 94|3r6 3r25 7r6 18r31
 X 6 a-numeri.ads
-16K13*Numerics 35e17 89|7r10 13r35
+16K13*Numerics 35e17 94|7r10 18r35
 X 7 a-nudira.ads
-44k22*Discrete_Random 81e33 89|7w19 13r44
-50R9 Generator<67|65R9> 89|14r22[13]
-52V13 Random{88|4I9} 89|32s34[13]
-61U14 Reset<67|103p14> 89|31s19[13]
+44k22*Discrete_Random 81e33 94|7w19 18r44
+50R9 Generator<72|65R9> 94|19r22[18]
+52V13 Random{93|8I9} 94|43s40[18]
+61U14 Reset<72|103p14> 94|42s25[18]
 X 8 a-nudira.adb
-53V16 Random[67|86]{88|4I9} 68|402b13[89|13]
-65V16 Random[67|86]{88|4I9} 68|402b13[89|13]
+53V16 Random[72|86]{93|8I9} 73|402b13[94|18]
+65V16 Random[72|86]{93|8I9} 73|402b13[94|18]
 X 9 a-reatim.ads
-40K13*Real_Time 181e18 89|3w10 3r29
-50M9*Time<54|46M9> 89|18r20 42r21
-60I9*Time_Span<54|81I9> 89|17r32 41r28
-67V13*Clock{50M9}<54|134p13> 89|25s24 45s22
-71V14*"+"{50M9} 89|28s33 48s31
-125V13*Microseconds{60I9} 89|41s41
-130V13*Seconds{60I9} 89|17s45
+40K13*Real_Time 181e18 94|3w10 3r29
+50M9*Time<59|46M9> 94|23r20 63r20 100r20 123r21
+60I9*Time_Span<59|81I9> 94|22r32 64r16 101r16 122r28
+67V13*Clock{50M9}<59|134p13> 94|28s21 32s27 40s39 45s30 50s30 55s30 67s24
+. 104s24 126s22
+71V14*"+"{50M9} 94|40s59 94s32 116s33 134s31
+88V14*">="{boolean} 94|40r45
+125V13*Microseconds{60I9} 94|122s41
+127V13*Milliseconds{60I9} 94|64s29 101s29
+130V13*Seconds{60I9} 94|22s45
 X 20 hal-gpio.ads
 47h9*GPIO_Point
 X 21 hal-i2c.ads
@@ -180,46 +300,89 @@ X 24 interfac.ads
 79M9*Unsigned_32
 82M9*Unsigned_64
 X 25 microbit.ads
-57K9*MicroBit 114e13 89|1w6 1r20 2r6 4r6 4r33 5r6 5r34 6r6
+57K9*MicroBit 114e13 93|1w6 1r20 2r6 3r6 3r26 94|1w6 1r20 2r6 4r6 4r33 5r6
+. 5r34 6r6 8r6
+58r4*MB_P0=58:53{37|66R9} 93|18r49
+59r4*MB_P1=59:53{37|66R9} 93|19r49
+60r4*MB_P2=60:53{37|66R9} 93|20r47
+66r4*MB_P8=66:53{37|66R9} 93|20r41
+70r4*MB_P12=70:53{37|66R9} 93|18r42
+71r4*MB_P13=71:53{37|66R9} 93|19r42
 X 26 microbit-console.ads
-32K18*Console 49e21 89|6w15
-X 27 microbit-iosfortasking.ads
-5K18*IOsForTasking 93e27 89|5w15 5r43
-30U14*Set_Analog_Period_Us 89|22s7
-X 28 microbit-motordriver.ads
-34K18*MotorDriver 72e25 89|2w15 26r10 26r28 46r7 46r25
-36n24*Forward{36E9} 89|26r40
-48n24*Rotating_Right{36E9} 89|46r37
-58U14*Drive 89|26s22 46s19
-X 29 microbit-timewithrtc1.ads
-5K18*TimeWithRTC1 64e26 89|4w15 4r42
-X 54 s-bbtime.ads
+32K18*Console 49e21 94|6w15
+X 27 microbit-displayrt.ads
+32K18*DisplayRT 74e23 94|8w15 69r10 71r27 72r31 73r30 74r31 75r26 76r28
+42U14*Clear 94|69s20
+54U14*Display 94|71s37 72s41 73s40 74s41 75s36 76s38
+X 28 microbit-iosfortasking.ads
+5K18*IOsForTasking 93e27 94|5w15 5r43
+30U14*Set_Analog_Period_Us 94|27s7
+X 29 microbit-motordriver.ads
+34K18*MotorDriver 72e25 94|2w15 31r13 31r31 36r13 36r31 129r10 129r28 131r10
+. 131r28
+36n24*Forward{36E9} 94|36r43
+47n24*Rotating_Left{36E9} 94|131r40
+48n24*Rotating_Right{36E9} 94|129r40
+49n24*Stop{36E9} 94|31r43
+58U14*Drive 94|31s25 36s25 129s22 131s22
+X 31 microbit-timewithrtc1.ads
+5K18*TimeWithRTC1 64e26 94|4w15 4r42
+X 32 microbit-types.ads
+1K18*Types 5e19 93|3w15 3r35
+3I11*Distance_cm<integer> 93|24r21 25r21 26r21
+X 33 microbit-ultrasonic.ads
+9k18*Ultrasonic 25e24 93|2w15 18r31 19r31 20r30
+11V13*Read{32|3I11} 94|106s40[93|18] 107s40[93|19] 108s39[93|20]
+X 59 s-bbtime.ads
 46M9*Time
 81I9*Time_Span<long_long_integer>
-X 59 s-interr.ads
+X 64 s-interr.ads
 97U14*Install_Restricted_Handlers_Sequential 98i<c,__gnat_attach_all_handlers>22
-X 67 s-rannum.ads
-77V13*Random{24|79M9} 68|224i21
-78V13*Random{24|82M9} 68|224i21
-X 70 s-secsta.ads
+X 72 s-rannum.ads
+77V13*Random{24|79M9} 73|224i21
+78V13*Random{24|82M9} 73|224i21
+X 75 s-secsta.ads
 46P9*SS_Stack_Ptr(43R9)
-X 78 s-taskin.ads
-398V13*Get_Sec_Stack{70|46P9} 399i<c,__gnat_get_secondary_stack>22
-X 81 s-tarest.ads
+X 83 s-taskin.ads
+398V13*Get_Sec_Stack{75|46P9} 399i<c,__gnat_get_secondary_stack>22
+X 86 s-tarest.ads
 232U14*Activate_All_Tasks_Sequential 233i<c,__gnat_activate_all_tasks>22
-X 88 tasks.ads
-1K9*tasks 8l5 8e10 89|9b14 51l5 51t10
-4I9*Angle<integer> 7r36 89|13r60 19r21 39r36
-6t9*Fare 89|11b14 36l8 36t12
-7U14*Rotate 7>22 89|33s10 39b14 49l8 49t14
-7i22 wantedAngle{4I9} 89|39b22 41r62
-X 89 tasks.adb
-13K15 Rand_Int[7|44] 14r13 31r10 32r25
-14r7 gen{7|50R9[13]} 31r25 32r41
-17i7 driveDuration{9|60I9} 28r35
-18m7 driveStart{9|50M9} 25m10 28r22
-19i7 wantedAngle{88|4I9} 32m10 33r17
-40i7 angleDurationMicro{integer} 41r77
-41i7 totalAngleDuration{9|60I9} 48r33
-42m7 rotateStart{9|50M9} 45m7 48r19
+X 93 tasks.ads
+5K9*tasks 17E9 29l5 29e10 94|10b14 136l5 136t10
+8I9*Angle<integer> 14r36 94|18r60 24r21 120r36
+10t9*PollEcho 94|99b14 118l8 118t16
+11t9*ProbeThink 94|62b14 96l8 96t18
+12t9*Fare 94|16b14 59l8 59t12
+14U14*Rotate 14>22 14>43 94|44s16 49s16 54s16 120b14 135l8 135t14
+14i22 wantedAngle{8I9} 94|120b22 122r62
+14b43 clockwise{boolean} 94|120b43 128r10
+17E9 ProbeStates 17e69 22r17 23r25
+17n25 Probe{17E9} 22r32 23r40 94|40r29 71r18 90r30
+17n32 GoToFront{17E9} 94|72r18 84r30
+17n43 GoToRight{17E9} 94|47r32 47r69 48r38 74r18 86r30
+17n54 GoToLeft{17E9} 94|52r32 52r67 53r38 73r18 88r30
+17n64 Stop{17E9} 94|30r26 75r18 82r30
+18K12 sensorFront[33|9] 94|106r28
+19K12 sensorRight[33|9] 94|107r28
+20K12 sensorLeft[33|9] 94|108r28
+22e4 probeState{17E9} 94|30r13 40r16 47r19 52r19 70r15 82m16 84m16 86m16
+. 88m16 90m16
+23e4 previousProbeState{17E9} 94|47r47 48m16 52r45 53m16
+24i4 distanceFront{32|3I11} 94|81r16 81r38 83r19 83r41 106m10 112r13 112m36
+25i4 distanceRight{32|3I11} 94|85r20 85r42 107m10 113r13 113m36
+26i4 distanceLeft{32|3I11} 94|87r20 87r41 108m10 114r13 114m35
+27b4 pollFlag{boolean} 94|79r13 110m10
+X 94 tasks.adb
+18K15 Rand_Int[7|44] 19r13 42r16 43r31
+19r7 gen{7|50R9[18]} 42r31 43r47
+22i7 driveDuration{9|60I9} 40r61
+23m7 driveStart{9|50M9} 28m7 32m13 40r48 45m16 50m16 55m16
+24i7 wantedAngle{93|8I9} 43m16 44r23
+63m7 clockStart{9|50M9} 67m10 94r21
+64i7 period{9|60I9} 94r34
+100m7 clockStart{9|50M9} 104m10 116r22
+101i7 period{9|60I9} 116r35
+121i7 angleDurationMicro{integer} 122r77
+122i7 totalAngleDuration{9|60I9} 134r33
+123m7 rotateStart{9|50M9} 126m7 134r19
 
