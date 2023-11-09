@@ -16,7 +16,7 @@ RN
 RV STATIC_PRIORITIES
 RV NO_IMPLEMENTATION_PRAGMAS
 
-U main%b		main.adb		7ba98196 NE OO SU
+U main%b		main.adb		ac0956af NE OO SU
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
 W microbit%s		microbit.ads		microbit.ali
 Z system%s		system.ads		system.ali
@@ -90,7 +90,7 @@ D s-tasres.ads		20230918075028 0c8ef6fb system.tasking.restricted%s
 D s-tarest.ads		20230918075026 c88b6d9a system.tasking.restricted.stages%s
 D s-traent.ads		20230918075046 26a8d361 system.traceback_entries%s
 D s-unstyp.ads		20230918075046 2b077493 system.unsigned_types%s
-D tasks.ads		20231109095236 f9142781 tasks%s
+D tasks.ads		20231109121050 2eb4f0b8 tasks%s
 D unchconv.ads		20230918075048 ca2f9e18 unchecked_conversion%s
 G a e
 G c Z b b [main standard 8 11 none]

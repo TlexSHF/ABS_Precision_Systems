@@ -10,14 +10,14 @@ package body Tasks is
    --Sense
    task body PollEcho is   
       clockStart : Time;
-      period : Time_Span := Milliseconds(50);
+      period : Time_Span := Milliseconds(27);
    begin
       loop
          clockStart := Clock;
          
-         distanceFront  := sensorFront.Read;
-         distanceRight  := sensorRight.Read;
-         distanceLeft   := sensorLeft.Read;
+         distanceFront  := Integer(sensorFront.Read);
+         distanceRight  := Integer(sensorRight.Read);
+         distanceLeft   := Integer(sensorLeft.Read);
          if distanceFront = 0 then 
             distanceFront := 400;
          end if;
@@ -102,7 +102,7 @@ package body Tasks is
    
    task body ObjectNav is
       clockStart : Time;   
-      period : Time_Span := Milliseconds(5);
+      period : Time_Span := Milliseconds(10);
       counter  : Integer  := 0;  
       flag     : Boolean  := False;   
    begin
@@ -111,15 +111,11 @@ package body Tasks is
          if car = ObjectNavigating then   -- Precondition
             case counter is
                when 0 =>   
-                  if (distanceFront < 10 and distanceLeft > 10 and --hinder in the front     
-                        distanceRight > 10)     
+                  if (distanceFront < 10)     
                   then     
                      drive := Rotating_Left;    
                      delay (0.828); 
                      drive := Forward;
-                     counter := 1;     
-                  elsif (distanceFront > 10 and distanceLeft > 10 and --hinder in the right      
-                           distanceRight < 20) then      
                      counter := 1;     
                   --  elsif (distanceFront > 10 and distanceLeft < 20 and --hinder in the left
                   --           distanceRight > 10) then
@@ -132,30 +128,30 @@ package body Tasks is
                      drive := Forward; --or just be in another state    
                   end if;     
                when 1 .. 4 =>    
-                  if distanceRight < 20 and distanceRight > 13 and distanceLeft > 10 and --too far from the object, go right     
+                  if distanceRight < 30 and distanceRight > 15 and --too far from the object, go right     
                     distanceFront > 10    
                   then     
                      drive := Lateral_Right;       
-                  elsif distanceRight < 13 and distanceRight >= 10 and distanceLeft > 10 and --right distance     
-                    distanceFront > 10    
+                  elsif distanceRight < 15 and distanceRight >= 10 and distanceFront > 10    
                   then     
                      drive := Forward;   
-                     flag := True;     
-                  elsif distanceFront > 10 and distanceRight > 10 and --just go to the right place     
-                    distanceLeft > 10 and flag = False   
-                  then     
-                     drive := Forward;    
-                  elsif distanceFront > 10 and distanceRight < 10 and distanceLeft > 10 then --too close to the object     
+                     --flag := True;     
+                  --  elsif distanceFront > 10 and distanceRight > 10 and --just go to the right place
+                  --    distanceLeft > 10 --and flag = False
+                  --  then
+                  --     drive := Forward;
+                  --    -- flag := True;
+                  elsif distanceFront > 10 and distanceRight < 10 then --too close to the object     
                      drive := Lateral_Left;     
-                  elsif distanceFront > 10 and distanceRight > 20 and --finished    
-                    distanceLeft > 10 and flag = True    
+                  elsif distanceFront > 10 and distanceRight > 30 --and flag = True    
                   then        
                      drive := Forward;       
-                     delay (0.4);         
+                     delay (0.5);         
                      drive := Rotating_Right;      
-                     delay (0.828);
-                     --  drive := Forward;
-                     flag    := False;    
+                     delay (0.815);
+                     drive := Forward; 
+                     delay (0.7);
+                     --flag    := False;    
                      counter := counter + 1;       
                   --  elsif lineTrackerLeft or lineTrackerMiddle or lineTrackerRight then
                   --     car := LineFollowing;

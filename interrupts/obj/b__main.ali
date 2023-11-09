@@ -1,0 +1,106 @@
+V "GNAT Lib v2021"
+A -O0
+A -gnatA
+A --RTS=C:\gnat\2021-arm-elf\arm-eabi\lib\gnat\ravenscar-full-nrf52833\
+A -mfloat-abi=hard
+A -mfpu=fpv4-sp-d16
+A -gnatA
+A -gnatWb
+A -gnatiw
+A -gnatws
+A -mlittle-endian
+A -mthumb
+A -mfloat-abi=hard
+A -mfpu=fpv4-sp-d16
+A -mcpu=cortex-m4
+A -g
+A -march=armv7e-m+fp
+P DB ZX
+
+RN
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLEMENTATION_ATTRIBUTES
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV NO_OBSOLESCENT_FEATURES
+
+U ada_main%b		b__main.adb		32a355f0 OO PK IL
+Z system%s		system.ads		system.ali
+
+U ada_main%s		b__main.ads		f83fdd3d EE NE OO PK IL
+W system%s		system.ads		system.ali
+W system.parameters%s	s-parame.adb		s-parame.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+D b__main.ads		20231109142424 8d59ea92 ada_main%s
+D b__main.adb		20231109142424 bffabf62 ada_main%b
+D system.ads		20230918075048 ad54c63c system%s
+D s-parame.ads		20230918075044 8e90778f system.parameters%s
+D s-secsta.ads		20230918075046 56a2861c system.secondary_stack%s
+D s-stoele.ads		20230918075046 2dc34a04 system.storage_elements%s
+G a e
+G c Z s b [adainit ada_main 19 14 none]
+G c Z s b [adafinal ada_main 22 14 none]
+G c Z s b [main ada_main 25 14 none]
+G c Z b b [Tsec_default_sized_stacksBIP ada_main 16 4 none]
+G c Z b b [ada_main_program ada_main 122 14 none]
+X 1 b__main.ads
+6K9*ada_main 154l5 154e13 2|7b14 155l5 155t13
+9a4*GNAT_Version{string} 11r22 13r54
+13m4*GNAT_Version_Address{3|80M9} 14r22
+16a4*Ada_Main_Program_Name{string} 17r22 2|133r52
+19U14*adainit 20i<c,adainit>22 2|39b14 120l8 120t15 138s7
+22U14*adafinal 23i<c,adafinal>22 2|23b14 37l8 37t16 140s7
+25U14*main 26i<c,main>22 2|125b14 142t7
+X 2 b__main.adb
+9i4 E068{short_integer} 9m46 9r46 115m7 115r15
+10i4 E059{short_integer} 10m46 10r46 109m7 109r15
+11i4 E057{short_integer} 11m46 11r46 111m7 111r15
+12i4 E009{short_integer} 12m46 12r46 119m7 119r15
+13i4 E103{short_integer} 13m46 13r46 118m7 118r15
+14i4 E101{short_integer} 14m46 14r46 117m7 117r15
+16a4 Sec_Default_Sized_Stacks(5|43R9) 104m32 104r32
+18a4 Local_Priority_Specific_Dispatching{string} 92r9
+19a4 Local_Interrupt_States{string} 95r27
+21b4 Is_Elaborated{boolean} 31r14 34m7 81r10 84m7
+24U17*s_stalib_adafinal 25b<ada,system__standard_library__adafinal>27 36s7
+27U17*Runtime_Finalize 28b<c,__gnat_runtime_finalize>25 35s7
+40i7*Main_Priority{integer} 41m25 41r25 85m7
+42i7*Time_Slice_Value{integer} 43m25 43r25 86m7
+44e7*WC_Encoding{character} 45m25 45r25 87m7
+46e7*Locking_Policy{character} 47m25 47r25 88m7
+48e7*Queuing_Policy{character} 49m25 49r25 89m7
+50e7*Task_Dispatching_Policy{character} 51m25 51r25 90m7
+52m7*Priority_Specific_Dispatching{3|80M9} 53m25 53r25 91m7
+54i7*Num_Specific_Dispatching{integer} 55m25 55r25 93m7
+56i7*Main_CPU{integer} 57m25 57r25 94m7
+58m7*Interrupt_States{3|80M9} 59m25 59r25 95m7
+60i7*Num_Interrupt_States{integer} 61m25 61r25 96m7
+62i7*Unreserve_All_Interrupts{integer} 63m25 63r25 97m7
+64i7*Detect_Blocking{integer} 65m25 65r25 98m7
+66i7*Default_Stack_Size{integer} 67m25 67r25 99m7
+68i7*Default_Secondary_Stack_Size{4|56I9} 69m25 69r25 102m7
+70m7*Bind_Env_Addr{3|80M9} 71m25 71r25
+73U17*Runtime_Initialize 73>37 74b<c,__gnat_runtime_initialize>25 106s7
+73i37 Install_Handler{integer}
+75i7*Binder_Sec_Stacks_Count{natural} 76m27 76r27 103m7
+77m7*Default_Sized_SS_Pool{3|80M9} 78m27 78r27 104m7
+122U14 Ada_Main_Program 123b<ada,_ada_main>24 139s7
+126U17*Initialize 126>29 127b<c,__gnat_initialize>25 137s7
+126m29 Addr{3|80M9}
+129U17*Finalize 130b<c,__gnat_finalize>25 141s7
+131a7 SEH(integer) 137m19 137r19
+133m7 Ensure_Reference{3|80M9} 134r24
+X 3 system.ads
+50K9*System 1|3w6 4r6 5r6 13r36 2|16r57 16r90 52r39 58r26 68r38 70r23 77r31
+. 102r39 126r36 133r34 3|164e11
+80M9*Address 1|13r43 2|52r46 58r33 70r30 77r38 126r43 133r41
+X 4 s-parame.ads
+49K16*Parameters 1|4w13 2|16r97 68r45 102r46 4|173e22
+56I9*Size_Type<integer> 2|68r56
+87i4*Runtime_Default_Sec_Stack_Size{56I9} 2|16r108 102r57
+X 5 s-secsta.ads
+37K16*Secondary_Stack 1|5w13 2|16r64 5|154e27
+43R9*SS_Stack 2|16r80 5|119e14
+

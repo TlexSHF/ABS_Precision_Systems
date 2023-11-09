@@ -23,14 +23,14 @@ package Tasks is
    
    --Sense
    task PollEcho with Priority => 2;
-   task CheckSensor with Priority => 1; -- Measured time: 0.023842 ms
+   task CheckSensor with Priority => 2;
 
    --Think 
-   task TrackLine with Priority => 1;  -- Measured time: 0.015259 ms
+   task TrackLine with Priority => 2;
    task ObjectNav with Priority => 2;
    
    --Act
-   task UpdateDirection with Priority => 1; -- Measured time: 0.076294 ms
+   task UpdateDirection with Priority => 2;
    
    
 private
@@ -38,10 +38,10 @@ private
    package sensorRight  is new MicroBit.Ultrasonic(MB_P13,MB_P1);
    package sensorLeft   is new MicroBit.Ultrasonic(MB_P8,MB_P2);
    drive             : DriveState   := Forward;
-   car               : CarState     := ObjectNavigating;
-   distanceFront     : Distance_cm  := 0;
-   distanceRight     : Distance_cm  := 0;
-   distanceLeft      : Distance_cm  := 0;
+   car               : CarState     := LineFollowing;
+   distanceFront     : Integer  := 0;
+   distanceRight     : Integer  := 0;
+   distanceLeft      : Integer  := 0;
    lineTrackerLeft   : Boolean      := False;
    lineTrackerMiddle : Boolean      := False;
    lineTrackerRight  : Boolean      := False;

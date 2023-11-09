@@ -26,7 +26,7 @@ RV NO_IMPLICIT_LOOPS
 RV NO_ELABORATION_CODE
 RV MAX_TASKS=5
 
-U tasks%b		tasks.adb		1becf186 OO PK
+U tasks%b		tasks.adb		7fd48956 OO PK
 W ada%s			ada.ads			ada.ali
 W ada.real_time%s	a-reatim.adb		a-reatim.ali
 Z ada.real_time.delays%s  a-retide.adb		a-retide.ali
@@ -41,7 +41,7 @@ Z nrf.gpio%s		nrf-gpio.adb		nrf-gpio.ali  AD
 Z system.relative_delays%s  s-reldel.adb	s-reldel.ali
 Z system.tasking.restricted.stages%s  s-tarest.adb  s-tarest.ali
 
-U tasks%s		tasks.ads		ad1f333d EE OO PK
+U tasks%s		tasks.ads		7abfe404 EE OO PK
 W ada%s			ada.ads			ada.ali
 Z ada.real_time%s	a-reatim.adb		a-reatim.ali
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
@@ -89,7 +89,7 @@ D microbit-motordriver.ads  20231011084130 001899dc microbit.motordriver%s
 D microbit-timehighspeed.ads  20230919124644 1d0073c3 microbit.timehighspeed%s
 D microbit-types.ads	20231011083912 e97b8e18 microbit.types%s
 D microbit-ultrasonic.ads  20231011084342 78c286a7 microbit.ultrasonic%s
-D microbit-ultrasonic.adb  20231011084330 b1778a38 microbit.ultrasonic%b
+D microbit-ultrasonic.adb  20231109102928 21c85f3d microbit.ultrasonic%b
 D nrf.ads		20230919124644 74cf72f5 nrf%s
 D nrf-device.ads	20230919124644 9c9916c4 nrf.device%s
 D nrf-gpio.ads		20230919124644 ab6d4598 nrf.gpio%s
@@ -140,8 +140,8 @@ D s-tasres.ads		20230918075028 0c8ef6fb system.tasking.restricted%s
 D s-tarest.ads		20230918075026 c88b6d9a system.tasking.restricted.stages%s
 D s-traent.ads		20230918075046 26a8d361 system.traceback_entries%s
 D s-unstyp.ads		20230918075046 2b077493 system.unsigned_types%s
-D tasks.ads		20231109095236 f9142781 tasks%s
-D tasks.adb		20231109100136 7b4c0c96 tasks%b
+D tasks.ads		20231109121050 2eb4f0b8 tasks%s
+D tasks.adb		20231109115440 c8d4a37f tasks%b
 D unchconv.ads		20230918075048 ca2f9e18 unchecked_conversion%s
 G a e
 G c b b b [b tasks 8 1 none]
@@ -254,11 +254,11 @@ X 1 ada.ads
 16K9*Ada 20e8 81|1r6 1r25
 X 6 a-reatim.ads
 40K13*Real_Time 181e18 81|1w10 1r29
-50M9*Time<54|46M9> 81|12r20 36r20 52r20 104r20 177r20
-60I9*Time_Span<54|81I9> 81|13r16 37r16 53r16 105r16 178r16
-67V13*Clock{50M9}<54|134p13> 81|16s24 40s24 58s24 89s33 110s24 182s24
-71V14*"+"{50M9} 81|31s33 46s33 88s42 99s33 171s33 202s33
-127V13*Milliseconds{60I9} 81|13s29 37s29 53s29 88s44 105s29 178s29
+50M9*Time<54|46M9> 81|12r20 36r20 52r20 104r20 173r20
+60I9*Time_Span<54|81I9> 81|13r16 37r16 53r16 105r16 174r16
+67V13*Clock{50M9}<54|134p13> 81|16s24 40s24 58s24 89s33 110s24 178s24
+71V14*"+"{50M9} 81|31s33 46s33 88s42 99s33 167s33 198s33
+127V13*Milliseconds{60I9} 81|13s29 37s29 53s29 88s44 105s29 174s29
 X 17 hal-gpio.ads
 47h9*GPIO_Point
 X 18 hal-i2c.ads
@@ -281,33 +281,33 @@ X 23 microbit-console.ads
 X 24 microbit-iosfortasking.ads
 5K18*IOsForTasking 93e27 81|6w15 6r43
 25V13*digitalRead{boolean} 81|42s31 43s31 44s31
-30U14*Set_Analog_Period_Us 81|180s7
+30U14*Set_Analog_Period_Us 81|176s7
 X 25 microbit-motordriver.ads
-34K18*MotorDriver 72e25 80|2w15 2r41 81|4w15 185r43 185r61 186r43 186r61
-. 187r43 187r61 188r43 188r61 189r43 189r61 190r43 190r61 191r43 191r61 192r43
-. 192r61 193r43 193r61 194r43 194r61 195r43 195r61 196r43 196r61 197r43 197r61
-. 198r43 198r61 199r43 199r61
-36n24*Forward{36E9} 81|185r73 197r73 198r73
-37n24*Backward{36E9} 81|186r73
-38n24*Left{36E9} 81|187r73
-39n24*Right{36E9} 81|188r73
-40n24*Forward_Left{36E9} 81|189r73
-41n24*Forward_Right{36E9} 81|190r73
-42n24*Backward_Left{36E9} 81|191r73
-43n24*Backward_Right{36E9} 81|192r73
-45n24*Lateral_Left{36E9} 81|193r73
-46n24*Lateral_Right{36E9} 81|194r73
-47n24*Rotating_Left{36E9} 81|195r73
-48n24*Rotating_Right{36E9} 81|196r73
-49n24*Stop{36E9} 81|199r73
-58U14*Drive 81|185s55 186s55 187s55 188s55 189s55 190s55 191s55 192s55 193s55
-. 194s55 195s55 196s55 197s55 198s55 199s55
+34K18*MotorDriver 72e25 80|2w15 2r41 81|4w15 181r43 181r61 182r43 182r61
+. 183r43 183r61 184r43 184r61 185r43 185r61 186r43 186r61 187r43 187r61 188r43
+. 188r61 189r43 189r61 190r43 190r61 191r43 191r61 192r43 192r61 193r43 193r61
+. 194r43 194r61 195r43 195r61
+36n24*Forward{36E9} 81|181r73 193r73 194r73
+37n24*Backward{36E9} 81|182r73
+38n24*Left{36E9} 81|183r73
+39n24*Right{36E9} 81|184r73
+40n24*Forward_Left{36E9} 81|185r73
+41n24*Forward_Right{36E9} 81|186r73
+42n24*Backward_Left{36E9} 81|187r73
+43n24*Backward_Right{36E9} 81|188r73
+45n24*Lateral_Left{36E9} 81|189r73
+46n24*Lateral_Right{36E9} 81|190r73
+47n24*Rotating_Left{36E9} 81|191r73
+48n24*Rotating_Right{36E9} 81|192r73
+49n24*Stop{36E9} 81|195r73
+58U14*Drive 81|181s55 182s55 183s55 184s55 185s55 186s55 187s55 188s55 189s55
+. 190s55 191s55 192s55 193s55 194s55 195s55
 X 27 microbit-types.ads
 1K18*Types 5e19 80|4w15 4r35
-3I11*Distance_cm<integer> 80|42r24 43r24 44r24
+3I11*Distance_cm<integer>
 X 28 microbit-ultrasonic.ads
 9k18*Ultrasonic 25e24 80|3w15 37r41 38r41 39r41 81|5w15
-11V13*Read{27|3I11} 81|18s40[80|37] 19s40[80|38] 20s39[80|39]
+11V13*Read{27|3I11} 81|18s48[80|37] 19s48[80|38] 20s47[80|39]
 X 54 s-bbtime.ads
 46M9*Time
 81I9*Time_Span<long_long_integer>
@@ -320,44 +320,43 @@ X 74 s-taskin.ads
 X 77 s-tarest.ads
 232U14*Activate_All_Tasks_Sequential 233i<c,__gnat_activate_all_tasks>22
 X 80 tasks.ads
-6K9*Tasks 37E12 50l5 50e10 81|8b14 206l5 206t10
+6K9*Tasks 37E12 50l5 50e10 81|8b14 202l5 202t10
 7E9*DriveState 21e29 40r24
-7n24*Forward{7E9} 40r40 81|82r43 119r31 132r31 142r31 147r31 153r31 185r18
-8n24*Backward{7E9} 81|186r18
-9n24*Left{7E9} 81|187r18
-10n24*Right{7E9} 81|188r18
-11n24*Forward_Left{7E9} 81|189r18
-12n24*Forward_Right{7E9} 81|190r18
-13n24*Backward_Left{7E9} 81|191r18
-14n24*Backward_Right{7E9} 81|192r18
-15n24*Lateral_Left{7E9} 81|149r31 193r18
-16n24*Lateral_Right{7E9} 81|138r31 194r18
-17n24*Rotating_Left{7E9} 81|117r31 195r18
-18n24*Rotating_Right{7E9} 81|87r28 155r31 196r18
-19n24*Curve_Forward_Left{7E9} 81|81r43 84r43 197r18
-20n24*Curve_Forward_Right{7E9} 81|83r43 85r43 198r18
-21n24*Stop{7E9} 81|80r43 93r25 165r28 199r18
+7n24*Forward{7E9} 40r40 81|82r43 118r31 128r31 137r31 148r31 152r31 181r18
+8n24*Backward{7E9} 81|182r18
+9n24*Left{7E9} 81|183r18
+10n24*Right{7E9} 81|184r18
+11n24*Forward_Left{7E9} 81|185r18
+12n24*Forward_Right{7E9} 81|186r18
+13n24*Backward_Left{7E9} 81|187r18
+14n24*Backward_Right{7E9} 81|188r18
+15n24*Lateral_Left{7E9} 81|145r31 189r18
+16n24*Lateral_Right{7E9} 81|134r31 190r18
+17n24*Rotating_Left{7E9} 81|116r31 191r18
+18n24*Rotating_Right{7E9} 81|87r28 150r31 192r18
+19n24*Curve_Forward_Left{7E9} 81|81r43 84r43 193r18
+20n24*Curve_Forward_Right{7E9} 81|83r43 85r43 194r18
+21n24*Stop{7E9} 81|80r43 93r25 161r28 195r18
 22E9*CarState 22e63 41r24
 22n22*Roaming{22E9}
-22n31*LineFollowing{22E9} 81|60r20
-22n46*ObjectNavigating{22E9} 41r40 81|95r25 111r19
+22n31*LineFollowing{22E9} 41r40 81|60r20
+22n46*ObjectNavigating{22E9} 81|95r25 111r19
 25t9*PollEcho 81|11b14 33l8 33t16
 26t9*CheckSensor 81|35b14 48l8 48t19
 29t9*TrackLine 81|51b14 101l8 101t17
-30t9*ObjectNav 81|103b14 173l8 173t17
-33t9*UpdateDirection 81|176b14 204l8 204t23
-37K12 sensorFront[28|9] 81|18r28
-38K12 sensorRight[28|9] 81|19r28
-39K12 sensorLeft[28|9] 81|20r28
-40e4 drive{7E9} 81|80m34 81m34 82m34 83m34 84m34 85m34 87m19 93m16 117m22
-. 119m22 132m22 138m22 142m22 147m22 149m22 153m22 155m22 165m19 184r15
+30t9*ObjectNav 81|103b14 169l8 169t17
+33t9*UpdateDirection 81|172b14 200l8 200t23
+37K12 sensorFront[28|9] 81|18r36
+38K12 sensorRight[28|9] 81|19r36
+39K12 sensorLeft[28|9] 81|20r36
+40e4 drive{7E9} 81|80m34 81m34 82m34 83m34 84m34 85m34 87m19 93m16 116m22
+. 118m22 128m22 134m22 137m22 145m22 148m22 150m22 152m22 161m19 180r15
 41e4 car{22E9} 81|60r14 95m16 111r13
-42i4 distanceFront{27|3I11} 81|18m10 21r13 22m13 78r13 78r35 114r23 121r26
-. 136r21 140r21 144r25 148r25 150r25
-43i4 distanceRight{27|3I11} 81|19m10 24r13 25m13 115r25 122r28 135r22 135r45
-. 139r25 139r48 144r48 148r48 150r48
-44i4 distanceLeft{27|3I11} 81|20m10 27r13 28m13 114r46 121r49 135r68 139r72
-. 145r21 148r71 151r21
+42i4 distanceFront{integer} 81|18m10 21r13 22m13 78r13 78r35 114r23 132r21
+. 135r72 144r25 146r25
+43i4 distanceRight{integer} 81|19m10 24r13 25m13 131r22 131r45 135r25 135r48
+. 144r48 146r48
+44i4 distanceLeft{integer} 81|20m10 27r13 28m13
 45b4 lineTrackerLeft{boolean} 81|42m10 62r16 64r23 66r23 68r19 70r23 72r19
 46b4 lineTrackerMiddle{boolean} 81|43m10 62r40 64r43 66r47 68r39 70r43 72r39
 47b4 lineTrackerRight{boolean} 81|44m10 62r66 64r69 66r69 68r65 70r65 72r61
@@ -378,10 +377,10 @@ X 81 tasks.adb
 54n65 L_R{54E12}
 54n70 L_M_R{54E12} 73r36 86r24
 55e7 lineTrackerState{54E12} 63m16 65m16 67m16 69m16 71m16 73m16 74m19 79r21
-104m7 clockStart{6|50M9} 110m10 171r22
-105i7 period{6|60I9} 171r35
-106i7 counter{integer} 112r18 120m22 123m22 159m22 159r33
-107b7 flag{boolean} 143m22 145r43 151r43 158m22 168m13
-177m7 clockStart{6|50M9} 182m10 202r22
-178i7 period{6|60I9} 202r35
+104m7 clockStart{6|50M9} 110m10 167r22
+105i7 period{6|60I9} 167r35
+106i7 counter{integer} 112r18 119m22 155m22 155r33
+107b7 flag{boolean} 164m13
+173m7 clockStart{6|50M9} 178m10 198r22
+174i7 period{6|60I9} 198r35
 
