@@ -1,4 +1,4 @@
 *.o
 *.ali
-obj
+*/obj
 
