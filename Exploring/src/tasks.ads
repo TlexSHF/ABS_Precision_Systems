@@ -5,7 +5,7 @@ with MicroBit.Types; use MicroBit.Types;
 package tasks is
    -- task Testing with Priority => 1;
 
-   type Angle is new Integer range 90 .. 180; -- make subtype instead?
+   subtype Angle is Integer range 90 .. 160;
 
    task PollEcho with Priority => 2;
    task ProbeThink with Priority => 2;
