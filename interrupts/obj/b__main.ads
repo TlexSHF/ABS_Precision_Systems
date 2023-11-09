@@ -29,6 +29,7 @@ package ada_main is
    --  ada%s
    --  interfaces%s
    --  system%s
+   --  ada.io_exceptions%s
    --  ada.strings%s
    --  gnat%s
    --  interfaces.nrf52%s
@@ -148,6 +149,125 @@ package ada_main is
    --  system.traceback.symbolic%s
    --  system.traceback.symbolic%b
    --  ada.exceptions%b
+   --  ada.assertions%s
+   --  ada.assertions%b
+   --  ada.streams%s
+   --  ada.streams%b
+   --  system.fat_flt%s
+   --  system.fat_lflt%s
+   --  system.fat_llf%s
+   --  system.finalization_root%s
+   --  system.finalization_root%b
+   --  ada.finalization%s
+   --  system.storage_pools%s
+   --  system.storage_pools%b
+   --  system.finalization_masters%s
+   --  system.finalization_masters%b
+   --  system.stream_attributes%s
+   --  system.stream_attributes.xdr%s
+   --  system.stream_attributes.xdr%b
+   --  system.stream_attributes%b
+   --  ada.real_time%s
+   --  ada.real_time%b
+   --  ada.real_time.delays%s
+   --  ada.real_time.delays%b
+   --  system.assertions%s
+   --  system.assertions%b
+   --  system.pool_global%s
+   --  system.pool_global%b
+   --  system.tasking.protected_objects%s
+   --  system.tasking.protected_objects%b
+   --  system.tasking.restricted%s
+   --  system.tasking.restricted.stages%s
+   --  system.tasking.restricted.stages%b
+   --  ada.task_identification%s
+   --  ada.task_identification%b
+   --  system.interrupts%s
+   --  system.interrupts%b
+   --  ada.interrupts%s
+   --  ada.interrupts%b
+   --  ada.interrupts.names%s
+   --  cortex_m%s
+   --  cortex_m_svd%s
+   --  hal%s
+   --  cortex_m_svd.debug%s
+   --  nrf_svd%s
+   --  nrf_svd.aar%s
+   --  nrf_svd.ccm%s
+   --  nrf_svd.clock%s
+   --  nrf_svd.ecb%s
+   --  nrf_svd.ficr%s
+   --  nrf_svd.gpio%s
+   --  nrf_svd.gpiote%s
+   --  nrf_svd.nvmc%s
+   --  nrf_svd.power%s
+   --  nrf_svd.ppi%s
+   --  nrf_svd.pwm%s
+   --  nrf_svd.qdec%s
+   --  nrf_svd.radio%s
+   --  nrf_svd.rng%s
+   --  nrf_svd.rtc%s
+   --  nrf_svd.saadc%s
+   --  nrf_svd.spi%s
+   --  nrf_svd.temp%s
+   --  nrf_svd.timer%s
+   --  nrf_svd.twi%s
+   --  nrf_svd.uart%s
+   --  nrf_svd.uicr%s
+   --  nrf_svd.wdt%s
+   --  hal.gpio%s
+   --  hal.i2c%s
+   --  hal.spi%s
+   --  hal.uart%s
+   --  memory_barriers%s
+   --  memory_barriers%b
+   --  cortex_m.nvic%s
+   --  cortex_m.nvic%b
+   --  nrf%s
+   --  nrf.events%s
+   --  nrf.events%b
+   --  nrf.gpio%s
+   --  nrf.gpio%b
+   --  nrf.gpio.tasks_and_events%s
+   --  nrf.gpio.tasks_and_events%b
+   --  nrf.interrupts%s
+   --  nrf.interrupts%b
+   --  nrf.rtc%s
+   --  nrf.rtc%b
+   --  nrf.spi_master%s
+   --  nrf.spi_master%b
+   --  nrf.tasks%s
+   --  nrf.tasks%b
+   --  nrf.adc%s
+   --  nrf.adc%b
+   --  nrf.clock%s
+   --  nrf.clock%b
+   --  nrf.ppi%s
+   --  nrf.ppi%b
+   --  nrf.timers%s
+   --  nrf.timers%b
+   --  nrf.twi%s
+   --  nrf.twi%b
+   --  nrf.uart%s
+   --  nrf.uart%b
+   --  nrf.device%s
+   --  nrf.device%b
+   --  microbit%s
+   --  microbit.console%s
+   --  microbit.console%b
+   --  microbit.iosfortasking%s
+   --  microbit.iosfortasking%b
+   --  microbit.timehighspeed%s
+   --  microbit.timehighspeed%b
+   --  microbit.timewithrtc1%s
+   --  microbit.timewithrtc1%b
+   --  microbit.buttons%s
+   --  microbit.buttons%b
+   --  microbit.types%s
+   --  microbit.ultrasonic%s
+   --  microbit.ultrasonic%b
+   --  ultrasensors%s
+   --  ultrasensors%b
    --  main%b
    --  END ELABORATION ORDER
 
