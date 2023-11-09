@@ -16,8 +16,7 @@ procedure Main is
    distance_right : Integer     := 0;
    distance_left  : Integer     := 0;
    counter        : Integer     := 0;
-   flag1           : Boolean     := False;
-   flag2 : Boolean := False;
+   flag         : Boolean     := False;
 begin
    loop
       Distancer      := Ultraright.Read;
@@ -39,69 +38,53 @@ begin
       --  Put_Line("left" & distance_left'Image & "front" & distance_front'Image & "right" & distance_right'Image);
       case counter is
          when 0 =>
-            if distance_front < 10 and distance_left > 10 and --hinder in the front
-              distance_right > 10
+            if (distance_front < 10 and distance_left > 10 and --hinder in the front
+              distance_right > 10)
             then
                MotorDriver.Drive (MotorDriver.Rotating_Left);
                Delay_Ms (828);
                counter := 1;
-            else
-               MotorDriver.Drive (MotorDriver.Forward); --or just be in another state
-            end if;
-         when 1 =>
-            if distance_right <= 30 and distance_right >= 13 and distance_left > 10 and --too far from the object, go right(15<right<25)
-              distance_front > 10
-            then
-               MotorDriver.Drive (MotorDriver.Lateral_Right);
-            elsif distance_right < 13 and distance_right >= 10 and distance_left > 10 and --correct distance from the object, go right(10<right<15)
-              distance_front > 10
-            then
-               MotorDriver.Drive (MotorDriver.Forward);
-               flag1 := True;
-            elsif distance_front > 10 and distance_right < 10 and distance_left > 10 then --too close to the object, go left(0<right<10)
-               MotorDriver.Drive (MotorDriver.Lateral_Left);
-            elsif distance_front > 10 and distance_right > 30 and --finished going one line, everything larger than 25
-              distance_left > 10 and flag1 = True
-            then
+            elsif (distance_front > 10 and distance_left > 10 and --hinder in the right
+              distance_right < 20) then
+               counter := 1;
+            elsif (distance_front > 10 and distance_left < 20 and --hinder in the left
+                     distance_right > 10) then
                MotorDriver.Drive (MotorDriver.Forward);
                Delay_Ms (400);
                MotorDriver.Drive (MotorDriver.Rotating_Right);
-               Delay_Ms (828);
-               flag1    := False;
-               counter := 2;
-
+               Delay_Ms (1800);
+               counter := 1;
+            else
+               MotorDriver.Drive (MotorDriver.Forward); --or just be in another state
             end if;
-         when 2 .. 5 =>
-            if distance_right <= 30 and distance_right >= 13 and distance_left > 10 and --too far from the object go right(15<right<25)
+         when 1 .. 4 =>
+            if distance_right < 20 and distance_right > 13 and distance_left > 10 and --too far from the object, go right
               distance_front > 10
             then
                MotorDriver.Drive (MotorDriver.Lateral_Right);
-            elsif distance_right < 13 and distance_right >= 10 and distance_left > 10 and --right distance, 10<=r<15
+            elsif distance_right < 13 and distance_right >= 10 and distance_left > 10 and --right distance
               distance_front > 10
             then
                MotorDriver.Drive (MotorDriver.Forward);
-               flag2 := True;
+               flag := True;
             elsif distance_front > 10 and distance_right > 10 and --just go to the right place
-              distance_left > 10 and flag2 = False
+              distance_left > 10 and flag = False
             then
                MotorDriver.Drive (MotorDriver.Forward);
             elsif distance_front > 10 and distance_right < 10 and distance_left > 10 then --too close to the object
                MotorDriver.Drive (MotorDriver.Lateral_Left);
-            elsif distance_front > 10 and distance_right > 30 and --finished
-              distance_left > 10 and flag2 = True
+            elsif distance_front > 10 and distance_right > 20 and --finished
+              distance_left > 10 and flag = True
             then
-
                MotorDriver.Drive (MotorDriver.Forward);
                Delay_Ms (400);
                MotorDriver.Drive (MotorDriver.Rotating_Right);
                Delay_Ms (828);
-               flag2    := False;
+               flag    := False;
                counter := counter + 1;
             end if;
          when others =>
             MotorDriver.Drive (MotorDriver.Stop); --next state
       end case;
-      --  delay(0.3);
-
    end loop;
 end Main;
