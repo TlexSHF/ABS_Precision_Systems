@@ -92,8 +92,7 @@ package body Tasks is
                delay(0.2);
                car   := ObjectNavigating; 
             end if;  
-         end if;  
-         
+         end if;           
          delay until clockStart + period;
       end loop;      
    end TrackLine; 
@@ -109,18 +108,21 @@ package body Tasks is
          if car = ObjectNavigating then   -- Precondition
             case counter is
                when 0 =>
-                  if (distanceFront < 10 and distanceLeft > 10 and --hinder in the front     
+                  if (distanceFront < 10 and distanceLeft > 10 and     
                         distanceRight > 10)     
+                  --hinder in the front 
                   then     
                      drive := Rotating_Left;    
                      delay (0.828); 
                      drive := Forward;
                      counter := 1;     
-                  elsif (distanceFront > 10 and distanceLeft > 10 and --hinder in the right      
+                  elsif (distanceFront > 10 and distanceLeft > 10 and    
                            distanceRight < 20) then      
+                   --hinder in the right   
                      counter := 1;     
-                  else     
-                     drive := Forward; --or just be in another state    
+                  else
+                     --or just be in another state 
+                     drive := Forward;    
                   end if;     
                   
                when 1 .. 4 =>
@@ -128,35 +130,36 @@ package body Tasks is
                         counter := 0;
                      car := LineFollowing;
                      end if;
-                  if distanceRight <= 25 and distanceRight > 15 and distanceLeft > 10 and --too far from the object, go right     
-                    distanceFront > 10    
+                  if distanceRight <= 25 and distanceRight > 15 and distanceLeft > 10 and      
+                    distanceFront > 10  
+                      --too far from the object, go right
                   then     
                      drive := Lateral_Right; 
-                  elsif distanceRight < 15 and distanceRight >= 10 and distanceLeft > 10 and --right distance     
-                    distanceFront > 10    
+                  elsif distanceRight < 15 and distanceRight >= 10 and distanceLeft > 10 and 
+                    distanceFront > 10 
+                       --right distance    
                   then     
                      drive := Forward;
                      flag := True; 
-                  elsif distanceRight >= 25 and distanceLeft > 10 and --not reached target     
+                  elsif distanceRight >= 25 and distanceLeft > 10 and                        
                     distanceFront > 10 and flag = False 
+                     --not reached the side yet 
                   then     
                      drive := Forward; 
-                  elsif distanceFront > 10 and distanceRight < 10 and distanceLeft > 10 then --too close to the object     
+                  elsif distanceFront > 10 and distanceRight < 10 and distanceLeft > 10 then
+                     --too close to the object     
                      drive := Lateral_Left;
-                  elsif distanceFront > 10 and distanceRight > 30 and --finished    
+                  elsif distanceFront > 10 and distanceRight > 30 and 
+                    --finished    
                     distanceLeft > 10 and flag = true
                   then  
                      drive := Forward;
-                     delay(0.400);
+                     delay(0.414);
                      drive := Rotating_Right;      
                      delay (0.828);
                      flag := False;
-                        counter := counter + 1;       
-                  
-                     
-                  
+                     counter := counter + 1;       
                   end if;
-                  --end if;
                when others =>       
                   drive := Stop;   --next state     
                   counter := 0;
