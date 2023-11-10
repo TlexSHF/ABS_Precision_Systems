@@ -197,11 +197,11 @@ package body Tasks is
                end if;
             end if;
             
-            if lookingFor = LineFollowing and GetLineTrackerState /= None then
-               car := LineFollowing;
-            elsif lookingFor = ObjectNavigating and probeState = Stop then
-               car := ObjectNavigating;
-            end if;
+            --  if lookingFor = LineFollowing and GetLineTrackerState /= None then
+            --     car := LineFollowing;
+            --  elsif lookingFor = ObjectNavigating and probeState = Stop then
+            --     car := ObjectNavigating;
+            --  end if;
          end if;
          
         delay until clockStart + period;
@@ -279,10 +279,13 @@ package body Tasks is
             --if probeState /= Stop then
                
                drive := Forward;
-               if distanceLeft < 10 then
-                  Rotate(10, True);
-               elsif distanceRight < 10 then 
-                  Rotate(10, False);
+               
+               if probeState = Slalom then
+                  Slalom;
+               end if;
+               
+               if lookingFor = LineFollowing then
+                  AvoidObstacle;
                end if;
 
                if probeState = Probe and Clock >= driveStart + driveDuration then
@@ -352,18 +355,41 @@ package body Tasks is
       delay until rotateStart + totalAngleDuration;
    end Rotate;
    
-   -- Maybe this procedure is not as useful as first thought
-   --  procedure AvoidObstacle is
-   --  begin
-   --  
-   --     if distanceFront < 10 then
-   --        Rotate(180, true);
-   --     elsif distanceLeft < 10 then
-   --        Rotate(10, true);
-   --     elsif distanceRight < 10 then
-   --        Rotate(10, false);
-   --     end if;
-   --  
-   --  end AvoidObstacle;
+   procedure AvoidObstacle (avoidAngle : Angle := 3) is
+      tmp : Direction := AvoidObstacle(avoidAngle);
+   begin Null; end AvoidObstacle;
+   
+   function AvoidObstacle (avoidAngle : Angle := 3) return Direction is
+      -- Returns the direction of the object avoided
+   begin
+      if distanceLeft < 10 then
+         Rotate(3, true);
+         return Left;
+      elsif distanceRight < 10 then
+         Rotate(3, false);
+         return Right;
+      end if;
+      return None;
+   end AvoidObstacle;
+   
+   procedure Slalom is
+      -- The idea behind slalom is that you angle the car in a direction 
+      -- you want it to "slalom through" and then it will try to keep that 
+      -- initial direction while avoiding obsticles
+      -- Could also make it alternate between left and right obsticles
+      avoidAngle : Angle := 3;
+      leftOverflow : Angle := 0;
+      rightOverflow : Angle := 0;
+      dir : Direction := AvoidObstacle(avoidAngle);
+   begin
+      -- adding up directions
+      --  case dir is
+      --     when Left => leftOverflow := leftOverflow + avoidAngle;
+      --     when Right => rightOverflow := rightOverflow + avoidAngle;
+      --  end case;
+      
+      -- All right I need to go to bed now
+      Null;
+   end Slalom;
    
 end Tasks;

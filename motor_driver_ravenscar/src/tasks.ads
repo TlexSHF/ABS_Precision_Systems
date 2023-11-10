@@ -36,11 +36,14 @@ package Tasks is
    task Fare with Priority => 1;
    
 private
-   type ProbeStates is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
+   type ProbeStates is (Probe, GoToFront, GoToRight, GoToLeft, Stop, Slalom);
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
+   type Direction is (Left, Right, None);
    function GetLineTrackerState return LineTrackerCombinations;
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
-   -- procedure AvoidObstacle; -- Maybe unneccessary procedure
+   procedure AvoidObstacle (avoidAngle : Angle := 3);
+   function AvoidObstacle (avoidAngle : Angle := 3) return Direction;
+   procedure Slalom;
    
    package sensorFront is new MicroBit.Ultrasonic(MB_P12,MB_P0);
    package sensorRight is new MicroBit.Ultrasonic(MB_P13,MB_P1);
@@ -51,7 +54,7 @@ private
    car : CarState := Roaming;
    probeState : ProbeStates := Probe;
    previousProbeState : ProbeStates := Probe;
-   lookingFor : CarState := LineFollowing;
+   lookingFor : CarState := ObjectNavigating;
    pollFlag : Boolean := False;
    
    -- Sensor inputs
