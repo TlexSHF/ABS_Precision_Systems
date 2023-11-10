@@ -40,7 +40,7 @@ private
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
    function GetLineTrackerState return LineTrackerCombinations;
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
-   procedure AvoidObstacle;
+   -- procedure AvoidObstacle; -- Maybe unneccessary procedure
    
    package sensorFront is new MicroBit.Ultrasonic(MB_P12,MB_P0);
    package sensorRight is new MicroBit.Ultrasonic(MB_P13,MB_P1);

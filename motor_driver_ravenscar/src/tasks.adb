@@ -267,16 +267,23 @@ package body Tasks is
             end if;
 
             if probeState = Stop then
-               
+            
                if lookingFor = LineFollowing then
-                  AvoidObstacle;
+                  Rotate(90);
                else
                   drive := Stop;
                end if;
-               
+            
                driveStart := Clock;
             else
+            --if probeState /= Stop then
+               
                drive := Forward;
+               if distanceLeft < 10 then
+                  Rotate(10, True);
+               elsif distanceRight < 10 then 
+                  Rotate(10, False);
+               end if;
 
                if probeState = Probe and Clock >= driveStart + driveDuration then
                   Rand_Int.reset(gen);
@@ -337,22 +344,26 @@ package body Tasks is
       rotateStart := Clock;
 
       if clockwise then
-         --MotorDriver.Drive(MotorDriver.Rotating_Right);
          drive := Rotating_Right;
       else
-         --MotorDriver.Drive(MotorDriver.Rotating_Left);
          drive := Rotating_Left;
       end if;
 
       delay until rotateStart + totalAngleDuration;
    end Rotate;
    
-   procedure AvoidObstacle is
-   begin
-      
-      if distanceFront < 10 then 
-         Rotate(180);
-      end if;
-   end AvoidObstacle;
+   -- Maybe this procedure is not as useful as first thought
+   --  procedure AvoidObstacle is
+   --  begin
+   --  
+   --     if distanceFront < 10 then
+   --        Rotate(180, true);
+   --     elsif distanceLeft < 10 then
+   --        Rotate(10, true);
+   --     elsif distanceRight < 10 then
+   --        Rotate(10, false);
+   --     end if;
+   --  
+   --  end AvoidObstacle;
    
 end Tasks;
