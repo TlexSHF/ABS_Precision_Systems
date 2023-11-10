@@ -17,20 +17,16 @@ package body Tasks is
          clockStart := Clock;
          
          DisplayRT.Clear;
-            case car is
+         case car is
             when Roaming => DisplayRT.Display('R');
             when LineFollowing => DisplayRT.Display('L');
             when ObjectNavigating => DisplayRT.Display('O');
             when others => DisplayRT.Display('X'); exit;
-            end case;
+         end case;
          
-         distanceFront  := sensorFront.Read; --Integer(sensorFront.Read);
+         distanceFront  := sensorFront.Read; --Integer(sensorFront.Read); -- Hvorfor bruke Integers?
          distanceRight  := sensorRight.Read; --Integer(sensorRight.Read);
          distanceLeft   := sensorLeft.Read; --Integer(sensorLeft.Read);
-         
-         --  DisplayRT.Clear;
-         --  DisplayRT.Display("F:" & distanceFront'Image & " R:" & distanceRight'Image
-         --                    & " L:" & distanceLeft'Image);
          
          if distanceFront = 0 then distanceFront := 400; end if;
          if distanceRight = 0 then distanceRight := 400; end if;
@@ -69,22 +65,6 @@ package body Tasks is
          if (car = LineFollowing) then -- Precondition
             
             lineTrackerState := GetLineTrackerState;
-            
-            -- Update line trackers state 
-            --  if lineTrackerLeft and not lineTrackerMiddle and not lineTrackerRight then
-            --     lineTrackerState := L;
-            --  elsif not lineTrackerLeft and lineTrackerMiddle and not lineTrackerRight then
-            --     lineTrackerState := M;
-            --  elsif not lineTrackerLeft and not lineTrackerMiddle and lineTrackerRight then
-            --     lineTrackerState := R;
-            --  elsif LineTrackerLeft and LineTrackerMiddle and not lineTrackerRight then
-            --     lineTrackerState := L_M;
-            --  elsif not lineTrackerLeft and lineTrackerMiddle and lineTrackerRight then
-            --     lineTrackerState := M_R;
-            --  elsif lineTrackerLeft and lineTrackerMiddle and lineTrackerRight then
-            --     lineTrackerState := L_M_R;
-            --  else  lineTrackerState := None;
-            --  end if;
             
             -- Set drive variable to correct drive state
             if distanceFront > 15 or distanceFront = 0 then
@@ -217,9 +197,9 @@ package body Tasks is
                end if;
             end if;
             
-            if GetLineTrackerState /= None then
+            if lookingFor = LineFollowing and GetLineTrackerState /= None then
                car := LineFollowing;
-            elsif probeState = Stop then
+            elsif lookingFor = ObjectNavigating and probeState = Stop then
                car := ObjectNavigating;
             end if;
          end if;
@@ -259,16 +239,18 @@ package body Tasks is
       end loop;   
    end UpdateDirection; 
    
+   
    task body Fare is
+      subtype RandAngle is Angle range 90 .. 170;
       
       -- Random Number Generator
-      package Rand_Int is new ada.numerics.discrete_random(Angle);
+      package Rand_Int is new ada.numerics.discrete_random(RandAngle);
       gen : Rand_Int.Generator;
 
       -- Times and Durations
       driveDuration : constant Time_Span := Seconds(3);
       driveStart : Time;
-      wantedAngle : Angle := 90;
+      wantedAngle : RandAngle := 90;
    begin
       Set_Analog_Period_Us(20000);
       driveStart := Clock;
@@ -285,11 +267,15 @@ package body Tasks is
             end if;
 
             if probeState = Stop then
-               --MotorDriver.Drive(MotorDriver.Stop);
-               drive := Stop;
+               
+               if lookingFor = LineFollowing then
+                  AvoidObstacle;
+               else
+                  drive := Stop;
+               end if;
+               
                driveStart := Clock;
             else
-               --MotorDriver.Drive(MotorDriver.Forward);
                drive := Forward;
 
                if probeState = Probe and Clock >= driveStart + driveDuration then
@@ -298,14 +284,18 @@ package body Tasks is
                   Rotate(wantedAngle); -- Worst case: 1 656 ms
                   driveStart := Clock;
 
-               elsif probeState = GoToRight and  previousProbeState /= GoToRight then
-                  Rotate(90, true); -- Worst case: 1 656 ms
-                  driveStart := Clock;
+               elsif lookingFor = ObjectNavigating then
+                  
+                  if probeState = GoToRight and  previousProbeState /= GoToRight  then
+                     Rotate(90, true); -- Worst case: 1 656 ms
+                     driveStart := Clock;
 
-               elsif probeState = GoToLeft and previousProbeState /= GoToLeft then
-                  Rotate(90, false); -- Worst case: 1 656 ms
-                  driveStart := Clock;
+                  elsif probeState = GoToLeft and previousProbeState /= GoToLeft then
+                     Rotate(90, false); -- Worst case: 1 656 ms
+                     driveStart := Clock;
+                  end if;
                end if;
+               
             end if;
          end if;
       end loop;
@@ -356,5 +346,13 @@ package body Tasks is
 
       delay until rotateStart + totalAngleDuration;
    end Rotate;
+   
+   procedure AvoidObstacle is
+   begin
+      
+      if distanceFront < 10 then 
+         Rotate(180);
+      end if;
+   end AvoidObstacle;
    
 end Tasks;

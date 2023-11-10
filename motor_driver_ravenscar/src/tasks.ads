@@ -19,7 +19,7 @@ package Tasks is
                        Curve_Forward_Left,
                        Curve_Forward_Right,
                        Stop);
-   subtype Angle is Integer range 90 .. 160;
+   subtype Angle is Integer range 0 .. 360;
    type CarState is (Roaming, LineFollowing, ObjectNavigating);
    
    --Sense
@@ -40,22 +40,27 @@ private
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
    function GetLineTrackerState return LineTrackerCombinations;
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
+   procedure AvoidObstacle;
    
    package sensorFront is new MicroBit.Ultrasonic(MB_P12,MB_P0);
    package sensorRight is new MicroBit.Ultrasonic(MB_P13,MB_P1);
    package sensorLeft is new MicroBit.Ultrasonic(MB_P8,MB_P2);
    
+   -- Various states & flags
    drive : DriveState := Forward;
    car : CarState := Roaming;
    probeState : ProbeStates := Probe;
    previousProbeState : ProbeStates := Probe;
+   lookingFor : CarState := LineFollowing;
+   pollFlag : Boolean := False;
+   
+   -- Sensor inputs
    distanceFront : Distance_cm := 0;
    distanceRight : Distance_cm := 0;
    distanceLeft : Distance_cm := 0;
    lineTrackerLeft  : Boolean    := False;
    lineTrackerMiddle  : Boolean  := False;
    lineTrackerRight : Boolean    := False;
-   pollFlag : Boolean := False;
          
   
 end Tasks;
