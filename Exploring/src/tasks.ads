@@ -3,7 +3,6 @@ with MicroBit.Ultrasonic;
 with MicroBit.Types; use MicroBit.Types;
 
 package tasks is
-   -- task Testing with Priority => 1;
 
    subtype Angle is Integer range 90 .. 160;
 

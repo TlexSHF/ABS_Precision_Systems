@@ -55,8 +55,8 @@ package body tasks is
                probeState := Stop;
             elsif distanceFront <= 50 then
                probeState := GoToFront;
-             elsif distanceRight <= 50 then
-               probeState := GoToRight;
+            elsif distanceRight <= 50 then
+              probeState := GoToRight;
              elsif distanceLeft <= 50 then
                probeState := GoToLeft;
             else
@@ -84,6 +84,7 @@ package body tasks is
       driveStart := Clock;
       loop
          previousProbeState := probeState;
+
          if probeState = Stop then
             MotorDriver.Drive(MotorDriver.Stop);
             driveStart := Clock;
@@ -91,8 +92,6 @@ package body tasks is
 
             -- Car drives for "driveDuration"
             MotorDriver.Drive(MotorDriver.Forward);
-
-            -- delay until driveStart + driveDuration;
 
             if probeState = Probe and Clock >= driveStart + driveDuration then
                -- Car rotates for "wantedAngle" degrees
