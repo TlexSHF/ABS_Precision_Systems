@@ -51,7 +51,7 @@ private
    car : CarState := Roaming;
    probeState : ProbeStates := Probe;
    previousProbeState : ProbeStates := Probe;
-   lookingFor : CarState := LineFollowing;
+   lookingFor : CarState := ObjectNavigating;
    pollFlag : Boolean := False;
    
    -- Sensor inputs
