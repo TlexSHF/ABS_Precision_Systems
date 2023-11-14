@@ -201,9 +201,9 @@ package body Tasks is
                end if;
             end if;
             
-            if lookingFor = LineFollowing and GetLineTrackerState /= None then
+            if GetLineTrackerState /= None then
                car := LineFollowing;
-            elsif lookingFor = ObjectNavigating and probeState = Stop then
+            elsif detectObject = True and probeState = Stop then
                car := ObjectNavigating;
             end if;
          end if;
@@ -272,7 +272,7 @@ package body Tasks is
 
             if probeState = Stop then
             
-               if lookingFor = LineFollowing then
+               if detectObject = False then
                   Rotate(90);
                else
                   drive := Stop;
@@ -295,7 +295,7 @@ package body Tasks is
                   Rotate(wantedAngle); -- Worst case: 1 656 ms
                   driveStart := Clock;
 
-               elsif lookingFor = ObjectNavigating then
+               elsif detectObject = True then
                   
                   if probeState = GoToRight and  previousProbeState /= GoToRight  then
                      Rotate(90, true); -- Worst case: 1 656 ms
