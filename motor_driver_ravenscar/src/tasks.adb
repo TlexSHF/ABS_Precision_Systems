@@ -149,12 +149,16 @@ package body Tasks is
                     --finished    
                     distanceLeft > 10 and flag = true
                   then  
-                     drive := Forward;
-                     delay(0.414);
-                     drive := Rotating_Right;      
-                     delay (0.828);
-                     flag := False;
-                     counter := counter + 1;       
+                      if counter = 4 then
+                        counter := counter +1;
+                     else
+                        drive := Forward;
+                        delay(0.400);
+                        drive := Rotating_Right;
+                        delay (0.828);
+                        flag := False;
+                        counter := counter + 1;
+                      end if;       
                   end if;
                when others =>       
                   drive := Stop;   --next state     
