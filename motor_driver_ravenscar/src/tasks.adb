@@ -393,6 +393,15 @@ package body Tasks is
 
       return lineTrackerState;
    end GetLineTrackerState;
+   
+   -- Procedures
+   
+   procedure Straighten is
+   begin
+      loop
+         
+      end loop;   
+   end Straighten;   
 
    function HinderFound
      (PositionSensor : UltrasonicCombination; dist : Distance_cm := 10)

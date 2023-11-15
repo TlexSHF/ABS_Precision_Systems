@@ -40,6 +40,7 @@ private
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
    type UltrasonicCombination is (L, F, R);
    function GetLineTrackerState return LineTrackerCombinations;
+   procedure Straighten (;
    function HinderFound(PositionSensor : UltrasonicCombination; dist : Distance_cm := 10) return Boolean;
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
    -- procedure AvoidObstacle; -- Maybe unneccessary procedure
