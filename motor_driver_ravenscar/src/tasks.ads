@@ -30,7 +30,7 @@ package Tasks is
    task TrackLine with Priority => 3;  -- Measured time: 0.015259 ms
    task ObjectNav with Priority => 3;
    task ProbeThink with Priority => 3;
-   
+  
    --Act
    task UpdateDirection with Priority => 2; -- Measured time: 0.076294 ms
    task Fare with Priority => 1;
@@ -39,6 +39,7 @@ private
    type ProbeStates is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
    function GetLineTrackerState return LineTrackerCombinations;
+   function HinderFound(PositionSensor : String; dist : Integer := 10) return Boolean;
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
    -- procedure AvoidObstacle; -- Maybe unneccessary procedure
    
@@ -53,6 +54,7 @@ private
    previousProbeState : ProbeStates := Probe;
    detectObject : Boolean := True;
    pollFlag : Boolean := False;
+   
    
    -- Sensor inputs
    distanceFront : Distance_cm := 0;
