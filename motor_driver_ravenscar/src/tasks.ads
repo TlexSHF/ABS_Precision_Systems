@@ -38,8 +38,9 @@ package Tasks is
 private
    type ProbeStates is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
+   type UltrasonicCombination is (L, F, R);
    function GetLineTrackerState return LineTrackerCombinations;
-   function HinderFound(PositionSensor : String; dist : Integer := 10) return Boolean;
+   function HinderFound(PositionSensor : UltrasonicCombination; dist : Distance_cm := 10) return Boolean;
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
    -- procedure AvoidObstacle; -- Maybe unneccessary procedure
    
