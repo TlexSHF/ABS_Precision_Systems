@@ -92,6 +92,10 @@ package body Tasks is
       end loop;      
    end TrackLine; 
    
+   
+   
+   
+   
    task body ObjectNav is
       clockStart : Time;   
       period : Time_Span := Milliseconds(5);
@@ -103,58 +107,58 @@ package body Tasks is
          if car = ObjectNavigating then   -- Precondition
             case counter is
                when 0 =>
-                  if (distanceFront < 10 and distanceLeft > 10 and     
+                  if (distanceFront < 15 and distanceLeft > 10 and     
                         distanceRight > 10)     
                   --hinder in the front 
                   then     
-                     drive := Rotating_Left;    
-                     delay (0.828); 
+                     Rotate(90,False); 
                      drive := Forward;
-                     counter := 1;     
-                  elsif (distanceFront > 10 and distanceLeft > 10 and    
-                           distanceRight < 20) then      
-                   --hinder in the right   
-                     counter := 1;     
+                     counter := 1;        
                   else
                      --or just be in another state 
-                     drive := Forward;
-                     car := Roaming; -- Added State here, but unsure if this was the correct place !!
-                  end if;     
-                  
+                     drive:= Forward; -- Added State here, but unsure if this was the correct place !!
+                  end if;                       
                when 1 .. 4 =>
                   if (lineTrackerLeft or lineTrackerMiddle or lineTrackerRight) then
                         counter := 0;
                      car := LineFollowing;
                      end if;
-                  if distanceRight <= 25 and distanceRight > 15 and distanceLeft > 10 and      
+                  if distanceRight <= 20 and distanceRight > 17 and distanceLeft > 10 and      
                     distanceFront > 10  
                       --too far from the object, go right
                   then
                      drive := Lateral_Right; 
-                  elsif distanceRight < 15 and distanceRight >= 10 and distanceLeft > 10 and 
+                  elsif distanceRight <= 17 and distanceRight >= 15 and distanceLeft > 10 and 
                     distanceFront > 10 
                        --right distance    
                   then     
                      drive := Forward;
                      flag := True; 
-                  elsif distanceRight >= 25 and distanceLeft > 10 and                        
+                  elsif distanceRight >= 20 and distanceLeft > 10 and                        
                     distanceFront > 10 and flag = False 
                      --not reached the side yet 
                   then     
                      drive := Forward; 
-                  elsif distanceFront > 10 and distanceRight < 10 and distanceLeft > 10 then
+                  elsif distanceFront > 10 and distanceRight < 15 and distanceLeft > 10 then
                      --too close to the object     
                      drive := Lateral_Left;
-                  elsif distanceFront > 10 and distanceRight > 30 and 
+                  elsif distanceFront > 10 and distanceRight > 20 and 
                     --finished    
                     distanceLeft > 10 and flag = true
                   then  
+                      if counter = 4 then                 
+                        Rotate(90,False);                     
+                        flag := False;
+                        counter := counter + 1;
+                     else
+                        drive := Forward;
+                        delay(0.4);
+                          Rotate(90);
+                        flag := False;
+                        counter := counter + 1;
+                     end if; 
+                  else
                      drive := Forward;
-                     delay(0.414);
-                     drive := Rotating_Right;      
-                     delay (0.828);
-                     flag := False;
-                     counter := counter + 1;       
                   end if;
                when others =>       
                   drive := Stop;   --next state     
@@ -162,8 +166,7 @@ package body Tasks is
                   car := Roaming;
             end case;   
    
-         end if;     
-         
+         end if;  
          delay until clockStart + period;
       end loop;   
    end ObjectNav; 
@@ -197,9 +200,9 @@ package body Tasks is
                end if;
             end if;
             
-            if lookingFor = LineFollowing and GetLineTrackerState /= None then
+            if GetLineTrackerState /= None then 
                car := LineFollowing;
-            elsif lookingFor = ObjectNavigating and probeState = Stop then
+            elsif detectObject = True and probeState = Stop then
                car := ObjectNavigating;
             end if;
          end if;
@@ -268,7 +271,7 @@ package body Tasks is
 
             if probeState = Stop then
             
-               if lookingFor = LineFollowing then
+               if detectObject = False then
                   Rotate(90);
                else
                   drive := Stop;
@@ -291,7 +294,7 @@ package body Tasks is
                   Rotate(wantedAngle); -- Worst case: 1 656 ms
                   driveStart := Clock;
 
-               elsif lookingFor = ObjectNavigating then
+               elsif detectObject = True then
                   
                   if probeState = GoToRight and  previousProbeState /= GoToRight  then
                      Rotate(90, true); -- Worst case: 1 656 ms
@@ -342,6 +345,38 @@ package body Tasks is
          
       end loop;   
    end Straighten;   
+
+   
+   function HinderFound(PositionSensor : String; dist : Integer := 10) return Boolean is
+   begin
+
+      if PositionSensor = "Front" then 
+         if Integer(distanceFront) < dist then
+            return True;
+         else
+            return False;
+            end if;
+      elsif PositionSensor = "Right" then
+         if Integer(distanceRight) < dist then
+            return True;
+         else
+            return False;
+         end if;
+      end if;
+       
+         if Integer(distanceLeft) < dist then
+            return True;
+         end if;
+
+       return False;
+      end HinderFound;
+   
+   
+   
+   
+   
+   
+   -- Procedures 
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True) is
       angleDurationMicro : constant Integer := 9200;
       totalAngleDuration : Time_Span := Microseconds(Integer(wantedAngle) * angleDurationMicro);

@@ -4,6 +4,8 @@ with MicroBit.Ultrasonic;
 with MicroBit.Types; use MicroBit.Types;
 
 package Tasks is
+   task Drive_1 with Priority=> 2;
+   task Drive_1 with Priority=> 2;
    type DriveState is (Forward,
                        Backward,
                        Left,
@@ -19,16 +21,9 @@ package Tasks is
                        Curve_Forward_Left,
                        Curve_Forward_Right,
                        Stop);
-   type CarState is (Roaming, LineFollowing, ObjectNavigating);
+ 
    
-   --Sense
-   task PollEcho with Priority => 2;
-   task CheckSensor with Priority => 2;
-
-   --Think 
-   task TrackLine with Priority => 2;
-   task ObjectNav with Priority => 2;
-   
+  
    --Act
    task UpdateDirection with Priority => 2;
    
