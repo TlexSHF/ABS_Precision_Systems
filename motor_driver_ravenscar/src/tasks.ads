@@ -39,6 +39,7 @@ private
    type ProbeStates is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
    function GetLineTrackerState return LineTrackerCombinations;
+   procedure Straighten (;
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
    -- procedure AvoidObstacle; -- Maybe unneccessary procedure
    

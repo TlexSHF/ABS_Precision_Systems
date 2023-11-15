@@ -334,7 +334,14 @@ package body Tasks is
       return lineTrackerState;
    end GetLineTrackerState;
    
-   -- Procedures 
+   -- Procedures
+   
+   procedure Straighten is
+   begin
+      loop
+         
+      end loop;   
+   end Straighten;   
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True) is
       angleDurationMicro : constant Integer := 9200;
       totalAngleDuration : Time_Span := Microseconds(Integer(wantedAngle) * angleDurationMicro);
