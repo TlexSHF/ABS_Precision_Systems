@@ -124,79 +124,12 @@ package body Tasks is
       loop
          clockStart := Clock;
          if car = ObjectNavigating then   -- Precondition
-            case counter is
-
-               when 0 =>
-                  if HinderFound (F, 15) and not HinderFound (R) and
-                    not HinderFound (L)  --hinder in the front
-                  then
-                     Straighten(F);
-                     Rotate (90, False);
-                     drive := Forward;
-                     delay (0.4);
-                     counter := 1;
-                  end if;
-
-                  drive := Forward;
-
-               when 1 .. 4 =>
-
-                  if GetLineTrackerState /= None then --line found
-                     counter := 0;
-                     car     := LineFollowing;
-                  else
-                     drive := Forward;
-                     
-                     if not HinderFound (F, 30) and not HinderFound (R, 30) and
-                       not HinderFound (L, 30) --finished
-                     then
-                        if counter = 4 then
-                           drive := Forward;
-                           delay (0.4);
-                           Rotate (90, False);
-                           counter := counter + 1;
-                        else
-                           drive := Forward;
-                           delay (0.4);
-                           Rotate (90);
-                           drive := Forward;
-                           delay (1.3);
-                           Straighten(R);
-                           counter := counter + 1;
-                        end if;
-                     --  elsif HinderFound (F, 15) and not HinderFound (R) and
-                     --    not HinderFound (L) then --car
-                     --     Rotate (90);
-                     --     car := Roaming;
-                     --  elsif HinderFound (F) and HinderFound (L, 10) and
-                     --    not HinderFound (R)
-                     --  then  --if car has a hinder front and left
-                     --     Rotate (90);
-                     --     car := Roaming;
-                     --  elsif HinderFound (F) and not HinderFound (L) and
-                     --    HinderFound (R, 15)
-                     --  then  --if car has a hinder front and right
-                     --     Rotate (90, False);
-                     --     car := Roaming;
-                     elsif not HinderFound (R, 15) and HinderFound (R, 15) and
-                       not HinderFound(L) and not HinderFound (F)          
-                     then --too far from the object, go right
-                        drive := Lateral_Right;
-                    
-                     elsif not HinderFound (F) and HinderFound (R) and
-                       not HinderFound (L)
-                     then --too close to the object
-                        drive := Lateral_Left;
-                     end if;
-                  end if;
-               when others =>
-                  drive := Stop;   --next state
-                  delay (0.2);
-                  counter := 0;
-                  car     := Roaming;
-
-            end case;
-         end if;
+            if navState = Quadratic then
+               QuadraticNavigating(counter, flag);
+            else 
+               CircularNavigating;
+            end if;
+         end if;  
          delay until clockStart + period;
       end loop;
    end ObjectNav;
@@ -447,6 +380,77 @@ package body Tasks is
       end loop;   
    end Straighten;   
 
+   
+   -- Procedures 
+   procedure QuadraticNavigating (counter : in out Integer; flag : in out Boolean) is
+   begin
+      case counter is
+               when 0 =>
+                  if (distanceFront < 15 and distanceLeft > 10 and     
+                        distanceRight > 10)     
+                  --hinder in the front 
+                  then     
+                     Rotate(90,False); 
+                     drive := Forward;
+                     counter := 1;        
+                  else
+                     --or just be in another state 
+                     drive:= Forward; -- Added State here, but unsure if this was the correct place !!
+                  end if;                       
+               when 1 .. 4 =>
+                  if (lineTrackerLeft or lineTrackerMiddle or lineTrackerRight) then
+                        counter := 0;
+                     car := LineFollowing;
+                     end if;
+                  if distanceRight <= 20 and distanceRight > 17 and distanceLeft > 10 and      
+                    distanceFront > 10  
+                      --too far from the object, go right
+                  then
+                     drive := Lateral_Right; 
+                  elsif distanceRight <= 17 and distanceRight >= 15 and distanceLeft > 10 and 
+                    distanceFront > 10 
+                       --right distance    
+                  then     
+                     drive := Forward;
+                     flag := True; 
+                  elsif distanceRight >= 20 and distanceLeft > 10 and                        
+                    distanceFront > 10 and flag = False 
+                     --not reached the side yet 
+                  then     
+                     drive := Forward; 
+                  elsif distanceFront > 10 and distanceRight < 15 and distanceLeft > 10 then
+                     --too close to the object     
+                     drive := Lateral_Left;
+                  elsif distanceFront > 10 and distanceRight > 20 and 
+                    --finished    
+                    distanceLeft > 10 and flag = true
+                  then  
+                      if counter = 4 then                 
+                        Rotate(90,False);                     
+                        flag := False;
+                        counter := counter + 1;
+                     else
+                        drive := Forward;
+                        delay(0.4);
+                          Rotate(90);
+                        flag := False;
+                        counter := counter + 1;
+                     end if; 
+                  else
+                     drive := Forward;
+                  end if;
+               when others =>       
+                  drive := Stop;   --next state     
+                  counter := 0;
+                  car := Roaming;
+      end case;   
+   end QuadraticNavigating;
+   
+   procedure CircularNavigating is
+   begin
+      null;
+   end CircularNavigating;
+   
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True) is
       angleDurationMicro : constant Integer := 9_200;
       totalAngleDuration : Time_Span        :=

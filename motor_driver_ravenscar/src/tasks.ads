@@ -36,14 +36,16 @@ package Tasks is
    task Fare            with Priority => 1;
    
 private
-   type ProbeStates              is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
-   type LineTrackerCombinations  is (None, L, M, R, L_M, M_R, L_R, L_M_R);
+   type ProbeStates is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
+   type NavigationStates is (Circular, Quadratic);
+   type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
    type UltraSensor              is (L, F, R);
-   
-   function    GetLineTrackerState return LineTrackerCombinations;
-   function    HinderFound (PositionSensor : UltraSensor; dist : Distance_cm := 10) return Boolean;   
+   function GetLineTrackerState return LineTrackerCombinations;
    procedure   Straighten  (ultra : UltraSensor);
-   procedure   Rotate      (wantedAngle : Angle; clockwise : Boolean := True);
+   function    HinderFound (PositionSensor : UltraSensor; dist : Distance_cm := 10) return Boolean;
+   procedure QuadraticNavigating (counter : in out Integer; flag : in out Boolean);
+   procedure CircularNavigating;
+   procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
    -- procedure AvoidObstacle; -- Maybe unneccessary procedure
    
    package sensorFront  is new MicroBit.Ultrasonic(MB_P12,MB_P0);
@@ -51,13 +53,14 @@ private
    package sensorLeft   is new MicroBit.Ultrasonic(MB_P8,MB_P2);
    
    -- Various states & flags
-   drive                : DriveState   := Forward;
-   car                  : CarState     := ObjectNavigating;
+   drive : DriveState := Forward;
+   car : CarState := Roaming;
    speed                : Speeds       := (4095, 4095, 4095, 4095);
-   probeState           : ProbeStates  := Probe;
-   previousProbeState   : ProbeStates  := Probe;
-   detectObject         : Boolean      := True;
-   pollFlag             : Boolean      := False;
+   probeState : ProbeStates := Probe;
+   previousProbeState : ProbeStates := Probe;
+   navState : NavigationStates := Circular;
+   detectObject : Boolean := True;
+   pollFlag : Boolean := False;
    
    
    -- Sensor inputs
