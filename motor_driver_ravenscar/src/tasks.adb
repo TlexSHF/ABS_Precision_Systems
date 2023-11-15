@@ -203,7 +203,7 @@ package body Tasks is
             
             if GetLineTrackerState /= None then
                car := LineFollowing;
-            elsif detectObject = True and probeState = Stop then
+            elsif enableObjectNav = True and probeState = Stop then
                car := ObjectNavigating;
             end if;
          end if;
@@ -260,9 +260,6 @@ package body Tasks is
       driveStart := Clock;
       loop
          if car = Roaming then
-         
-            -- NOTE: There is an unnecessary amount of driveStart := Clock 
-            -- but I just need to figure out if it works without them
             
             previousProbeState := probeState;
             if probeState = Probe and previousProbeState /= Probe then
@@ -272,15 +269,14 @@ package body Tasks is
 
             if probeState = Stop then
             
-               if detectObject = False then
-                  Rotate(90);
-               else
+               if enableObjectNav then
                   drive := Stop;
+               else 
+                  Rotate(90); 
                end if;
             
                driveStart := Clock;
             else
-            --if probeState /= Stop then
                
                drive := Forward;
                if distanceLeft < 10 then
@@ -295,7 +291,7 @@ package body Tasks is
                   Rotate(wantedAngle); -- Worst case: 1 656 ms
                   driveStart := Clock;
 
-               elsif detectObject = True then
+               elsif enableObjectNav = True then
                   
                   if probeState = GoToRight and  previousProbeState /= GoToRight  then
                      Rotate(90, true); -- Worst case: 1 656 ms
