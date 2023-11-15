@@ -386,8 +386,8 @@ package body Tasks is
    begin
       case counter is
                when 0 =>
-                  if (distanceFront < 15 and distanceLeft > 10 and     
-                        distanceRight > 10)     
+                  if (  HinderFound(F,15) and not HinderFound(L) and     
+                        not HinderFound(R))     
                   --hinder in the front 
                   then     
                      Rotate(90,False); 
@@ -398,32 +398,32 @@ package body Tasks is
                      drive:= Forward; -- Added State here, but unsure if this was the correct place !!
                   end if;                       
                when 1 .. 4 =>
-                  if (lineTrackerLeft or lineTrackerMiddle or lineTrackerRight) then
+                  if GetLineTrackerState /= None then
                         counter := 0;
                      car := LineFollowing;
                      end if;
-                  if distanceRight <= 20 and distanceRight > 17 and distanceLeft > 10 and      
-                    distanceFront > 10  
+                  if HinderFound(R,20) and not HinderFound(R,17) and not HinderFound(L) and      
+                    HinderFound(F) 
                       --too far from the object, go right
                   then
                      drive := Lateral_Right; 
-                  elsif distanceRight <= 17 and distanceRight >= 15 and distanceLeft > 10 and 
-                    distanceFront > 10 
+                  elsif HinderFound(R,17) and not HinderFound(R,15) and not HinderFound(L) and 
+                    not HinderFound(F)
                        --right distance    
                   then     
                      drive := Forward;
                      flag := True; 
-                  elsif distanceRight >= 20 and distanceLeft > 10 and                        
-                    distanceFront > 10 and flag = False 
+                  elsif not HinderFound(R,20) and not HinderFound(L) and                        
+                    not HinderFound(F) and flag = False 
                      --not reached the side yet 
                   then     
                      drive := Forward; 
-                  elsif distanceFront > 10 and distanceRight < 15 and distanceLeft > 10 then
+                  elsif not HinderFound(F) and HinderFound(R,15) then
                      --too close to the object     
                      drive := Lateral_Left;
-                  elsif distanceFront > 10 and distanceRight > 20 and 
-                    --finished    
-                    distanceLeft > 10 and flag = true
+                  elsif not HinderFound(F) and not HinderFound(R,20) and 
+              --finished
+                 flag = true
                   then  
                       if counter = 4 then                 
                         Rotate(90,False);                     
