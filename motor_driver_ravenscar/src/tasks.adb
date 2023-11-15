@@ -17,6 +17,7 @@ package body Tasks is
          clockStart := Clock;
 
          DisplayRT.Clear;
+ 
          case car is
             when Roaming =>
                DisplayRT.Display ('R');
@@ -129,6 +130,7 @@ package body Tasks is
                   if HinderFound (F, 15) and not HinderFound (R) and
                     not HinderFound (L)  --hinder in the front
                   then
+                     Straighten(F);
                      Rotate (90, False);
                      drive := Forward;
                      delay (0.4);
@@ -145,8 +147,8 @@ package body Tasks is
                   else
                      drive := Forward;
                      
-                     if not HinderFound (F, 50) and not HinderFound (R, 50) and
-                       not HinderFound (L, 50) --finished
+                     if not HinderFound (F, 30) and not HinderFound (R, 30) and
+                       not HinderFound (L, 30) --finished
                      then
                         if counter = 4 then
                            drive := Forward;
@@ -158,24 +160,25 @@ package body Tasks is
                            delay (0.4);
                            Rotate (90);
                            drive := Forward;
-                           delay (0.4);
+                           delay (1.3);
+                           Straighten(R);
                            counter := counter + 1;
                         end if;
-                    elsif HinderFound (F, 15) and not HinderFound (R) and
-                       not HinderFound (L) then --car
-                        Rotate (90);
-                        car := Roaming;
-                     elsif HinderFound (F) and HinderFound (L, 10) and
-                       not HinderFound (R)
-                     then  --if car has a hinder front and left
-                        Rotate (90);
-                        car := Roaming;
-                     elsif HinderFound (F) and not HinderFound (L) and
-                       HinderFound (R, 15)
-                     then  --if car has a hinder front and right
-                        Rotate (90, False);
-                        car := Roaming;             
-                     elsif not HinderFound (R, 15) and HinderFound (R, 17) and
+                     --  elsif HinderFound (F, 15) and not HinderFound (R) and
+                     --    not HinderFound (L) then --car
+                     --     Rotate (90);
+                     --     car := Roaming;
+                     --  elsif HinderFound (F) and HinderFound (L, 10) and
+                     --    not HinderFound (R)
+                     --  then  --if car has a hinder front and left
+                     --     Rotate (90);
+                     --     car := Roaming;
+                     --  elsif HinderFound (F) and not HinderFound (L) and
+                     --    HinderFound (R, 15)
+                     --  then  --if car has a hinder front and right
+                     --     Rotate (90, False);
+                     --     car := Roaming;
+                     elsif not HinderFound (R, 15) and HinderFound (R, 15) and
                        not HinderFound(L) and not HinderFound (F)          
                      then --too far from the object, go right
                         drive := Lateral_Right;
@@ -254,29 +257,29 @@ package body Tasks is
 
          case drive is
             when Forward =>
-               MotorDriver.Drive (MotorDriver.Forward);
+               MotorDriver.Drive (MotorDriver.Forward, speed);
             when Backward =>
-               MotorDriver.Drive (MotorDriver.Backward);
+               MotorDriver.Drive (MotorDriver.Backward, speed);
             when Left =>
-               MotorDriver.Drive (MotorDriver.Left);
+               MotorDriver.Drive (MotorDriver.Left, speed);
             when Right =>
-               MotorDriver.Drive (MotorDriver.Right);
+               MotorDriver.Drive (MotorDriver.Right, speed);
             when Forward_Left =>
-               MotorDriver.Drive (MotorDriver.Forward_Left);
+               MotorDriver.Drive (MotorDriver.Forward_Left, speed);
             when Forward_Right =>
-               MotorDriver.Drive (MotorDriver.Forward_Right);
+               MotorDriver.Drive (MotorDriver.Forward_Right, speed);
             when Backward_Left =>
-               MotorDriver.Drive (MotorDriver.Backward_Left);
+               MotorDriver.Drive (MotorDriver.Backward_Left, speed);
             when Backward_Right =>
-               MotorDriver.Drive (MotorDriver.Backward_Right);
+               MotorDriver.Drive (MotorDriver.Backward_Right, speed);
             when Lateral_Left =>
-               MotorDriver.Drive (MotorDriver.Lateral_Left);
+               MotorDriver.Drive (MotorDriver.Lateral_Left, speed);
             when Lateral_Right =>
-               MotorDriver.Drive (MotorDriver.Lateral_Right);
+               MotorDriver.Drive (MotorDriver.Lateral_Right, speed);
             when Rotating_Left =>
-               MotorDriver.Drive (MotorDriver.Rotating_Left);
+               MotorDriver.Drive (MotorDriver.Rotating_Left, speed);
             when Rotating_Right =>
-               MotorDriver.Drive (MotorDriver.Rotating_Right);
+               MotorDriver.Drive (MotorDriver.Rotating_Right, speed);
             when Curve_Forward_Left =>
                MotorDriver.Drive (MotorDriver.Forward, (4_095, 4_095, 0, 0));
             when Curve_Forward_Right =>
@@ -393,48 +396,57 @@ package body Tasks is
       return lineTrackerState;
    end GetLineTrackerState;
    
-   -- Procedures
-   
-   procedure Straighten is
-   begin
-      loop
-         
-      end loop;   
-   end Straighten;   
-
-   function HinderFound
-     (PositionSensor : UltrasonicCombination; dist : Distance_cm := 10)
+   function HinderFound 
+     (PositionSensor : UltraSensor; dist : Distance_cm := 10)
       return Boolean
    is -- make type for PositionSensor
       distance : Distance_cm;
    begin
 
-      distance :=
-        (case PositionSensor is when F => distanceFront,
-           when R => distanceRight, when L => distanceLeft);
+      distance := (case PositionSensor is 
+                      when F => distanceFront,  
+                      when R => distanceRight,  
+                      when L => distanceLeft);
+      
       return distance < dist;
 
-      --
-      --  if PositionSensor = "F" then
-      --     if Integer(distanceFront) < dist then     -- case?
-      --        return True;
-      --     else
-      --        return False;
-      --        end if;
-      --  elsif PositionSensor = "R" then
-      --     if Integer(distanceRight) < dist then
-      --        return True;
-      --     else
-      --        return False;
-      --     end if;
-      --  elsif Integer(distanceLeft) < dist then
-      --        return True;
-      --  end if;
-
-      --  return False;
    end HinderFound;
 
    -- Procedures
+   procedure Straighten (ultra : UltraSensor) is 
+      type DistancePointer is access all Distance_cm;
+      distance       : DistancePointer;
+      distanceBefore : DistancePointer := new Distance_cm;
+      finished       : Boolean := False;
+      clockwise      : Boolean := True;
+      changes        : Integer := 0;
+   begin
+      distance := (case ultra is
+                      when F => distanceFront'Access,
+                      when R => distanceRight'Access,
+                      when L => distanceLeft'Access);
+      drive := Rotating_Right;
+      speed := (700, 700, 700, 700);
+      loop
+         exit when finished;
+         distanceBefore.all := distance.all;
+         delay until Clock + Milliseconds(20);
+         if distanceBefore.all < distance.all then 
+            drive := (case drive is
+                         when Rotating_Right => Rotating_Left,
+                         when Rotating_Left  => Rotating_Right,
+                         when others         => Stop); 
+            changes := changes + 1;
+         end if;
+         if changes > 10 then
+            finished := true;
+            speed := (4095, 4095, 4095, 4095);
+            DisplayRT.Clear;  
+            DisplayRT.Display ('9');   
+         end if;  
+      end loop;   
+   end Straighten;   
+
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True) is
       angleDurationMicro : constant Integer := 9_200;
       totalAngleDuration : Time_Span        :=
