@@ -194,6 +194,7 @@ package body Tasks is
 
             end case;
          end if;
+         counter:=0;
          delay until clockStart + period;
       end loop;
    end ObjectNav;
