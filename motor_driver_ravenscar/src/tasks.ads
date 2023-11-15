@@ -37,10 +37,13 @@ package Tasks is
    
 private
    type ProbeStates is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
+   type NavigationStates is (Circular, Quadratic);
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
    function GetLineTrackerState return LineTrackerCombinations;
-   procedure Straighten (;
+   procedure Straighten;
    function HinderFound(PositionSensor : String; dist : Integer := 10) return Boolean;
+   procedure QuadraticNavigating (counter : in out Integer; flag : in out Boolean);
+   procedure CircularNavigating;
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
    -- procedure AvoidObstacle; -- Maybe unneccessary procedure
    
@@ -53,6 +56,7 @@ private
    car : CarState := Roaming;
    probeState : ProbeStates := Probe;
    previousProbeState : ProbeStates := Probe;
+   navState : NavigationStates := Circular;
    detectObject : Boolean := True;
    pollFlag : Boolean := False;
    
