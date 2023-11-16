@@ -108,6 +108,7 @@ package body Tasks is
             else
                drive := Stop;
                delay (0.2);
+               navState := Quadratic;
                car := ObjectNavigating;
             end if;
          end if;
@@ -171,6 +172,7 @@ package body Tasks is
             if GetLineTrackerState /= None then
                car := LineFollowing;
             elsif detectObject = True and probeState = Stop then
+               navState := Quadratic; -- This should be switched to Circular
                car := ObjectNavigating;
             end if;
          end if;
@@ -394,20 +396,20 @@ package body Tasks is
                      drive := Forward;
                      counter := 1;        
                   else
-                     --or just be in another state 
-                     drive:= Forward; -- Added State here, but unsure if this was the correct place !!
+                     drive:= Forward;
                   end if;                       
                when 1 .. 4 =>
                   if GetLineTrackerState /= None then
                         counter := 0;
                      car := LineFollowing;
                      end if;
-                  if HinderFound(R,20) and not HinderFound(R,17) and not HinderFound(L) and      
-                    HinderFound(F) 
+                  if HinderFound(R,20) and not HinderFound(R,12) and not HinderFound(L) and      
+                    not HinderFound(F) 
                       --too far from the object, go right
                   then
-                     drive := Lateral_Right; 
-                  elsif HinderFound(R,17) and not HinderFound(R,15) and not HinderFound(L) and 
+               drive := Lateral_Right;
+               --Rotate(2, True);
+                  elsif HinderFound(R,12) and not HinderFound(R,10) and not HinderFound(L) and 
                     not HinderFound(F)
                        --right distance    
                   then     
@@ -418,9 +420,10 @@ package body Tasks is
                      --not reached the side yet 
                   then     
                      drive := Forward; 
-                  elsif not HinderFound(F) and HinderFound(R,15) then
+                  elsif not HinderFound(F) and HinderFound(R,10) then
                      --too close to the object     
                      drive := Lateral_Left;
+                     --Rotate(2, False);
                   elsif not HinderFound(F) and not HinderFound(R,20) and 
               --finished
                  flag = true

@@ -23,12 +23,12 @@ package Tasks is
    type CarState     is (Roaming, LineFollowing, ObjectNavigating);
    
    --Sense
-   task PollEcho     with Priority => 5;
+   task PollEcho     with Priority => 4;
    task CheckSensor  with Priority => 3; -- Measured time: 0.023842 ms
 
    --Think 
    task TrackLine    with Priority => 3;  -- Measured time: 0.015259 ms
-   task ObjectNav    with Priority => 4;
+   task ObjectNav    with Priority => 3;
    task ProbeThink   with Priority => 3;
   
    --Act
@@ -58,7 +58,7 @@ private
    speed                : Speeds       := (4095, 4095, 4095, 4095);
    probeState : ProbeStates := Probe;
    previousProbeState : ProbeStates := Probe;
-   navState : NavigationStates := Circular;
+   navState : NavigationStates := Quadratic; -- This should be switched to circular
    detectObject : Boolean := True;
    pollFlag : Boolean := False;
    
