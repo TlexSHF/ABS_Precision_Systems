@@ -505,12 +505,8 @@ package body Tasks is
 
    begin
       rotateStart := Clock;
-
-      if clockwise then
-         drive := Rotating_Right;
-      else
-         drive := Rotating_Left;
-      end if;
+      
+      drive := if clockwise then Rotating_Right else Rotating_Left;
 
       delay until rotateStart + totalAngleDuration;
    end Rotate;
