@@ -2,6 +2,7 @@ with MicroBit;             use MicroBit;
 with MicroBit.MotorDriver; use MicroBit.MotorDriver;
 with MicroBit.Ultrasonic;
 with MicroBit.Types;       use MicroBit.Types;
+with Ada.Real_Time;        use Ada.Real_Time;
 
 package Tasks is
    type DriveState   is (Forward,
@@ -40,11 +41,12 @@ private
    type NavigationStates is (Circular, Quadratic);
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
    type UltraSensor              is (L, F, R);
+   type  CircState is (Rotating,CircNavigating);
    function GetLineTrackerState return LineTrackerCombinations;
    procedure   Straighten  (ultra : UltraSensor);
    function    HinderFound (PositionSensor : UltraSensor; dist : Distance_cm := 10) return Boolean;
    procedure QuadraticNavigating (counter : in out Integer; flag : in out Boolean);
-   procedure CircularNavigating;
+   procedure CircularNavigating(circleStart : in out Time);
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
    -- procedure AvoidObstacle; -- Maybe unneccessary procedure
    
@@ -59,6 +61,7 @@ private
    probeState : ProbeStates := Probe;
    previousProbeState : ProbeStates := Probe;
    navState : NavigationStates := Quadratic; -- This should be switched to circular
+   CircStateVariable :  CircState := Rotating;
    detectObject : Boolean := True;
    pollFlag : Boolean := False;
    

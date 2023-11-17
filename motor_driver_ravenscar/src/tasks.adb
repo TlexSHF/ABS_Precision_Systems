@@ -118,17 +118,18 @@ package body Tasks is
 
    task body ObjectNav is
       clockStart : Time;
+      circleStart : Time;
       period     : Time_Span := Milliseconds (5);
       counter    : Integer   := 0;
       flag       : Boolean   := False;
    begin
       loop
          clockStart := Clock;
-         if car = ObjectNavigating then   -- Precondition
+         if car = ObjectNavigating then
             if navState = Quadratic then
                QuadraticNavigating(counter, flag);
             else 
-               CircularNavigating;
+               CircularNavigating(circleStart);
             end if;
          end if;  
          delay until clockStart + period;
@@ -156,13 +157,13 @@ package body Tasks is
 
             if pollFlag then
 
-               if distanceFront <= 15 then
+               if distanceFront <= 10 then
                   probeState := Stop;
-               elsif distanceFront <= 30 then
+               elsif distanceFront <= 40 then
                   probeState := GoToFront;
-               elsif distanceRight <= 30 then
+               elsif distanceRight <= 40 then
                   probeState := GoToRight;
-               elsif distanceLeft <= 30 then
+               elsif distanceLeft <= 40 then
                   probeState := GoToLeft;
                else
                   probeState := Probe;
@@ -172,7 +173,7 @@ package body Tasks is
             if GetLineTrackerState /= None then
                car := LineFollowing;
             elsif detectObject = True and probeState = Stop then
-               navState := Quadratic; -- This should be switched to Circular
+               navState := Circular; -- This should be switched to Circular
                car := ObjectNavigating;
             end if;
          end if;
@@ -235,7 +236,7 @@ package body Tasks is
       gen : Rand_Int.Generator;
 
       -- Times and Durations
-      driveDuration : constant Time_Span := Seconds (3);
+      driveDuration : constant Time_Span := Seconds (5);
       driveStart    : Time;
       wantedAngle   : RandAngle          := 90;
    begin
@@ -397,8 +398,41 @@ package body Tasks is
                      counter := 1;        
                   else
                      drive:= Forward;
-                  end if;                       
-               when 1 .. 4 =>
+            end if;
+         when 1 =>
+            if HinderFound(R,20) and not HinderFound(R,12) and not HinderFound(L) and      
+                    not HinderFound(F) 
+                      --too far from the object, go right
+                  then
+               drive := Lateral_Right;
+                  elsif HinderFound(R,12) and not HinderFound(R,10) and not HinderFound(L)
+                       --right distance    
+                  then     
+                     drive := Forward;
+                     flag := True; 
+                  elsif not HinderFound(R,20) and not HinderFound(L) and                        
+                    not HinderFound(F) and flag = False 
+                     --not reached the side yet 
+                  then     
+                     drive := Forward; 
+                  elsif not HinderFound(F) and HinderFound(R,10) then
+                     --too close to the object     
+                     drive := Lateral_Left;
+                     --Rotate(2, False);
+                  elsif not HinderFound(F) and not HinderFound(R,20) and 
+              --finished
+                 flag = true
+                  then 
+                        drive := Forward;
+                        delay(0.5);
+                          Rotate(90);
+                        flag := False;
+                        counter := 2; 
+                  else
+                     drive := Forward;
+                  end if;
+            
+               when 2 .. 4 =>
                   if GetLineTrackerState /= None then
                         counter := 0;
                      car := LineFollowing;
@@ -434,7 +468,7 @@ package body Tasks is
                         counter := counter + 1;
                      else
                         drive := Forward;
-                        delay(0.4);
+                        delay(0.5);
                           Rotate(90);
                         flag := False;
                         counter := counter + 1;
@@ -449,9 +483,42 @@ package body Tasks is
       end case;   
    end QuadraticNavigating;
    
-   procedure CircularNavigating is
+   procedure CircularNavigating(circleStart : in out Time) is
+      clockStart : Time := Clock;
    begin
-      null;
+      case CircStateVariable is
+         when Rotating =>
+            if HinderFound(F,10) then
+               Rotate(90,False);
+               drive := Forward;
+               delay(0.4);
+               circleStart := Clock;
+               CircStateVariable := CircNavigating;
+            end if;
+         when CircNavigating =>
+            if GetLineTrackerState /= None then
+               CircStateVariable := Rotating;
+               car := LineFollowing;
+            elsif Clock - circleStart > Seconds(12) then 
+               -- Time out
+               CircStateVariable := Rotating;
+               car := Roaming;
+            else
+            
+               if not HinderFound(R,14) and not HinderFound(L) and      
+                 not HinderFound(F) then 
+                  --too far from the object, go right
+                  drive := Lateral_Right;
+               elsif HinderFound(R,14) and not HinderFound(R,10) and 
+                 not HinderFound(L) and not HinderFound(F) then
+                  --right distance   
+                  drive := Forward;
+               elsif not HinderFound(F) and HinderFound(R,10) then
+                  --too close to the object     
+                  drive := Lateral_Left;
+               end if;
+             end if;
+         end case;
    end CircularNavigating;
    
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True) is
