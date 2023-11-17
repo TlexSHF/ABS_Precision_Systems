@@ -24,31 +24,35 @@ package Tasks is
    type CarState     is (Roaming, LineFollowing, ObjectNavigating);
    
    --Sense
-   task PollEcho     with Priority => 4;
-   task CheckSensor  with Priority => 3; -- Measured time: 0.023842 ms
+   task PollEcho          with Priority => 4;
+   task CheckLineTracker  with Priority => 3;
 
    --Think 
-   task TrackLine    with Priority => 3;  -- Measured time: 0.015259 ms
+   task TrackLine    with Priority => 3;
    task ObjectNav    with Priority => 3;
    task ProbeThink   with Priority => 3;
+   task Fare         with Priority => 1;
   
    --Act
-   task UpdateDirection with Priority => 2; -- Measured time: 0.076294 ms
-   task Fare            with Priority => 1;
+   task UpdateDirection with Priority => 2;
    
 private
    type ProbeStates is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
    type NavigationStates is (Circular, Quadratic);
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
    type UltraSensor              is (L, F, R);
-   type  CircState is (Rotating,CircNavigating);
+   type CircState is (Rotating,CircNavigating);
+   
+   -- Functions
    function GetLineTrackerState return LineTrackerCombinations;
-   procedure   Straighten  (ultra : UltraSensor);
-   function    HinderFound (PositionSensor : UltraSensor; dist : Distance_cm := 10) return Boolean;
+   function HinderFound (PositionSensor : UltraSensor; dist : Distance_cm := 10) return Boolean;
+   
+   -- Procedures
    procedure QuadraticNavigating (counter : in out Integer; flag : in out Boolean);
    procedure CircularNavigating(circleStart : in out Time);
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
-   -- procedure AvoidObstacle; -- Maybe unneccessary procedure
+   procedure Straighten (ultra : UltraSensor);
+   procedure displayStates;
    
    package sensorFront  is new MicroBit.Ultrasonic(MB_P12,MB_P0);
    package sensorRight  is new MicroBit.Ultrasonic(MB_P13,MB_P1);
@@ -57,10 +61,10 @@ private
    -- Various states & flags
    drive : DriveState := Forward;
    car : CarState := Roaming;
-   speed                : Speeds       := (4095, 4095, 4095, 4095);
+   speed  : Speeds   := (4095, 4095, 4095, 4095);
    probeState : ProbeStates := Probe;
    previousProbeState : ProbeStates := Probe;
-   navState : NavigationStates := Quadratic; -- This should be switched to circular
+   navState : NavigationStates := Circular;
    CircStateVariable :  CircState := Rotating;
    detectObject : Boolean := True;
    pollFlag : Boolean := False;

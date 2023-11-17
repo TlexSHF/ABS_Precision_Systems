@@ -15,26 +15,12 @@ package body Tasks is
    begin
       loop
          clockStart := Clock;
+         
+         displayStates;
 
-         DisplayRT.Clear;
- 
-         case car is
-            when Roaming =>
-               DisplayRT.Display ('R');
-            when LineFollowing =>
-               DisplayRT.Display ('L');
-            when ObjectNavigating =>
-               DisplayRT.Display ('O');
-            when others =>
-               DisplayRT.Display ('X');
-               exit;
-         end case;
-
-         distanceFront :=
-           sensorFront
-             .Read; --Integer(sensorFront.Read); -- Hvorfor bruke Integers?
-         distanceRight := sensorRight.Read; --Integer(sensorRight.Read);
-         distanceLeft  := sensorLeft.Read; --Integer(sensorLeft.Read);
+         distanceFront := sensorFront.Read;
+         distanceRight := sensorRight.Read;
+         distanceLeft  := sensorLeft.Read;
 
          if distanceFront = 0 then
             distanceFront := 400;
@@ -52,7 +38,7 @@ package body Tasks is
       end loop;
    end PollEcho;
 
-   task body CheckSensor is
+   task body CheckLineTracker is
       clockStart : Time;
       period     : Time_Span := Milliseconds (5);
    begin
@@ -65,19 +51,17 @@ package body Tasks is
 
          delay until clockStart + period;
       end loop;
-   end CheckSensor;
+   end CheckLineTracker;
 
    -- Think
    task body TrackLine is
       clockStart       : Time;
       period           : Time_Span               := Milliseconds (5);
-      -- type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);  -- 3 trackers, L = Left tracker
-      lineTrackerState : LineTrackerCombinations :=
-        None;                     --             M = Middle tracker
-   begin                                                                      --             R = Right tracker
+      lineTrackerState : LineTrackerCombinations := None;
+   begin
       loop
          clockStart := Clock;
-         if (car = LineFollowing) then -- Precondition
+         if (car = LineFollowing) then
 
             lineTrackerState := GetLineTrackerState;
 
@@ -86,8 +70,7 @@ package body Tasks is
                case lineTrackerState is
                   when None =>
                      drive := Stop;
-                     car   := Roaming; -- Added change of state here!
-                     -- This is the one causing the problem where car wont stop roaming.
+                     car   := Roaming;
                   when L =>
                      drive := Curve_Forward_Left;
                   when M =>
@@ -145,16 +128,6 @@ package body Tasks is
 
          if car = Roaming then
 
-            --  DisplayRT.Clear;
-            --  case probeState is
-            --  when Probe => DisplayRT.Display('P');
-            --  when GoToFront => DisplayRT.Display('F');
-            --  when GoToLeft => DisplayRT.Display('L');
-            --  when GoToRight => DisplayRT.Display('R');
-            --  when Stop => DisplayRT.Display('S');
-            --  when others => DisplayRT.Display('X'); exit;
-            --  end case;
-
             if pollFlag then
 
                if distanceFront <= 10 then
@@ -173,7 +146,7 @@ package body Tasks is
             if GetLineTrackerState /= None then
                car := LineFollowing;
             elsif detectObject = True and probeState = Stop then
-               navState := Circular; -- This should be switched to Circular
+               navState := Circular;
                car := ObjectNavigating;
             end if;
          end if;
@@ -457,7 +430,6 @@ package body Tasks is
                   elsif not HinderFound(F) and HinderFound(R,10) then
                      --too close to the object     
                      drive := Lateral_Left;
-                     --Rotate(2, False);
                   elsif not HinderFound(F) and not HinderFound(R,20) and 
               --finished
                  flag = true
@@ -538,19 +510,20 @@ package body Tasks is
 
       delay until rotateStart + totalAngleDuration;
    end Rotate;
-
-   -- Maybe this procedure is not as useful as first thought
-   --  procedure AvoidObstacle is
-   --  begin
-   --
-   --     if distanceFront < 10 then
-   --        Rotate(180, true);
-   --     elsif distanceLeft < 10 then
-   --        Rotate(10, true);
-   --     elsif distanceRight < 10 then
-   --        Rotate(10, false);
-   --     end if;
-   --
-   --  end AvoidObstacle;
+   
+   procedure displayStates is
+   begin
+      DisplayRT.Clear;
+         case car is
+            when Roaming =>
+               DisplayRT.Display ('R');
+            when LineFollowing =>
+               DisplayRT.Display ('L');
+            when ObjectNavigating =>
+               DisplayRT.Display ('O');
+            when others =>
+               DisplayRT.Display ('X');
+      end case;
+   end displayStates;
 
 end Tasks;
