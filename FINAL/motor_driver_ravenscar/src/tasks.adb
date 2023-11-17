@@ -11,7 +11,7 @@ package body Tasks is
    -- Sense
    task body PollEcho is
       clockStart : Time;
-      period     : Time_Span := Milliseconds (50);
+      period     : Time_Span := Milliseconds (140);
    begin
       loop
          clockStart := Clock;
@@ -158,7 +158,7 @@ package body Tasks is
    -- Act
    task body UpdateDirection is
       clockStart : Time;
-      period     : Time_Span := Milliseconds (5);
+      period     : Time_Span := Milliseconds (10);
    begin
       Set_Analog_Period_Us (20_000);
       loop
@@ -202,6 +202,8 @@ package body Tasks is
    end UpdateDirection;
 
    task body Fare is
+      clockStart : Time;   
+      period     : Time_Span := Milliseconds (1);
       subtype RandAngle is Angle range 90 .. 170;
 
       -- Random Number Generator
@@ -216,6 +218,7 @@ package body Tasks is
       Set_Analog_Period_Us (20_000);
       driveStart := Clock;
       loop
+         clockStart := Clock;
          if car = Roaming then
 
             -- NOTE: There is an unnecessary amount of driveStart := Clock
@@ -270,6 +273,7 @@ package body Tasks is
 
             end if;
          end if;
+         delay until clockStart + period;
       end loop;
    end Fare;
 
