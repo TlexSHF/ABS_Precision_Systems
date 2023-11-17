@@ -1,9 +1,10 @@
 with Ada.Real_Time;          use Ada.Real_Time;
+with MicroBit.TimeHighspeed; use MicroBit.TimeHighspeed;
 with Ada.Numerics.Discrete_Random;
 with MicroBit;               use MicroBit;
 with MicroBit.Console;       use MicroBit.Console;
 with MicroBit.MotorDriver;
-with MicroBit.Ultrasonic;
+--  with MicroBit.Ultrasonic;
 with MicroBit.IOsForTasking; use MicroBit.IOsForTasking;
 with MicroBit.DisplayRT;
 package body Tasks is
@@ -11,42 +12,104 @@ package body Tasks is
    -- Sense
    task body PollEcho is
       clockStart : Time;
-      period     : Time_Span := Milliseconds (50);
+      period     : Time_Span := Milliseconds (9);
    begin
       loop
          clockStart := Clock;
 
-         DisplayRT.Clear;
- 
-         case car is
-            when Roaming =>
-               DisplayRT.Display ('R');
-            when LineFollowing =>
-               DisplayRT.Display ('L');
-            when ObjectNavigating =>
-               DisplayRT.Display ('O');
-            when others =>
-               DisplayRT.Display ('X');
-               exit;
-         end case;
+         digitalWrite (12, True);
+         Delay_Us (5);
+         digitalWrite (12, False);
+         delay until Clock + Milliseconds (9);
+
+         -- Timeout
+         if GPIO_Periph.PIN_CNF
+             (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+             .SENSE =
+           Low
+         then
+            GPIO_Periph.PIN_CNF
+              (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+              .SENSE :=
+              High;
+            GPIO_Periph.PIN_CNF
+              (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+              .PULL  :=
+              Pulldown;
+         end if;
+
+         ultraSensorArray (Integer (sensorArrIndex)).echoTime :=
+           ultraSensorArray (Integer (sensorArrIndex)).echoTime * 16_400;
 
          distanceFront :=
-           sensorFront
-             .Read; --Integer(sensorFront.Read); -- Hvorfor bruke Integers?
-         distanceRight := sensorRight.Read; --Integer(sensorRight.Read);
-         distanceLeft  := sensorLeft.Read; --Integer(sensorLeft.Read);
+           ultraSensorArray (Integer (sensorArrIndex)).echoTime /
+           Microseconds (1_000_000);
 
-         if distanceFront = 0 then
-            distanceFront := 400;
-         end if;
-         if distanceRight = 0 then
-            distanceRight := 400;
-         end if;
-         if distanceLeft = 0 then
-            distanceLeft := 400;
-         end if;
+         --  sensorArrIndex := sensorArrIndex + 1;
+         --  
+         --  digitalWrite (13, True);
+         --  Delay_Us (5);
+         --  digitalWrite (13, False);
+         --  delay until Clock + Milliseconds (9);
+         --  
+         --  -- Timeout
+         --  if GPIO_Periph.PIN_CNF
+         --      (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+         --      .SENSE =
+         --    Low
+         --  then
+         --     GPIO_Periph.PIN_CNF
+         --       (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+         --       .SENSE :=
+         --       High;
+         --     GPIO_Periph.PIN_CNF
+         --       (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+         --       .PULL  :=
+         --       Pulldown;
+         --  end if;
+         --  
+         --  ultraSensorArray (Integer (sensorArrIndex)).echoTime :=
+         --    ultraSensorArray (Integer (sensorArrIndex)).echoTime * 16_400;
+         --  
+         --  distanceLeft :=
+         --    ultraSensorArray (Integer (sensorArrIndex)).echoTime /
+         --    Microseconds (1_000_000);
+         --  
+         --  sensorArrIndex := sensorArrIndex + 1;
+         --  
+         --  digitalWrite (8, True);
+         --  Delay_Us (5);
+         --  digitalWrite (8, False);
+         --  delay until Clock + Milliseconds (9);
+         --  
+         --  -- Timeout
+         --  if GPIO_Periph.PIN_CNF
+         --      (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+         --      .SENSE =
+         --    Low
+         --  then
+         --     GPIO_Periph.PIN_CNF
+         --       (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+         --       .SENSE :=
+         --       High;
+         --     GPIO_Periph.PIN_CNF
+         --       (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+         --       .PULL  :=
+         --       Pulldown;
+         --  end if;
+         --  
+         --  ultraSensorArray (Integer (sensorArrIndex)).echoTime :=
+         --    ultraSensorArray (Integer (sensorArrIndex)).echoTime * 16_400;
+         --  
+         --  distanceRight :=
+         --    ultraSensorArray (Integer (sensorArrIndex)).echoTime /
+         --    Microseconds (1_000_000);
+         --  
+         --  sensorArrIndex := sensorArrIndex + 1;
 
-         pollFlag := True;
+         Put_Line
+           (ultraSensorArray(0).echoTime'Image & ", " & distanceLeft'Image & ", " &
+            distanceRight'Image);
 
          delay until clockStart + period;
       end loop;
@@ -125,11 +188,11 @@ package body Tasks is
          clockStart := Clock;
          if car = ObjectNavigating then   -- Precondition
             if navState = Quadratic then
-               QuadraticNavigating(counter, flag);
-            else 
+               QuadraticNavigating (counter, flag);
+            else
                CircularNavigating;
             end if;
-         end if;  
+         end if;
          delay until clockStart + period;
       end loop;
    end ObjectNav;
@@ -328,129 +391,143 @@ package body Tasks is
 
       return lineTrackerState;
    end GetLineTrackerState;
-   
-   function HinderFound 
-     (PositionSensor : UltraSensor; dist : Distance_cm := 10)
-      return Boolean
+
+   function HinderFound
+     (PositionSensor : UltraSensor; dist : Integer := 10) return Boolean
    is -- make type for PositionSensor
-      distance : Distance_cm;
+      distance : Integer;
    begin
 
-      distance := (case PositionSensor is 
-                      when F => distanceFront,  
-                      when R => distanceRight,  
-                      when L => distanceLeft);
-      
+      distance :=
+        (case PositionSensor is when F => distanceFront,
+           when R => distanceRight, when L => distanceLeft);
+
       return distance < dist;
 
    end HinderFound;
 
    -- Procedures
-   procedure Straighten (ultra : UltraSensor) is 
-      type DistancePointer is access all Distance_cm;
+   procedure Straighten (ultra : UltraSensor) is
+      type DistancePointer is access all Integer;
       distance       : DistancePointer;
-      distanceBefore : DistancePointer := new Distance_cm;
-      finished       : Boolean := False;
-      clockwise      : Boolean := True;
-      changes        : Integer := 0;
+      distanceBefore : DistancePointer := new Integer;
+      finished       : Boolean         := False;
+      clockwise      : Boolean         := True;
+      changes        : Integer         := 8;
+      prevDrive      : DriveState      := Rotating_Right;
    begin
-      distance := (case ultra is
-                      when F => distanceFront'Access,
-                      when R => distanceRight'Access,
-                      when L => distanceLeft'Access);
-      drive := Rotating_Right;
-      speed := (700, 700, 700, 700);
+      distance           :=
+        (case ultra is when F => distanceFront'Access,
+           when R => distanceRight'Access, when L => distanceLeft'Access);
+      distanceBefore.all := distance.all;
+      speed              := (1_024, 1_024, 1_024, 1_024);
+      drive              := Rotating_Right;
+      delay until Clock + Milliseconds (100);
       loop
          exit when finished;
-         distanceBefore.all := distance.all;
-         delay until Clock + Milliseconds(20);
-         if distanceBefore.all < distance.all then 
-            drive := (case drive is
-                         when Rotating_Right => Rotating_Left,
-                         when Rotating_Left  => Rotating_Right,
-                         when others         => Stop); 
+         drive := Stop;
+         if distanceBefore.all < distance.all then
+            drive :=
+              (case prevDrive is when Rotating_Right => Rotating_Left,
+                 when Rotating_Left => Rotating_Right, when others => Stop);
+            if drive /= Stop then
+               prevDrive := drive;
+            end if;
             changes := changes + 1;
+         else
+            changes := changes - 1;
          end if;
-         if changes > 10 then
-            finished := true;
-            speed := (4095, 4095, 4095, 4095);
-            DisplayRT.Clear;  
-            DisplayRT.Display ('9');   
-         end if;  
-      end loop;   
-   end Straighten;   
+         distanceBefore.all := distance.all;
+         delay until Clock + Milliseconds (100);
 
-   
-   -- Procedures 
-   procedure QuadraticNavigating (counter : in out Integer; flag : in out Boolean) is
+         if changes > 10 or changes < 0 then
+            finished := True;
+            speed    := (4_095, 4_095, 4_095, 4_095);
+            DisplayRT.Clear;
+            DisplayRT.Display ('9');
+         end if;
+      end loop;
+   end Straighten;
+
+   procedure QuadraticNavigating
+     (counter : in out Integer; flag : in out Boolean)
+   is
    begin
       case counter is
-               when 0 =>
-                  if (distanceFront < 15 and distanceLeft > 10 and     
-                        distanceRight > 10)     
-                  --hinder in the front 
-                  then     
-                     Rotate(90,False); 
-                     drive := Forward;
-                     counter := 1;        
-                  else
-                     --or just be in another state 
-                     drive:= Forward; -- Added State here, but unsure if this was the correct place !!
-                  end if;                       
-               when 1 .. 4 =>
-                  if (lineTrackerLeft or lineTrackerMiddle or lineTrackerRight) then
-                        counter := 0;
-                     car := LineFollowing;
-                     end if;
-                  if distanceRight <= 20 and distanceRight > 17 and distanceLeft > 10 and      
-                    distanceFront > 10  
-                      --too far from the object, go right
-                  then
-                     drive := Lateral_Right; 
-                  elsif distanceRight <= 17 and distanceRight >= 15 and distanceLeft > 10 and 
-                    distanceFront > 10 
-                       --right distance    
-                  then     
-                     drive := Forward;
-                     flag := True; 
-                  elsif distanceRight >= 20 and distanceLeft > 10 and                        
-                    distanceFront > 10 and flag = False 
-                     --not reached the side yet 
-                  then     
-                     drive := Forward; 
-                  elsif distanceFront > 10 and distanceRight < 15 and distanceLeft > 10 then
-                     --too close to the object     
-                     drive := Lateral_Left;
-                  elsif distanceFront > 10 and distanceRight > 20 and 
-                    --finished    
-                    distanceLeft > 10 and flag = true
-                  then  
-                      if counter = 4 then                 
-                        Rotate(90,False);                     
-                        flag := False;
-                        counter := counter + 1;
-                     else
-                        drive := Forward;
-                        delay(0.4);
-                          Rotate(90);
-                        flag := False;
-                        counter := counter + 1;
-                     end if; 
-                  else
-                     drive := Forward;
-                  end if;
-               when others =>       
-                  drive := Stop;   --next state     
-                  counter := 0;
-                  car := Roaming;
-      end case;   
+         when 0 =>
+            if
+              (distanceFront < 15 and distanceLeft > 10 and distanceRight > 10)
+               --hinder in the front
+
+            then
+               Straighten (F);
+               Rotate (90, False);
+               drive   := Forward;
+               counter := 1;
+            else
+               --or just be in another state
+               drive :=
+                 Forward; -- Added State here, but unsure if this was the correct place !!
+            end if;
+         when 1 .. 4 =>
+            if (lineTrackerLeft or lineTrackerMiddle or lineTrackerRight) then
+               counter := 0;
+               car     := LineFollowing;
+            elsif distanceRight <= 20 and distanceRight > 17 and
+              distanceLeft > 10 and distanceFront > 10
+               --too far from the object, go right
+
+            then
+               drive := Lateral_Right;
+            elsif distanceRight <= 17 and distanceRight >= 15 and
+              distanceLeft > 10 and distanceFront > 10
+               --right distance
+
+            then
+               drive := Forward;
+               flag  := True;
+            elsif distanceRight >= 20 and distanceLeft > 10 and
+              distanceFront > 10 and flag = False
+               --not reached the side yet
+
+            then
+               drive := Forward;
+            elsif distanceFront > 10 and distanceRight < 15 and
+              distanceLeft > 10
+            then
+               --too close to the object
+               drive := Lateral_Left;
+            elsif distanceFront > 30 and distanceRight > 30 and
+               --finished
+
+              distanceLeft > 30 and flag = True
+            then
+               if counter = 4 then
+                  Rotate (90, False);
+                  flag    := False;
+                  counter := counter + 1;
+               else
+                  drive := Forward;
+                  delay (0.4);
+                  Rotate (90);
+                  flag    := False;
+                  counter := counter + 1;
+               end if;
+            else
+               drive := Forward;
+            end if;
+         when others =>
+            drive   := Stop;   --next state
+            counter := 0;
+            car     := Roaming;
+      end case;
    end QuadraticNavigating;
-   
+
    procedure CircularNavigating is
    begin
       null;
    end CircularNavigating;
-   
+
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True) is
       angleDurationMicro : constant Integer := 9_200;
       totalAngleDuration : Time_Span        :=
@@ -482,5 +559,77 @@ package body Tasks is
    --     end if;
    --
    --  end AvoidObstacle;
+
+   protected body Receiver is
+
+      procedure My_ISR is
+         latchPort0 : LATCH_Register;
+      begin
+
+         nRF.Events.Disable_Interrupt (nRF.Events.GPIOTE_PORT);
+
+         latchPort0 := GPIO_Periph.LATCH;
+
+         GPIO_Periph.LATCH := GPIO_Periph.LATCH;
+
+         if latchPort0.Arr
+             (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin) =
+           Latched
+         then
+            if GPIO_Periph.IN_k.Arr
+                (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin) =
+              High
+            then
+               ultraSensorArray (Integer (sensorArrIndex)).RisingTime := Clock;
+               GPIO_Periph.PIN_CNF
+                 (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+                 .SENSE                                               :=
+                 Low;
+               GPIO_Periph.PIN_CNF
+                 (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+                 .PULL                                                :=
+                 Pullup;
+            else
+               ultraSensorArray (Integer (sensorArrIndex)).echoTime :=
+                 Clock -
+                 ultraSensorArray (Integer (sensorArrIndex)).RisingTime;
+               GPIO_Periph.PIN_CNF
+                 (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+                 .SENSE                                             :=
+                 High;
+               GPIO_Periph.PIN_CNF
+                 (ultraSensorArray (Integer (sensorArrIndex)).EchoPin.Pin)
+                 .PULL                                              :=
+                 Pulldown;
+            end if;
+         end if;
+         nRF.Events.Clear (nRF.Events.GPIOTE_PORT);
+         nRF.Events.Enable_Interrupt (nRF.Events.GPIOTE_PORT);
+      end My_ISR;
+
+   end Receiver;
+
+begin
+   nRF.Events.Disable_Interrupt (nRF.Events.GPIOTE_PORT);
+
+   for sensor of ultraSensorArray loop
+      sensor.EchoPin.Configure_IO (confRising);
+   end loop;
+
+   --  ultraFront.EchoPin.Configure_IO (confRising);
+
+   GPIO_Periph.DETECTMODE.DETECTMODE := NRF_SVD.GPIO.Default;
+
+   nRF.Events.Clear
+     (nRF.Events.GPIOTE_PORT); --clear any prior events of GPIOTE_PORT
+   nRF.Events.Enable_Interrupt
+     (nRF.Events.GPIOTE_PORT); --enable interrupt of event
+   nRF.Interrupts.Enable (nRF.Interrupts.GPIOTE_Interrupt);
+
+   for sensor of ultraSensorArray loop
+      sensor.EchoPin.Configure_IO (confRising);
+   end loop;
+
+   null;
 
 end Tasks;

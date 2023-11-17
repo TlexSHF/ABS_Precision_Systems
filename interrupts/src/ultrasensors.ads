@@ -14,16 +14,16 @@ package Ultrasensors is
    type Ultrasensors is record
       EchoPin : GPIO_Point;
       TriggerPin : GPIO_Point;
-      FallingTime : Time;
-      RisingTIme : Time;
-      status : Boolean;
+      RisingTime : Time;
+      echoTime : Time_Span;
    end record;
-
-   
+   msTime      : Time;  
+   echoTime    : Time_Span;   
+   speedOfSound : Integer := 16400;
    clockTime : Time := Clock;
-   ultraFront  : Ultrasensors := (EchoPin => (Pin => 02), TriggerPin => (Pin => 12), FallingTime => clockTime, RisingTime => clockTime, status => False);
-   --  ultraLeft   : Ultrasensors := (EchoPin => (Pin => 03), TriggerPin => (Pin => 17), FallingTime => clockTime, RisingTime => clockTime, status => False);
-   --  ultraRight  : Ultrasensors := (EchoPin => (Pin => 04), TriggerPin => (Pin => 10), FallingTime => clockTime, RisingTime => clockTime, status => False);
+   ultraFront  : Ultrasensors := (EchoPin => (Pin => 02), TriggerPin => (Pin => 12), RisingTime => clockTime, others => <>);
+   ultraLeft   : Ultrasensors := (EchoPin => (Pin => 03), TriggerPin => (Pin => 17), RisingTime => clockTime, others => <>);
+   ultraRight  : Ultrasensors := (EchoPin => (Pin => 04), TriggerPin => (Pin => 10), RisingTime => clockTime, others => <>);
    
    confFalling : GPIO_Configuration := (Mode => Mode_In, Resistors => Pull_Up,    
                                         Input_Buffer => Input_Buffer_Connect,       

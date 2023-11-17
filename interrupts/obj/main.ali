@@ -9,6 +9,7 @@ A -mfloat-abi=hard
 A -mfpu=fpv4-sp-d16
 A -mcpu=cortex-m4
 A -g
+A -gnat2022
 A -march=armv7e-m+fp
 P DB LC TF  SS ZX
 
@@ -16,7 +17,7 @@ RN
 RV STATIC_PRIORITIES
 RV NO_IMPLEMENTATION_PRAGMAS
 
-U main%b		main.adb		e1318247 NE OO SU
+U main%b		main.adb		cbbb61b1 NE OO SU
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
 Z system%s		system.ads		system.ali
 Z system.tasking.restricted.stages%s  s-tarest.adb  s-tarest.ali
@@ -109,7 +110,9 @@ D s-tasres.ads		20230918075028 0c8ef6fb system.tasking.restricted%s
 D s-tarest.ads		20230918075026 c88b6d9a system.tasking.restricted.stages%s
 D s-traent.ads		20230918075046 26a8d361 system.traceback_entries%s
 D s-unstyp.ads		20230918075046 2b077493 system.unsigned_types%s
-D ultrasensors.ads	20231109181528 3da60825 ultrasensors%s
+D s-wchcon.ads		20230918075048 1b7d22d2 system.wch_con%s
+D s-wchstw.ads		20230918075048 2d112c01 system.wch_stw%s
+D ultrasensors.ads	20231116151308 172cebd3 ultrasensors%s
 D unchconv.ads		20230918075048 ca2f9e18 unchecked_conversion%s
 G a e
 G c Z b b [main standard 4 11 none]
@@ -131,6 +134,6 @@ X 82 s-taskin.ads
 398V13*Get_Sec_Stack{74|46P9} 399i<c,__gnat_get_secondary_stack>22
 X 85 s-tarest.ads
 232U14*Activate_All_Tasks_Sequential 233i<c,__gnat_activate_all_tasks>22
-X 88 ultrasensors.ads
-12K9*Ultrasensors 22|1w6 88|46e17
+X 90 ultrasensors.ads
+12K9*Ultrasensors 22|1w6 90|44e17
 

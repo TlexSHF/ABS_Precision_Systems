@@ -10,7 +10,7 @@ project Interrupts is
    for Create_Missing_Dirs use "True";
 
    package Compiler is
-      for Switches ("ada") use ("-g", "-O0");
+      for Switches ("ada") use ("-g", "-O0", "-gnat2022");
    end Compiler;
 
    package Ide is

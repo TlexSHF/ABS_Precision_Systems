@@ -41,6 +41,7 @@ package ada_main is
    --  system.bb.parameters%s
    --  system.exceptions%s
    --  system.img_int%s
+   --  system.img_lli%s
    --  system.machine_code%s
    --  system.parameters%s
    --  system.parameters%b
@@ -263,9 +264,6 @@ package ada_main is
    --  microbit.timewithrtc1%b
    --  microbit.buttons%s
    --  microbit.buttons%b
-   --  microbit.types%s
-   --  microbit.ultrasonic%s
-   --  microbit.ultrasonic%b
    --  ultrasensors%s
    --  ultrasensors%b
    --  main%b

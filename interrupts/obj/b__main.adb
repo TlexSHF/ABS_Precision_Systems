@@ -46,7 +46,6 @@ package body ada_main is
    E240 : Short_Integer; pragma Import (Ada, E240, "microbit__timehighspeed_E");
    E193 : Short_Integer; pragma Import (Ada, E193, "microbit__timewithrtc1_E");
    E191 : Short_Integer; pragma Import (Ada, E191, "microbit__buttons_E");
-   E242 : Short_Integer; pragma Import (Ada, E242, "microbit__ultrasonic_E");
    E126 : Short_Integer; pragma Import (Ada, E126, "ultrasensors_E");
 
    Sec_Default_Sized_Stacks : array (1 .. 2) of aliased System.Secondary_Stack.SS_Stack (System.Parameters.Runtime_Default_Sec_Stack_Size);
@@ -220,7 +219,6 @@ package body ada_main is
       E193 := E193 + 1;
       Microbit.Buttons'Elab_Body;
       E191 := E191 + 1;
-      E242 := E242 + 1;
       Ultrasensors'Elab_Spec;
       Ultrasensors'Elab_Body;
       E126 := E126 + 1;

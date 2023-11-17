@@ -3,7 +3,7 @@ with MicroBit.TimeHighspeed; use MicroBit.TimeHighspeed;
 with Ada.Real_Time; use Ada.Real_Time;
 with MicroBit.IOsForTasking; use MicroBit.IOsForTasking;
 with MicroBit.Buttons; use MicroBit.Buttons;
-with MicroBit.Ultrasonic;
+--  with MicroBit.Ultrasonic;
 with nRF; use nRF;
 
 package body Ultrasensors is
@@ -11,15 +11,18 @@ package body Ultrasensors is
    task body ProcessMessages is
       clockStart : Time;
       period : Time_Span := Milliseconds(10);
+      distance : Time_Span;
    begin
       delay until Clock + period;
       loop
          clockStart := Clock;
-         Put_Line (ultraFront.status'Image);
+         distance := (echoTime*speedOfSound);
+         distance := distance / 1000000;
+         Put_Line (distance'Image);
          
          if State(Button_A) = Pressed then
             digitalWrite(12, True);
-            Delay_Us(10);
+            Delay_Us(5);
             digitalWrite(12, False);   
          end if;  
 
@@ -42,11 +45,11 @@ package body Ultrasensors is
    
          if latchPort0.Arr (ultraFront.EchoPin.Pin) = Latched then
             if GPIO_Periph.IN_k.Arr (ultraFront.EchoPin.Pin) = High then
-               ultraFront.status := True;
+               ultraFront.RisingTime := Clock;
                GPIO_Periph.PIN_CNF (ultraFront.EchoPin.Pin).SENSE := Low;
                GPIO_Periph.PIN_CNF (ultraFront.EchoPin.Pin).PULL := Pullup;
             else
-               --  ultraFront.status := False;
+               ultraFront.echoTime := Clock - ultraFront.RisingTime;
                GPIO_Periph.PIN_CNF (ultraFront.EchoPin.Pin).SENSE := High;
                GPIO_Periph.PIN_CNF (ultraFront.EchoPin.Pin).PULL := Pulldown;
             end if;
