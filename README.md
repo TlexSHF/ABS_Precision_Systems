@@ -1,5 +1,6 @@
 # ABS Precision Systems
 This git repo is an Ada Project using the Ravenscar profile for a school subject called Intelligent Real Time Systems.
+It uses the MicroBit v2 and a small car with Mecanum wheels.
 The source files are located in "FINAL/motor_driver_ravenscar/src/"
 
 ### Clone the project using:
