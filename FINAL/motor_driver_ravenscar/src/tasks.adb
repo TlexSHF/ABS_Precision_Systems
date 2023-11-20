@@ -11,7 +11,7 @@ package body Tasks is
    -- Sense
    task body PollEcho is
       clockStart : Time;
-      period     : Time_Span := Milliseconds (140);
+      period     : Time_Span := Milliseconds (50);
    begin
       loop
          clockStart := Clock;
@@ -132,11 +132,11 @@ package body Tasks is
 
                if distanceFront <= 10 then
                   probeState := Stop;
-               elsif distanceFront <= 40 then
+               elsif distanceFront <= 30 then
                   probeState := GoToFront;
-               elsif distanceRight <= 40 then
+               elsif distanceRight <= 30 then
                   probeState := GoToRight;
-               elsif distanceLeft <= 40 then
+               elsif distanceLeft <= 30 then
                   probeState := GoToLeft;
                else
                   probeState := Probe;
@@ -158,7 +158,7 @@ package body Tasks is
    -- Act
    task body UpdateDirection is
       clockStart : Time;
-      period     : Time_Span := Milliseconds (10);
+      period     : Time_Span := Milliseconds (5);
    begin
       Set_Analog_Period_Us (20_000);
       loop
@@ -221,16 +221,14 @@ package body Tasks is
          clockStart := Clock;
          if car = Roaming then
 
-            -- NOTE: There is an unnecessary amount of driveStart := Clock
-            -- but I just need to figure out if it works without them
-
-            previousProbeState := probeState;
             if probeState = Probe and previousProbeState /= Probe then
                -- resetting the Fare clock when probing begins
+               previousProbeState := probeState;
                driveStart := Clock;
             end if;
 
             if probeState = Stop then
+               previousProbeState := probeState;
 
                if detectObject = False then
                   Rotate (90);
@@ -240,17 +238,12 @@ package body Tasks is
 
                driveStart := Clock;
             else
-               --if probeState /= Stop then
 
                drive := Forward;
-               if distanceLeft < 10 then
-                  Rotate (10, True);
-               elsif distanceRight < 10 then
-                  Rotate (10, False);
-               end if;
 
                if probeState = Probe and Clock >= driveStart + driveDuration
                then
+                  previousProbeState := probeState;
                   Rand_Int.Reset (gen);
                   wantedAngle := Rand_Int.Random (gen);
                   Rotate (wantedAngle); -- Worst case: 1 656 ms
@@ -260,17 +253,17 @@ package body Tasks is
 
                   if probeState = GoToRight and previousProbeState /= GoToRight
                   then
+                     previousProbeState := probeState;
                      Rotate (90, True); -- Worst case: 1 656 ms
                      driveStart := Clock;
 
-                  elsif probeState = GoToLeft and
-                    previousProbeState /= GoToLeft
+                  elsif probeState = GoToLeft and previousProbeState /= GoToLeft
                   then
+                     previousProbeState := probeState;
                      Rotate (90, False); -- Worst case: 1 656 ms
                      driveStart := Clock;
                   end if;
                end if;
-
             end if;
          end if;
          delay until clockStart + period;

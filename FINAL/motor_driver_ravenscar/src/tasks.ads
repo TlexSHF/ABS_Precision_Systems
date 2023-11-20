@@ -30,7 +30,7 @@ package Tasks is
    --Think 
    task TrackLine    with Priority => 3;
    task ObjectNav    with Priority => 3;
-   task ProbeThink   with Priority => 3;
+   task ProbeThink   with Priority => 2;
    task Fare         with Priority => 1;
   
    --Act
