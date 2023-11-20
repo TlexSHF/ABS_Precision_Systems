@@ -16,7 +16,7 @@ package body Tasks is
       loop
          clockStart := Clock;
          
-         displayStates;
+         -- displayStates;
 
          distanceFront := sensorFront.Read;
          distanceRight := sensorRight.Read;
@@ -470,6 +470,9 @@ package body Tasks is
                car := LineFollowing;
             elsif Clock - circleStart > Seconds(12) then 
                -- Time out
+               drive := Forward;
+               -- Rotate(45, False);
+               delay(1.0);
                CircStateVariable := Rotating;
                car := Roaming;
             else
