@@ -20,8 +20,6 @@ package Tasks is
                          Curve_Forward_Left,   
                          Curve_Forward_Right,  
                          Stop); 
-   subtype Angle     is Integer range 0 .. 360;
-   type CarState     is (Roaming, LineFollowing, ObjectNavigating);
    
    --Sense
    task PollEcho          with Priority => 4;
@@ -37,11 +35,13 @@ package Tasks is
    task UpdateDirection with Priority => 2;
    
 private
-   type ProbeStates is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
-   type NavigationStates is (Circular, Quadratic);
+   type ProbeStates                       is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
+   type CarState                              is (Roaming, LineFollowing, ObjectNavigating);
+   type NavigationStates               is (Circular, Quadratic);
    type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
-   type UltraSensor              is (L, F, R);
-   type CircState is (Rotating,CircNavigating);
+   type UltraSensor                         is (L, F, R);
+   type CircState                              is (Rotating,CircNavigating);
+   subtype Angle                              is Integer range 0 .. 360;
    
    -- Functions
    function GetLineTrackerState return LineTrackerCombinations;
@@ -71,9 +71,9 @@ private
    
    
    -- Sensor inputs
-   distanceFront     : aliased Distance_cm  := 0;
-   distanceRight     : aliased Distance_cm  := 0;
-   distanceLeft      : aliased Distance_cm  := 0;
+   distanceFront       : aliased Distance_cm  := 0;
+   distanceRight       : aliased Distance_cm  := 0;
+   distanceLeft         : aliased Distance_cm  := 0;
    lineTrackerLeft   : Boolean      := False;
    lineTrackerMiddle : Boolean      := False;
    lineTrackerRight  : Boolean      := False;

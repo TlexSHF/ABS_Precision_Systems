@@ -305,17 +305,14 @@ package body Tasks is
    function HinderFound 
      (PositionSensor : UltraSensor; dist : Distance_cm := 10)
       return Boolean
-   is -- make type for PositionSensor
+   is
       distance : Distance_cm;
    begin
-
       distance := (case PositionSensor is 
                       when F => distanceFront,  
                       when R => distanceRight,  
                       when L => distanceLeft);
-      
       return distance < dist;
-
    end HinderFound;
 
    -- Procedures
