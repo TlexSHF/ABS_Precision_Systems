@@ -119,43 +119,43 @@ package body Tasks is
       end loop;
    end ObjectNav;
 
-   task body ProbeThink is
-      clockStart : Time;
-      period     : Time_Span := thinkPeriod;
-   begin
-      loop
-         clockStart := Clock;
-
-         if car = Roaming then
-
-            if pollFlag then
-
-               if distanceFront <= 10 then
-                  probeState := Stop;
-               elsif distanceFront <= 40 then
-                  probeState := GoToFront;
-               elsif distanceRight <= 40 then
-                  probeState := GoToRight;
-               elsif distanceLeft <= 40 then
-                  probeState := GoToLeft;
-               else
-                  probeState := Probe;
-               end if;
-            end if;
-
-            if GetLineTrackerState /= None then
-               car := LineFollowing;
-            elsif detectObject = True and probeState = Stop then
-               navState := Circular;
-               car := ObjectNavigating;
-            end if;
-         end if;
-
-         delay until clockStart + period;
-      end loop;
-   end ProbeThink;
+   --  task body ProbeThink is
+   --     clockStart : Time;
+   --     period     : Time_Span := thinkPeriod;
+   --  begin
+   --     loop
+   --        clockStart := Clock;
+   --  
+   --        if car = Roaming then
+   --  
+   --           if pollFlag then
+   --  
+   --              if distanceFront <= 10 then
+   --                 probeState := Stop;
+   --              elsif distanceFront <= 40 then
+   --                 probeState := GoToFront;
+   --              elsif distanceRight <= 40 then
+   --                 probeState := GoToRight;
+   --              elsif distanceLeft <= 40 then
+   --                 probeState := GoToLeft;
+   --              else
+   --                 probeState := Probe;
+   --              end if;
+   --           end if;
+   --  
+   --           if GetLineTrackerState /= None then
+   --              car := LineFollowing;
+   --           elsif enableObjectDetect = True and probeState = Stop then
+   --              navState := Circular;
+   --              car := ObjectNavigating;
+   --           end if;
+   --        end if;
+   --  
+   --        delay until clockStart + period;
+   --     end loop;
+   --  end ProbeThink;
    
-   task body Fare is
+   task body Roam is
       clockStart : Time;   
       period     : Time_Span := thinkPeriod;
       subtype RandAngle is Angle range 90 .. 170;
@@ -165,26 +165,44 @@ package body Tasks is
       gen : Rand_Int.Generator;
 
       -- Times and Durations
-      driveDuration : constant Time_Span := Seconds (5);
+      driveDuration : constant Time_Span := Seconds (3); -- 5
       driveStart    : Time;
       wantedAngle   : RandAngle          := 90;
+      resetTimer    : Boolean            := True;
    begin
       Set_Analog_Period_Us (20_000);
-      driveStart := Clock;
       loop
          clockStart := Clock;
          if car = Roaming then
 
+            if pollFlag then
+               LookForObjects;
+            end if;
+
+            -- Changing the States in the FSM
+            if GetLineTrackerState /= None then
+               car := LineFollowing;
+            elsif enableObjectDetect = True and probeState = Stop then
+               navState := Circular;
+               car := ObjectNavigating;
+            end if;
+            
             if probeState = Probe and previousProbeState /= Probe then
-               -- resetting the Fare clock when probing begins
+               -- resetting probe clock when probing begins
                previousProbeState := probeState;
+               -- driveStart := Clock;
+               resetTimer := True;
+            end if;
+            
+            if resetTimer then
                driveStart := Clock;
+               resetTimer := False;
             end if;
 
             if probeState = Stop then
                previousProbeState := probeState;
 
-               if detectObject = False then
+               if enableObjectDetect = False then
                   Rotate (90);
                else
                   drive := Stop;
@@ -200,33 +218,38 @@ package body Tasks is
                   previousProbeState := probeState;
                   Rand_Int.Reset (gen);
                   wantedAngle := Rand_Int.Random (gen);
-                  Rotate (wantedAngle); -- Worst case: 1 656 ms
-                  driveStart := Clock;
+                  Rotate (wantedAngle);
+                  --driveStart := Clock;
+                  resetTimer := True;
 
-               elsif detectObject = True then
+               elsif enableObjectDetect = True then
 
                   if probeState = GoToRight and previousProbeState /= GoToRight
                   then
                      previousProbeState := probeState;
                      drive := Forward;
                      delay(0.5);
-                     Rotate (90, True); -- Worst case: 1 656 ms
-                     driveStart := Clock;
+                     Rotate (90, True);
+                     -- driveStart := Clock;
+                     resetTimer := True;
 
                   elsif probeState = GoToLeft and previousProbeState /= GoToLeft
                   then
                      previousProbeState := probeState;
                      drive := Forward;
                      delay(0.5);
-                     Rotate (90, False); -- Worst case: 1 656 ms
-                     driveStart := Clock;
+                     Rotate (90, False);
+                     --driveStart := Clock;
+                     resetTimer := True;
                   end if;
                end if;
             end if;
+         else
+            resetTimer := True;
          end if;
          delay until clockStart + period;
       end loop;
-   end Fare;
+   end Roam;
 
    -- Act
    task body UpdateDirection is
@@ -354,8 +377,6 @@ package body Tasks is
       end loop;   
    end Straighten;   
 
-   
-   -- Procedures 
    procedure QuadraticNavigating (counter : in out Integer; flag : in out Boolean) is
    begin
       case counter is
@@ -507,6 +528,34 @@ package body Tasks is
 
       delay until rotateStart + totalAngleDuration;
    end Rotate;
+   
+   procedure LookForObjects is
+      dist : Distance_cm := 20;
+   begin
+      if distanceFront <= 10 then
+         probeState := Stop;
+      elsif distanceFront <= dist then
+         probeState := GoToFront;
+      elsif distanceRight <= dist then
+         probeState := GoToRight;
+      elsif distanceLeft <= dist then
+         probeState := GoToLeft;
+      else
+         probeState := Probe;
+      end if;
+      
+      --  if HinderFound(distanceFront, 10) then
+      --     probeState := Stop;
+      --  elsif HinderFound(distanceFront, dist) then
+      --     probeState := GoToFront;
+      --  elsif HinderFound(distanceRight, dist) then
+      --     probeState := GoToRight;
+      --  elsif HinderFound(distanceLeft, dist) then
+      --     probeState := GoToLeft;
+      --  else
+      --     probeState := Probe;
+      --  end if;
+   end LookForObjects;
    
    procedure displayStates is
    begin
