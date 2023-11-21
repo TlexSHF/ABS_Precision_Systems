@@ -118,42 +118,6 @@ package body Tasks is
          delay until clockStart + period;
       end loop;
    end ObjectNav;
-
-   --  task body ProbeThink is
-   --     clockStart : Time;
-   --     period     : Time_Span := thinkPeriod;
-   --  begin
-   --     loop
-   --        clockStart := Clock;
-   --  
-   --        if car = Roaming then
-   --  
-   --           if pollFlag then
-   --  
-   --              if distanceFront <= 10 then
-   --                 probeState := Stop;
-   --              elsif distanceFront <= 40 then
-   --                 probeState := GoToFront;
-   --              elsif distanceRight <= 40 then
-   --                 probeState := GoToRight;
-   --              elsif distanceLeft <= 40 then
-   --                 probeState := GoToLeft;
-   --              else
-   --                 probeState := Probe;
-   --              end if;
-   --           end if;
-   --  
-   --           if GetLineTrackerState /= None then
-   --              car := LineFollowing;
-   --           elsif enableObjectDetect = True and probeState = Stop then
-   --              navState := Circular;
-   --              car := ObjectNavigating;
-   --           end if;
-   --        end if;
-   --  
-   --        delay until clockStart + period;
-   --     end loop;
-   --  end ProbeThink;
    
    task body Roam is
       clockStart : Time;   
@@ -498,7 +462,7 @@ package body Tasks is
                CircStateVariable := Rotating;
                car := Roaming;
             else
-            
+               
                if not HinderFound(R,14) and not HinderFound(L) and      
                  not HinderFound(F) then 
                   --too far from the object, go right
@@ -520,12 +484,9 @@ package body Tasks is
       totalAngleDuration : Time_Span        :=
         Microseconds (Integer (wantedAngle) * angleDurationMicro);
       rotateStart        : Time;
-
    begin
       rotateStart := Clock;
-      
       drive := (if clockwise then Rotating_Right else Rotating_Left);
-
       delay until rotateStart + totalAngleDuration;
    end Rotate;
    
@@ -543,18 +504,6 @@ package body Tasks is
       else
          probeState := Probe;
       end if;
-      
-      --  if HinderFound(distanceFront, 10) then
-      --     probeState := Stop;
-      --  elsif HinderFound(distanceFront, dist) then
-      --     probeState := GoToFront;
-      --  elsif HinderFound(distanceRight, dist) then
-      --     probeState := GoToRight;
-      --  elsif HinderFound(distanceLeft, dist) then
-      --     probeState := GoToLeft;
-      --  else
-      --     probeState := Probe;
-      --  end if;
    end LookForObjects;
    
    procedure displayStates is
