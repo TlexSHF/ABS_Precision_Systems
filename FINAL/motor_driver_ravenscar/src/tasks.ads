@@ -26,13 +26,13 @@ package Tasks is
    task CheckLineTracker  with Priority => 3;
 
    --Think 
-   task TrackLine    with Priority => 3;
-   task ObjectNav    with Priority => 3;
+   task TrackLine    with Priority => 2;
+   task ObjectNav    with Priority => 2;
    task ProbeThink   with Priority => 2;
-   task Fare         with Priority => 1;
+   task Fare         with Priority => 2;
   
    --Act
-   task UpdateDirection with Priority => 2;
+   task UpdateDirection with Priority => 1;
    
 private
    type ProbeStates                       is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
@@ -57,6 +57,12 @@ private
    package sensorFront  is new MicroBit.Ultrasonic(MB_P12,MB_P0);
    package sensorRight  is new MicroBit.Ultrasonic(MB_P13,MB_P1);
    package sensorLeft   is new MicroBit.Ultrasonic(MB_P8,MB_P2);
+   
+   -- Priorities
+   pollEchoPeriod         : Time_Span := Milliseconds(78);
+   checkLineTrackerPeriod : Time_Span := Milliseconds(79);
+   thinkPeriod            : Time_Span := Milliseconds(80);
+   updateDirectionPeriod  : Time_Span := Milliseconds(83);
    
    -- Various states & flags
    drive : DriveState := Forward;

@@ -11,7 +11,7 @@ package body Tasks is
    -- Sense
    task body PollEcho is
       clockStart : Time;
-      period     : Time_Span := Milliseconds (50);
+      period     : Time_Span := pollEchoPeriod;
    begin
       loop
          clockStart := Clock;
@@ -40,7 +40,7 @@ package body Tasks is
 
    task body CheckLineTracker is
       clockStart : Time;
-      period     : Time_Span := Milliseconds (5);
+      period     : Time_Span := checkLineTrackerPeriod;
    begin
       loop
          clockStart := Clock;
@@ -56,7 +56,7 @@ package body Tasks is
    -- Think
    task body TrackLine is
       clockStart       : Time;
-      period           : Time_Span               := Milliseconds (5);
+      period           : Time_Span               := Milliseconds (80);
       lineTrackerState : LineTrackerCombinations := None;
    begin
       loop
@@ -102,7 +102,7 @@ package body Tasks is
    task body ObjectNav is
       clockStart : Time;
       circleStart : Time;
-      period     : Time_Span := Milliseconds (5);
+      period     : Time_Span := thinkPeriod;
       counter    : Integer   := 0;
       flag       : Boolean   := False;
    begin
@@ -121,7 +121,7 @@ package body Tasks is
 
    task body ProbeThink is
       clockStart : Time;
-      period     : Time_Span := Milliseconds (10);
+      period     : Time_Span := thinkPeriod;
    begin
       loop
          clockStart := Clock;
@@ -154,56 +154,10 @@ package body Tasks is
          delay until clockStart + period;
       end loop;
    end ProbeThink;
-
-   -- Act
-   task body UpdateDirection is
-      clockStart : Time;
-      period     : Time_Span := Milliseconds (5);
-   begin
-      Set_Analog_Period_Us (20_000);
-      loop
-         clockStart := Clock;
-
-         case drive is
-            when Forward =>
-               MotorDriver.Drive (MotorDriver.Forward, speed);
-            when Backward =>
-               MotorDriver.Drive (MotorDriver.Backward, speed);
-            when Left =>
-               MotorDriver.Drive (MotorDriver.Left, speed);
-            when Right =>
-               MotorDriver.Drive (MotorDriver.Right, speed);
-            when Forward_Left =>
-               MotorDriver.Drive (MotorDriver.Forward_Left, speed);
-            when Forward_Right =>
-               MotorDriver.Drive (MotorDriver.Forward_Right, speed);
-            when Backward_Left =>
-               MotorDriver.Drive (MotorDriver.Backward_Left, speed);
-            when Backward_Right =>
-               MotorDriver.Drive (MotorDriver.Backward_Right, speed);
-            when Lateral_Left =>
-               MotorDriver.Drive (MotorDriver.Lateral_Left, speed);
-            when Lateral_Right =>
-               MotorDriver.Drive (MotorDriver.Lateral_Right, speed);
-            when Rotating_Left =>
-               MotorDriver.Drive (MotorDriver.Rotating_Left, speed);
-            when Rotating_Right =>
-               MotorDriver.Drive (MotorDriver.Rotating_Right, speed);
-            when Curve_Forward_Left =>
-               MotorDriver.Drive (MotorDriver.Forward, (4_095, 4_095, 0, 0));
-            when Curve_Forward_Right =>
-               MotorDriver.Drive (MotorDriver.Forward, (0, 0, 4_095, 4_095));
-            when Stop =>
-               MotorDriver.Drive (MotorDriver.Stop);
-         end case;
-
-         delay until clockStart + period;
-      end loop;
-   end UpdateDirection;
-
+   
    task body Fare is
       clockStart : Time;   
-      period     : Time_Span := Milliseconds (1);
+      period     : Time_Span := thinkPeriod;
       subtype RandAngle is Angle range 90 .. 170;
 
       -- Random Number Generator
@@ -273,6 +227,52 @@ package body Tasks is
          delay until clockStart + period;
       end loop;
    end Fare;
+
+   -- Act
+   task body UpdateDirection is
+      clockStart : Time;
+      period     : Time_Span := updateDirectionPeriod;
+   begin
+      Set_Analog_Period_Us (20_000);
+      loop
+         clockStart := Clock;
+
+         case drive is
+            when Forward =>
+               MotorDriver.Drive (MotorDriver.Forward, speed);
+            when Backward =>
+               MotorDriver.Drive (MotorDriver.Backward, speed);
+            when Left =>
+               MotorDriver.Drive (MotorDriver.Left, speed);
+            when Right =>
+               MotorDriver.Drive (MotorDriver.Right, speed);
+            when Forward_Left =>
+               MotorDriver.Drive (MotorDriver.Forward_Left, speed);
+            when Forward_Right =>
+               MotorDriver.Drive (MotorDriver.Forward_Right, speed);
+            when Backward_Left =>
+               MotorDriver.Drive (MotorDriver.Backward_Left, speed);
+            when Backward_Right =>
+               MotorDriver.Drive (MotorDriver.Backward_Right, speed);
+            when Lateral_Left =>
+               MotorDriver.Drive (MotorDriver.Lateral_Left, speed);
+            when Lateral_Right =>
+               MotorDriver.Drive (MotorDriver.Lateral_Right, speed);
+            when Rotating_Left =>
+               MotorDriver.Drive (MotorDriver.Rotating_Left, speed);
+            when Rotating_Right =>
+               MotorDriver.Drive (MotorDriver.Rotating_Right, speed);
+            when Curve_Forward_Left =>
+               MotorDriver.Drive (MotorDriver.Forward, (4_095, 4_095, 0, 0));
+            when Curve_Forward_Right =>
+               MotorDriver.Drive (MotorDriver.Forward, (0, 0, 4_095, 4_095));
+            when Stop =>
+               MotorDriver.Drive (MotorDriver.Stop);
+         end case;
+
+         delay until clockStart + period;
+      end loop;
+   end UpdateDirection;
 
    -- Functions
    function GetLineTrackerState return LineTrackerCombinations is
