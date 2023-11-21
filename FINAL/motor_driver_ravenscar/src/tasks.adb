@@ -132,11 +132,11 @@ package body Tasks is
 
                if distanceFront <= 10 then
                   probeState := Stop;
-               elsif distanceFront <= 30 then
+               elsif distanceFront <= 40 then
                   probeState := GoToFront;
-               elsif distanceRight <= 30 then
+               elsif distanceRight <= 40 then
                   probeState := GoToRight;
-               elsif distanceLeft <= 30 then
+               elsif distanceLeft <= 40 then
                   probeState := GoToLeft;
                else
                   probeState := Probe;
@@ -254,12 +254,16 @@ package body Tasks is
                   if probeState = GoToRight and previousProbeState /= GoToRight
                   then
                      previousProbeState := probeState;
+                     drive := Forward;
+                     delay(0.5);
                      Rotate (90, True); -- Worst case: 1 656 ms
                      driveStart := Clock;
 
                   elsif probeState = GoToLeft and previousProbeState /= GoToLeft
                   then
                      previousProbeState := probeState;
+                     drive := Forward;
+                     delay(0.5);
                      Rotate (90, False); -- Worst case: 1 656 ms
                      driveStart := Clock;
                   end if;
@@ -467,8 +471,8 @@ package body Tasks is
                car := LineFollowing;
             elsif Clock - circleStart > Seconds(12) then 
                -- Time out
+               Rotate(45, False);
                drive := Forward;
-               -- Rotate(45, False);
                delay(1.0);
                CircStateVariable := Rotating;
                car := Roaming;

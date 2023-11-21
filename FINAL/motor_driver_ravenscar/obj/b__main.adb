@@ -265,11 +265,11 @@ package body ada_main is
    end;
 
 --  BEGIN Object file/option list
-   --   C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\FINAL\motor_driver_ravenscar\obj\tasks.o
-   --   C:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\FINAL\motor_driver_ravenscar\obj\main.o
-   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\FINAL\motor_driver_ravenscar\obj\
-   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\FINAL\motor_driver_ravenscar\obj\
-   --   -LC:\Users\aditi.DESKTOP-49PGKM5\OneDrive - USN\Dokumenter\ada\ABS_Precision_Systems\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\full_lib_Debug\
+   --   C:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\FINAL\motor_driver_ravenscar\obj\tasks.o
+   --   C:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\FINAL\motor_driver_ravenscar\obj\main.o
+   --   -LC:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\FINAL\motor_driver_ravenscar\obj\
+   --   -LC:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\FINAL\motor_driver_ravenscar\obj\
+   --   -LC:\Users\simone\Documents\USN\2023_Fall\Sanntidssystemer\ABS_Precision_Systems\Libraries\Ada_Drivers_Library_j\boards\MicroBit_v2\obj\full_lib_Debug\
    --   -LC:\gnat\2021-arm-elf\arm-eabi\lib\gnat\ravenscar-full-nrf52833\adalib\
    --   -static
    --   -lgnarl
