@@ -26,22 +26,22 @@ package Tasks is
    task CheckLineTracker  with Priority => 3;
 
    --Think 
-   task TrackLine    with Priority => 2;
-   task ObjectNav    with Priority => 2;
-   task ProbeThink   with Priority => 2;
-   task Fare         with Priority => 2;
+   task TrackLine         with Priority => 2;
+   task ObjectNav         with Priority => 2;
+   -- task ProbeThink     with Priority => 2;
+   task Roam           with Priority => 2;
   
    --Act
-   task UpdateDirection with Priority => 1;
+   task UpdateDirection   with Priority => 1;
    
 private
-   type ProbeStates                       is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
-   type CarState                              is (Roaming, LineFollowing, ObjectNavigating);
+   type ProbeStates                    is (Probe, GoToFront, GoToRight, GoToLeft, Stop);
+   type CarState                       is (Roaming, LineFollowing, ObjectNavigating);
    type NavigationStates               is (Circular, Quadratic);
-   type LineTrackerCombinations is (None, L, M, R, L_M, M_R, L_R, L_M_R);
-   type UltraSensor                         is (L, F, R);
-   type CircState                              is (Rotating,CircNavigating);
-   subtype Angle                              is Integer range 0 .. 360;
+   type LineTrackerCombinations        is (None, L, M, R, L_M, M_R, L_R, L_M_R);
+   type UltraSensor                    is (L, F, R);
+   type CircState                      is (Rotating,CircNavigating);
+   subtype Angle                       is Integer range 0 .. 360;
    
    -- Functions
    function GetLineTrackerState return LineTrackerCombinations;
@@ -52,6 +52,7 @@ private
    procedure CircularNavigating(circleStart : in out Time);
    procedure Rotate (wantedAngle : Angle; clockwise : Boolean := True);
    procedure Straighten (ultra : UltraSensor);
+   procedure LookForObjects;
    procedure displayStates;
    
    package sensorFront  is new MicroBit.Ultrasonic(MB_P12,MB_P0);
@@ -65,24 +66,24 @@ private
    updateDirectionPeriod  : Time_Span := Milliseconds(83);
    
    -- Various states & flags
-   drive : DriveState := Forward;
-   car : CarState := Roaming;
-   speed  : Speeds   := (4095, 4095, 4095, 4095);
-   probeState : ProbeStates := Probe;
-   previousProbeState : ProbeStates := Probe;
-   navState : NavigationStates := Circular;
-   CircStateVariable :  CircState := Rotating;
-   detectObject : Boolean := True;
-   pollFlag : Boolean := False;
+   drive              : DriveState       := Forward;
+   car                : CarState         := Roaming;
+   speed              : Speeds           := (4095, 4095, 4095, 4095);
+   probeState         : ProbeStates      := Probe;
+   previousProbeState : ProbeStates      := Probe;
+   navState           : NavigationStates := Circular;
+   CircStateVariable  : CircState        := Rotating;
+   enableObjectDetect : Boolean          := True;
+   pollFlag           : Boolean          := False;
    
    
    -- Sensor inputs
-   distanceFront       : aliased Distance_cm  := 0;
-   distanceRight       : aliased Distance_cm  := 0;
-   distanceLeft         : aliased Distance_cm  := 0;
-   lineTrackerLeft   : Boolean      := False;
-   lineTrackerMiddle : Boolean      := False;
-   lineTrackerRight  : Boolean      := False;
+   distanceFront     : aliased Distance_cm  := 0;
+   distanceRight     : aliased Distance_cm  := 0;
+   distanceLeft      : aliased Distance_cm  := 0;
+   lineTrackerLeft   : Boolean              := False;
+   lineTrackerMiddle : Boolean              := False;
+   lineTrackerRight  : Boolean              := False;
          
   
 end Tasks;

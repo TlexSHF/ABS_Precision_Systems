@@ -55,7 +55,7 @@ package body ada_main is
    E267 : Short_Integer; pragma Import (Ada, E267, "microbit__ultrasonic_E");
    E126 : Short_Integer; pragma Import (Ada, E126, "tasks_E");
 
-   Sec_Default_Sized_Stacks : array (1 .. 8) of aliased System.Secondary_Stack.SS_Stack (System.Parameters.Runtime_Default_Sec_Stack_Size);
+   Sec_Default_Sized_Stacks : array (1 .. 7) of aliased System.Secondary_Stack.SS_Stack (System.Parameters.Runtime_Default_Sec_Stack_Size);
 
    Local_Priority_Specific_Dispatching : constant String := "";
    Local_Interrupt_States : constant String := "";
@@ -142,7 +142,7 @@ package body ada_main is
 
       ada_main'Elab_Body;
       Default_Secondary_Stack_Size := System.Parameters.Runtime_Default_Sec_Stack_Size;
-      Binder_Sec_Stacks_Count := 8;
+      Binder_Sec_Stacks_Count := 7;
       Default_Sized_SS_Pool := Sec_Default_Sized_Stacks'Address;
 
       Runtime_Initialize (1);
